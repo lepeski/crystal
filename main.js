@@ -85,9 +85,7 @@ function animate(delta) {
     if (grid[idx]) grid[idx].push(n);
   });
 
-  // Draw connections with subtle shimmer
-  const shimmer = 0.15 + Math.sin(time * 0.05) * 0.1;
-
+  // Draw connections with dynamic shimmer and pulse
   nodes.forEach(a => {
     const col = Math.floor(a.x / CELL);
     const row = Math.floor(a.y / CELL);
@@ -102,8 +100,11 @@ function animate(delta) {
           const dy = a.y - b.y;
           const dist = Math.hypot(dx, dy);
           if (dist < CELL) {
-            const alpha = ((CELL - dist) / CELL) * (0.4 + shimmer);
-            lineGraphics.lineStyle(1.2, a.tint, alpha);
+            const baseAlpha = ((CELL - dist) / CELL) * 0.4;
+            const pulseSpeed = 0.1 + (1 - dist / CELL) * 0.3;
+            const pulse = Math.sin(time * pulseSpeed) * 0.1;
+            const alpha = baseAlpha + pulse;
+            lineGraphics.lineStyle(1.2, a.tint, Math.max(0, alpha));
             lineGraphics.moveTo(a.x, a.y).lineTo(b.x, b.y);
           }
         });
