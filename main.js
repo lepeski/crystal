@@ -66,7 +66,7 @@ window.addEventListener('mousemove', e => mouse = { x: e.clientX, y: e.clientY }
 window.addEventListener('mouseleave', () => mouse = null);
 
 // 8) Animation loop
-function animate() {
+function animate(delta) {
   // Clear previous lines
   lineGraphics.clear();
 
@@ -106,10 +106,16 @@ function animate() {
   });
 
   // Update node positions and draw
+  const speed = delta / 1.6;
+  const smoothing = 0.15;
+
   nodes.forEach(n => {
-    // Drift + impulse
-    n.x += n.vx + n.ix;
-    n.y += n.vy + n.iy;
+    const targetX = n.x + (n.vx + n.ix) * speed;
+    const targetY = n.y + (n.vy + n.iy) * speed;
+
+    n.x += (targetX - n.x) * smoothing;
+    n.y += (targetY - n.y) * smoothing;
+
     n.ix *= 0.6;
     n.iy *= 0.6;
 
