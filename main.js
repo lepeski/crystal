@@ -66,7 +66,11 @@ window.addEventListener('mousemove', e => mouse = { x: e.clientX, y: e.clientY }
 window.addEventListener('mouseleave', () => mouse = null);
 
 // 8) Animation loop
+let time = 0;
+
 function animate(delta) {
+  time += delta;
+
   // Clear previous lines
   lineGraphics.clear();
 
@@ -81,7 +85,9 @@ function animate(delta) {
     if (grid[idx]) grid[idx].push(n);
   });
 
-  // Draw connections
+  // Draw connections with subtle shimmer
+  const shimmer = 0.15 + Math.sin(time * 0.05) * 0.1;
+
   nodes.forEach(a => {
     const col = Math.floor(a.x / CELL);
     const row = Math.floor(a.y / CELL);
@@ -96,7 +102,7 @@ function animate(delta) {
           const dy = a.y - b.y;
           const dist = Math.hypot(dx, dy);
           if (dist < CELL) {
-            const alpha = ((CELL - dist) / CELL) * 0.4;
+            const alpha = ((CELL - dist) / CELL) * (0.4 + shimmer);
             lineGraphics.lineStyle(1.2, a.tint, alpha);
             lineGraphics.moveTo(a.x, a.y).lineTo(b.x, b.y);
           }
