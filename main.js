@@ -38,23 +38,51 @@ const COLORS = [
 // 5) Create containers
 const lineGraphics = new PIXI.Graphics();
 lineGraphics.blendMode = PIXI.BLEND_MODES.ADD;
+// Apply Bloom filter for stunning glow
+lineGraphics.filters = [new PIXI.filters.BloomFilter({
+  threshold: 0.5,
+  intensity: 2.5,
+  blur: 8
+})];
 app.stage.addChild(lineGraphics);
 
 // 6) Node setup
 const nodes = [];
+let redNode;
 function initNodes() {
   initGrid();
+
+  // Create red node at center
+  redNode = new PIXI.Sprite(circleTexture);
+  redNode.tint = 0xff3333;
+  redNode.anchor.set(0.5);
+  redNode.x = app.screen.width / 2;
+  redNode.y = app.screen.height / 2;
+  redNode.vx = (Math.random() - 0.5) * 0.54;
+  redNode.vy = (Math.random() - 0.5) * 0.54;
+  redNode.ix = 0;
+  redNode.iy = 0;
+  redNode.decayTimer = 0;
+  redNode.pulse = 1.0;
+  redNode.scale.set(2.5);
+  app.stage.addChild(redNode);
+  nodes.push(redNode);
+
   const count = Math.floor((app.screen.width * app.screen.height) / 15000 * 1.3);
   for (let i = 0; i < count; i++) {
     const sprite = new PIXI.Sprite(circleTexture);
     sprite.tint = COLORS[i % COLORS.length];
     sprite.anchor.set(0.5);
-    sprite.x = Math.random() * app.screen.width;
-    sprite.y = Math.random() * app.screen.height;
-    sprite.vx = (Math.random() - 0.5) * 0.6;
-    sprite.vy = (Math.random() - 0.5) * 0.6;
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.random() * 100;
+    sprite.x = app.screen.width / 2 + Math.cos(angle) * radius;
+    sprite.y = app.screen.height / 2 + Math.sin(angle) * radius;
+    sprite.vx = (Math.random() - 0.5) * 0.54;
+    sprite.vy = (Math.random() - 0.5) * 0.54;
     sprite.ix = 0;
     sprite.iy = 0;
+    sprite.decayTimer = 0;
+    sprite.pulse = 0;
     app.stage.addChild(sprite);
     nodes.push(sprite);
   }
@@ -67,17 +95,20 @@ window.addEventListener('mouseleave', () => mouse = null);
 
 // 8) Animation loop
 let time = 0;
+let pulseTimer = 0;
 
 function animate(delta) {
   time += delta;
+  pulseTimer += delta;
 
-  // Clear previous lines
+  if (pulseTimer > 180) {
+    redNode.pulse = 1.0;
+    pulseTimer = 0;
+  }
+
   lineGraphics.clear();
-
-  // Clear grid buckets
   grid.forEach(bucket => bucket.length = 0);
 
-  // Bucket each node
   nodes.forEach(n => {
     const col = Math.floor(n.x / CELL);
     const row = Math.floor(n.y / CELL);
@@ -85,7 +116,6 @@ function animate(delta) {
     if (grid[idx]) grid[idx].push(n);
   });
 
-  // Draw connections with dynamic shimmer and pulse
   nodes.forEach(a => {
     const col = Math.floor(a.x / CELL);
     const row = Math.floor(a.y / CELL);
@@ -104,15 +134,41 @@ function animate(delta) {
             const pulseSpeed = 0.1 + (1 - dist / CELL) * 0.3;
             const pulse = Math.sin(time * pulseSpeed) * 0.1;
             const alpha = baseAlpha + pulse;
-            lineGraphics.lineStyle(1.2, a.tint, Math.max(0, alpha));
+
+            const mixedPulse = Math.max(a.pulse, b.pulse);
+
+            const baseR = (a.tint >> 16 & 0xFF) / 255;
+            const baseG = (a.tint >> 8 & 0xFF) / 255;
+            const baseB = (a.tint & 0xFF) / 255;
+
+            const r = baseR * (1 - mixedPulse) + 1.0 * mixedPulse;
+            const g = baseG * (1 - mixedPulse);
+            const b = baseB * (1 - mixedPulse);
+
+            const lineColor = PIXI.utils.rgb2hex([r, g, b]);
+
+            if (mixedPulse > 0.05) {
+              lineGraphics.lineStyle(6.0 * mixedPulse, 0xff3333, 0.2 * mixedPulse);
+              lineGraphics.moveTo(a.x, a.y).lineTo(b.x, b.y);
+            }
+
+            lineGraphics.lineStyle(1.2 + mixedPulse * 2.0, lineColor, Math.min(1, alpha + mixedPulse * 1.2));
             lineGraphics.moveTo(a.x, a.y).lineTo(b.x, b.y);
+
+            if (dist < CELL * 0.6) {
+              const transfer = (a.pulse * 0.8);
+              b.pulse = Math.min(1.0, b.pulse + transfer);
+            }
           }
         });
       }
     }
   });
 
-  // Update node positions and draw
+  nodes.forEach(n => {
+    n.pulse *= 0.97;
+  });
+
   const speed = delta / 1.6;
   const smoothing = 0.15;
 
@@ -126,19 +182,24 @@ function animate(delta) {
     n.ix *= 0.6;
     n.iy *= 0.6;
 
-    // Mouse repulsion
     if (mouse) {
       const dx = n.x - mouse.x;
       const dy = n.y - mouse.y;
       const dist = Math.hypot(dx, dy);
       if (dist < CELL) {
         const factor = (CELL - dist) / CELL;
-        n.ix += (dx / dist) * 2 * factor;
-        n.iy += (dy / dist) * 2 * factor;
+        n.ix += (dx / dist) * 2.5 * factor;
+        n.iy += (dy / dist) * 2.5 * factor;
+        n.decayTimer = 30;
       }
     }
 
-    // Bounce edges
+    if (n.decayTimer > 0) {
+      n.vx *= 0.985;
+      n.vy *= 0.985;
+      n.decayTimer--;
+    }
+
     if (n.x < 0 || n.x > app.screen.width) n.vx *= -1;
     if (n.y < 0 || n.y > app.screen.height) n.vy *= -1;
   });
@@ -146,12 +207,10 @@ function animate(delta) {
   app.renderer.render(app.stage);
 }
 
-// 9) Ensure resize updates grid
 window.addEventListener('resize', () => {
   app.renderer.resize(window.innerWidth, window.innerHeight);
   initGrid();
 });
 
-// 10) Start
 initNodes();
 app.ticker.add(animate);

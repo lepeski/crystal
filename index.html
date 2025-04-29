@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crystal Math</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin:1; padding:0; box-sizing:border-box; }
     html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:sans-serif; }
     #canvas-container { position:absolute; top:0; left:0; width:100%; height:100%; }
     .content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:1; text-align:center; max-width:90%; background:rgba(0,0,0,0.4);
       padding:1.5rem; border-radius:.5rem; border:1px solid rgba(255,255,255,0.05);
     }
-    .title { font-size:3rem; letter-spacing:1.5rem;
+    .title { font-size:1.8rem; letter-spacing:1.5rem;
       background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,50%),hsl(220,100%,45%));
       -webkit-background-clip:text; color:transparent;
     }
@@ -27,7 +27,7 @@
     .footer-note { color:grey; margin-top:.5rem; font-size:.7rem; }
     @keyframes glow { 0%,100%{filter:drop-shadow(0 0 4px rgba(150,0,150,0.5));}50%{filter:drop-shadow(0 0 12px rgba(150,0,150,0.8));} }
     #crystal-img img { display:inline-block; filter:drop-shadow(0 0 4px rgba(150,0,150,0.5)); animation:glow 4s ease-in-out infinite; }
-    @media(max-width:768px){.title{font-size:2.5rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:2rem;letter-spacing:.5rem;}}
+    @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
 </head>
 <body>
@@ -40,7 +40,7 @@
 ᴄʟᴇᴀʀɪɴɢ ᴛʜᴇ ᴡᴀʏ ғᴏʀ ᴛʜᴇ ʀɪsᴇ ᴏғ ᴛʜᴇ ᴅᴇᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ʀᴇᴀʟᴍ.</p>
     <div id="crystal-img">
       <a href="https://pump.tires/token/0xA41B5174C803B2F779f4C83d482478b94A240fE6" target="_blank" rel="noopener noreferrer">
-        <img src="https://i.imgur.com/MencjSr.png" alt="Crystal Math Center Image" style="width:120px;height:auto;margin:1rem 0;" />
+        <img src="https://i.imgur.com/MencjSr.png" alt="Crystal Math Center Image" style="width:180px;height:auto;margin:1rem 0;" />
       </a>
     </div>
     <p class="intro2">sᴇᴄʀᴇᴄʏ ᴅʀɪᴠᴇs ᴀᴡᴀʏ ᴛʜᴏsᴇ ᴅʀɪᴠᴇɴ ʙʏ ɢʀᴇᴇᴅ ᴏʀ sᴜᴘᴇʀғɪᴄɪᴀʟ ᴍᴏᴛɪᴠᴇs,
@@ -60,7 +60,8 @@
     const app = new PIXI.Application({ autoDensity:true, antialias:true,
       backgroundAlpha:0, width:window.innerWidth, height:window.innerHeight,
       resolution:window.devicePixelRatio||1
-    }); document.getElementById('canvas-container').appendChild(app.view);
+    });
+    document.getElementById('canvas-container').appendChild(app.view);
     app.ticker.maxFPS = 120;
     const CELL=150; let cols=0, rows=0; const grid=[], nodes=[];
     const tmpG=new PIXI.Graphics(); tmpG.beginFill(0xffffff); tmpG.drawCircle(0,0,1.5); tmpG.endFill();
@@ -112,7 +113,7 @@
       app.renderer.render(app.stage);
     });
     window.addEventListener('resize',()=>{app.renderer.resize(window.innerWidth,window.innerHeight);init();}); init();
-    document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6')); 
+    document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
   </script>
 </body>
 </html>
