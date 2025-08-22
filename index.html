@@ -32,18 +32,24 @@
 </head>
 <body>
   <!-- background music -->
-<audio id="bg-music" src="/crystal/crystals.mp3" autoplay loop muted playsinline preload="auto"></audio>
+<audio id="bg-music" src="crystals.mp3" autoplay loop muted playsinline preload="auto"></audio>
 <script>
 const a = document.getElementById('bg-music');
-a.play().catch(()=>{});
-const unlock = () => { 
-  a.muted = false; 
-  a.play().catch(()=>{}); 
-};
-['pointerdown','keydown','touchstart'].forEach(ev => 
+
+function tryPlay(tag){ a.play().then(()=>console.log('playing:',tag)).catch(e=>console.log('blocked:',tag,e)); }
+
+tryPlay('load');
+
+const unlock = () => { a.muted = false; tryPlay('unlock'); };
+['pointerdown','click','keydown','touchstart'].forEach(ev =>
   window.addEventListener(ev, unlock, { once:true, passive:true })
 );
-  </script>
+
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) tryPlay('visible');
+});
+window.addEventListener('focus', () => tryPlay('focus'));
+</script>
 
   <div id="canvas-container"></div>
   <div class="content">
