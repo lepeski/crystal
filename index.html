@@ -31,14 +31,18 @@
   </style>
 </head>
 <body>
-  <!-- Background music -->
-  <audio id="bg-music" src="crystals.mp3" autoplay loop muted playsinline></audio>
-  <script>
-    window.addEventListener('load', () => {
-      const audio = document.getElementById('bg-music');
-      audio.muted = false; // unmute after load
-      audio.play().catch(()=>{});
-    });
+  <!-- background music -->
+<audio id="bg-music" src="/crystal/crystals.mp3" autoplay loop muted playsinline preload="auto"></audio>
+<script>
+const a = document.getElementById('bg-music');
+a.play().catch(()=>{});
+const unlock = () => { 
+  a.muted = false; 
+  a.play().catch(()=>{}); 
+};
+['pointerdown','keydown','touchstart'].forEach(ev => 
+  window.addEventListener(ev, unlock, { once:true, passive:true })
+);
   </script>
 
   <div id="canvas-container"></div>
