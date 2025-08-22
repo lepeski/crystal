@@ -31,6 +31,16 @@
   </style>
 </head>
 <body>
+  <!-- Background music -->
+  <audio id="bg-music" src="crystals.mp3" autoplay loop muted playsinline></audio>
+  <script>
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('bg-music');
+      audio.muted = false; // unmute after load
+      audio.play().catch(()=>{});
+    });
+  </script>
+
   <div id="canvas-container"></div>
   <div class="content">
     <h1 class="title">CRYSTAL <span class="break">MATH</span></h1>
@@ -45,13 +55,14 @@
     </div>
     <p class="intro2" style="margin-bottom:1rem;">ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ</p>
     
-      <div class="footers">
+    <div class="footers">
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
-      <div class="footer-note">  <div style="height:1rem;"></div>
-  <div style="color:#555555; font-size:.8rem; margin-top:0.5rem;">
-    𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ
-  </div>
-</div>
+      <div class="footer-note">
+        <div style="height:1rem;"></div>
+        <div style="color:#555555; font-size:.8rem; margin-top:0.5rem;">
+          𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ
+        </div>
+      </div>
     </div>
   </div>
 
