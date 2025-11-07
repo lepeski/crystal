@@ -36,10 +36,19 @@
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
     .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); display:inline-block; }
-    .price-value.flash { animation:priceFlash 0.85s ease-out; }
-    @keyframes priceFlash {
-      0% { color:#ffe078; text-shadow:0 0 16px rgba(255,215,120,0.9); }
-      70% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    .price-value.flash-up { animation:priceFlashUp 0.75s ease-out; }
+    .price-value.flash-down { animation:priceFlashDown 0.75s ease-out; }
+    .price-value.flash-flat { animation:priceFlashFlat 0.75s ease-out; }
+    @keyframes priceFlashUp {
+      0% { color:#1df59a; text-shadow:0 0 18px rgba(29,245,154,0.85); }
+      100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    }
+    @keyframes priceFlashDown {
+      0% { color:#ff5f6d; text-shadow:0 0 18px rgba(255,95,109,0.85); }
+      100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    }
+    @keyframes priceFlashFlat {
+      0% { color:#4fa3ff; text-shadow:0 0 18px rgba(79,163,255,0.85); }
       100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
     }
     .footers { margin-top:2rem; display:flex; flex-direction:column; align-items:center; gap:.75rem; }
@@ -72,8 +81,8 @@
         </ul>
       </div>
     </div>
-    <p class="intro2" style="margin:1.2rem 0 .6rem; font-size:.65rem;">
-      ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ
+    <p class="intro2" style="margin:1.2rem 0 .6rem; font-size:1rem;">
+      <a id="deeper-link" href="#" style="color:inherit; text-decoration:underline dotted;">ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ</a>
     </p>
     <div class="footers">
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
@@ -90,6 +99,11 @@
       </a>
     </p>
   </div>
+
+    <div id="image-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
+      <button id="close-modal" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
+      <img src="MencjSr.png" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
+    </div>
 
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pixi-filters@4.2.0/dist/pixi-filters.js"></script>
@@ -157,21 +171,34 @@
     const formatPotential=val=>`(potential ${Number(val).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}x from here)`;
     const FALLBACK_PDAI=0.0020;
     const FALLBACK_CRYSTAL=0.0210;
-    const FALLBACK_POTENTIAL=formatPotential(1/FALLBACK_PDAI);
-    const applyFlash=el=>{ if(!el) return; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); };
+    const FALLBACK_POTENTIAL_VALUE=1/FALLBACK_PDAI;
+    let lastPdaiPrice=null;
+    let lastCrystalPrice=null;
+    const applyFlash=(el,type)=>{
+      if(!el) return;
+      el.classList.remove('flash-up','flash-down','flash-flat');
+      void el.offsetWidth;
+      const cls=type==='up'?'flash-up':type==='down'?'flash-down':'flash-flat';
+      el.classList.add(cls);
+    };
     function renderPrices(pdaiPrice){
       const validPrice=Number.isFinite(pdaiPrice)&&pdaiPrice>0?pdaiPrice:null;
-      if(validPrice!==null){
-        priceEl.textContent=formatUsd(validPrice);
-        crystalPriceEl.textContent=formatUsd(validPrice*9);
-        potentialEl.textContent=formatPotential(1/validPrice);
-      }else{
-        priceEl.textContent=formatUsd(FALLBACK_PDAI);
-        crystalPriceEl.textContent=formatUsd(FALLBACK_CRYSTAL);
-        potentialEl.textContent=FALLBACK_POTENTIAL;
-      }
-      applyFlash(priceEl);
-      applyFlash(crystalPriceEl);
+      const pdaiValue=validPrice!==null?validPrice:FALLBACK_PDAI;
+      const crystalValue=validPrice!==null?validPrice*9:FALLBACK_CRYSTAL;
+      const potentialValue=validPrice!==null?(1/validPrice):FALLBACK_POTENTIAL_VALUE;
+
+      const pdaiChange=lastPdaiPrice===null?'flat':pdaiValue>lastPdaiPrice?'up':pdaiValue<lastPdaiPrice?'down':'flat';
+      const crystalChange=lastCrystalPrice===null?'flat':crystalValue>lastCrystalPrice?'up':crystalValue<lastCrystalPrice?'down':'flat';
+
+      priceEl.textContent=formatUsd(pdaiValue);
+      crystalPriceEl.textContent=formatUsd(crystalValue);
+      potentialEl.textContent=formatPotential(potentialValue);
+
+      applyFlash(priceEl,pdaiChange);
+      applyFlash(crystalPriceEl,crystalChange);
+
+      lastPdaiPrice=pdaiValue;
+      lastCrystalPrice=crystalValue;
     }
 
     async function updatePrices(){
@@ -188,8 +215,28 @@
     }
     renderPrices(null);
     updatePrices();
-    setInterval(updatePrices,3000);
+    setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
+
+    const modal=document.getElementById('image-modal');
+    const openModal=document.getElementById('deeper-link');
+    const closeModal=document.getElementById('close-modal');
+
+    const showModal=()=>{
+      modal.style.opacity='1';
+      modal.style.pointerEvents='auto';
+    };
+    const hideModal=()=>{
+      modal.style.opacity='0';
+      modal.style.pointerEvents='none';
+    };
+
+    openModal.addEventListener('click',e=>{
+      e.preventDefault();
+      showModal();
+    });
+    closeModal.addEventListener('click',hideModal);
+    modal.addEventListener('click',e=>{ if(e.target===modal) hideModal(); });
   </script>
 </body>
 </html>
