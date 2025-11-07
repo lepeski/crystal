@@ -10,34 +10,36 @@
     #canvas-container { position:absolute; top:0; left:0; width:100%; height:100%; }
     .content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:1; text-align:center; max-width:90%; background:rgba(0,0,0,0.4);
-      padding:1.5rem; border-radius:.5rem; border:1px solid rgba(255,255,255,0.05);
+      padding:1.6rem 1.9rem; border-radius:.5rem; border:1px solid rgba(255,255,255,0.05);
     }
     .title { margin:1.5rem 0; font-size:2rem; letter-spacing:1.5rem;
       background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,50%),hsl(220,100%,45%));
       -webkit-background-clip:text; color:transparent;
     }
-    .intro, .intro2 { margin:0.1rem 0; white-space:pre-line; font-size:.72rem;
-      letter-spacing:.05em; font-weight:300;
+    .intro, .intro2 { margin:0.15rem 0; white-space:pre-line; font-size:.72rem;
+      letter-spacing:.05em; font-weight:300; line-height:1.55;
     }
     .intro { color:#ba5cbf; }
     .intro2 { color:#5a9ba4; }
-    .main-info { margin-top:1.4rem; text-align:left; color:#d7e8ff; font-size:.95rem; }
+    .main-info { margin-top:1.6rem; text-align:center; color:#d7e8ff; font-size:.98rem; }
     .info-block { background:rgba(5,15,35,0.55); border:1px solid rgba(120,200,255,0.15);
-      border-radius:.75rem; padding:1.4rem 1.6rem; box-shadow:0 0 25px rgba(60,0,120,0.25);
+      border-radius:.75rem; padding:1.8rem 2rem; box-shadow:0 0 25px rgba(60,0,120,0.25);
     }
-    .info-title { color:#7dd1ff; font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase;
-      margin-bottom:.9rem; text-align:center;
+    .info-title { color:#7dd1ff; font-size:1.08rem; letter-spacing:.1em; text-transform:uppercase;
+      margin-bottom:1.1rem; text-align:center;
     }
-    .info-list { list-style:none; display:grid; gap:.75rem; font-size:1rem; }
-    .info-list li { position:relative; padding-left:1.4rem; line-height:1.4; }
-    .info-list li::before { content:"✦"; position:absolute; left:0; color:#92e5ff; text-shadow:0 0 8px rgba(90,190,255,0.9); }
+    .info-list { list-style:none; display:grid; gap:1.05rem; font-size:1rem; }
+    .info-list li { position:relative; padding-left:0; line-height:1.7; text-align:center; }
+    .info-list li::before { content:"✦"; display:inline-block; margin-right:.55rem; color:#92e5ff;
+      text-shadow:0 0 8px rgba(90,190,255,0.9);
+    }
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
     .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); }
-    .footers { margin-top:2rem; }
-    .footer-address { color:rgba(0,255,255,0.6); display:inline-flex; align-items:center; font-size:.8rem; }
+    .footers { margin-top:2rem; display:flex; flex-direction:column; align-items:center; gap:.75rem; }
+    .footer-address { color:rgba(0,255,255,0.75); display:inline-flex; align-items:center; font-size:.85rem; }
     #copyBtn { margin-left:.5rem; background:none; border:none; font-size:1.2rem; color:inherit; cursor:pointer; }
-    .footer-note { color:grey; margin-top:.5rem; font-size:.7rem; }
+    .footer-note { color:grey; margin-top:.2rem; font-size:.72rem; text-align:center; line-height:1.5; }
     @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
 </head>
@@ -67,11 +69,6 @@
     <p class="intro2" style="margin:1.2rem 0 .6rem; font-size:.65rem;">
       ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ
     </p>
-    <p style="margin-bottom:1rem; font-size:.65rem;">
-      <a href="https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart" target="_blank" rel="noopener noreferrer">
-        https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
-      </a>
-    </p>
     <div class="footers">
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
       <div class="footer-note">
@@ -81,6 +78,11 @@
         </div>
       </div>
     </div>
+    <p style="margin-bottom:1rem; font-size:.65rem;">
+      <a href="https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart" target="_blank" rel="noopener noreferrer">
+        https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
+      </a>
+    </p>
   </div>
 
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
