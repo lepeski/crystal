@@ -16,41 +16,32 @@
       background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,50%),hsl(220,100%,45%));
       -webkit-background-clip:text; color:transparent;
     }
-    .intro, .intro2 { margin:0.1rem 0; white-space:pre-line; font-size:.9rem;
+    .intro, .intro2 { margin:0.1rem 0; white-space:pre-line; font-size:.72rem;
       letter-spacing:.05em; font-weight:300;
     }
     .intro { color:#ba5cbf; }
     .intro2 { color:#5a9ba4; }
+    .main-info { margin-top:1.4rem; text-align:left; color:#d7e8ff; font-size:.95rem; }
+    .info-block { background:rgba(5,15,35,0.55); border:1px solid rgba(120,200,255,0.15);
+      border-radius:.75rem; padding:1.4rem 1.6rem; box-shadow:0 0 25px rgba(60,0,120,0.25);
+    }
+    .info-title { color:#7dd1ff; font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase;
+      margin-bottom:.9rem; text-align:center;
+    }
+    .info-list { list-style:none; display:grid; gap:.75rem; font-size:1rem; }
+    .info-list li { position:relative; padding-left:1.4rem; line-height:1.4; }
+    .info-list li::before { content:"✦"; position:absolute; left:0; color:#92e5ff; text-shadow:0 0 8px rgba(90,190,255,0.9); }
+    .price-line { color:#cfc7ff; font-size:1rem; }
+    .price-line strong { color:#88f5ff; }
+    .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); }
     .footers { margin-top:2rem; }
     .footer-address { color:rgba(0,255,255,0.6); display:inline-flex; align-items:center; font-size:.8rem; }
     #copyBtn { margin-left:.5rem; background:none; border:none; font-size:1.2rem; color:inherit; cursor:pointer; }
     .footer-note { color:grey; margin-top:.5rem; font-size:.7rem; }
-    @keyframes glow { 0%,100%{filter:drop-shadow(0 0 4px rgba(150,0,150,0.5));}50%{filter:drop-shadow(0 0 12px rgba(150,0,150,0.8));} }
-    #crystal-img img { display:inline-block; filter:drop-shadow(0 0 4px rgba(150,0,150,0.5)); animation:glow 4s ease-in-out infinite; }
     @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
 </head>
 <body>
-  <!-- background music -->
-<audio id="bg-music" src="crystals.mp3" autoplay loop muted playsinline preload="auto"></audio>
-<script>
-const a = document.getElementById('bg-music');
-
-function tryPlay(tag){ a.play().then(()=>console.log('playing:',tag)).catch(e=>console.log('blocked:',tag,e)); }
-
-tryPlay('load');
-
-const unlock = () => { a.muted = false; tryPlay('unlock'); };
-['pointerdown','click','keydown','touchstart'].forEach(ev =>
-  window.addEventListener(ev, unlock, { once:true, passive:true })
-);
-
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) tryPlay('visible');
-});
-window.addEventListener('focus', () => tryPlay('focus'));
-</script>
-
   <div id="canvas-container"></div>
   <div class="content">
     <h1 class="title">CRYSTAL <span class="break">MATH</span></h1>
@@ -58,20 +49,29 @@ window.addEventListener('focus', () => tryPlay('focus'));
 ᴛɪᴍᴇ ᴀɴᴅ ᴀɢᴀɪɴ, ᴛʜᴇʏ’ᴠᴇ ᴇxᴘᴏsᴇᴅ ᴄʀᴀᴄᴋs ɪɴ ᴛʜᴇ ᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ғᴏʀᴛʀᴇss, ᴅɪsᴍᴀɴᴛʟɪɴɢ ɪᴛ ʙʀɪᴄᴋ ʙʏ ʙʀɪᴄᴋ.
 ᴛʜʀᴏᴜɢʜ ᴏ̨ᴜɪᴇᴛ sᴀʙᴏᴛᴀɢᴇ ᴀɴᴅ ᴄʀʏᴘᴛɪᴄ ɪɴɴᴏᴠᴀᴛɪᴏɴ ᴛʜᴇʏ ɴᴏᴡ ᴛʜʀᴇᴀᴛᴇɴ ᴛʜᴇ ᴠᴇʀʏ ғᴏᴜɴᴅᴀᴛɪᴏɴ ᴏғ ᴛʀᴀᴅ-ғɪ,
 ᴄʟᴇᴀʀɪɴɢ ᴛʜᴇ ᴡᴀʏ ғᴏʀ ᴛʜᴇ ʀɪsᴇ ᴏғ ᴛʜᴇ ᴅᴇᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ʀᴇᴀʟᴍ.</p>
-    <div id="crystal-img">
-      <a href="https://dexscreener.com/pulsechain/0x6b175474e89094c44da98b954eedeac495271d0f" target="_blank" rel="noopener noreferrer">
-        <img src="https://i.imgur.com/MencjSr.png" alt="Crystal Math Center Image" style="width:180px;height:auto;margin:1rem 0;" />
-      </a>
+    <div class="main-info">
+      <div class="info-block">
+        <div class="info-title">Core Realm Briefing</div>
+        <ul class="info-list">
+          <li>Hardcore mode with monthly free respawns</li>
+          <li>X-ray proof controlled supply of crystals with real-world value</li>
+          <li>Use <strong>2 crystals</strong> in the new beacon recipe to claim <strong>64×64</strong> of land.</li>
+          <li>Redeem crystals at any activated beacon (beam active) to cash out for crypto.</li>
+          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.021</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.002</span>)</li>
+          <li>pDAI is a speculative future stablecoin rumoured to peg to 1$ <span id="pdai-potential" style="display:block; margin-top:.35rem;">(potential ???x from here)</span></li>
+          <li>Free to play! Any crystals found will carry over to the official launch (map TBA).</li>
+          <li>Please report any exploits/bugs found. ^-^/</li>
+        </ul>
+      </div>
     </div>
-   <p class="intro2" style="margin-bottom:1rem;">
-  ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ
-</p>
-<p style="margin-bottom:1rem; font-size:.8rem;">
-  <a href="https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart" target="_blank" rel="noopener noreferrer">
-    https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
-  </a>
-</p>
-    
+    <p class="intro2" style="margin:1.2rem 0 .6rem; font-size:.65rem;">
+      ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ
+    </p>
+    <p style="margin-bottom:1rem; font-size:.65rem;">
+      <a href="https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart" target="_blank" rel="noopener noreferrer">
+        https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
+      </a>
+    </p>
     <div class="footers">
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
       <div class="footer-note">
@@ -142,6 +142,32 @@ window.addEventListener('focus', () => tryPlay('focus'));
       app.renderer.render(app.stage);
     });
     window.addEventListener('resize',()=>{app.renderer.resize(window.innerWidth,window.innerHeight);init();}); init();
+    const priceEl=document.getElementById('pdai-price');
+    const crystalPriceEl=document.getElementById('crystal-price');
+    const potentialEl=document.getElementById('pdai-potential');
+    const formatUsd=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:3,maximumFractionDigits:3})}`;
+    const formatPotential=val=>`(potential ${Number(val).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}x from here)`;
+    async function updatePrices(){
+      try{
+        const res=await fetch('https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xfc64556faa683e6087f425819c7ca3c558e13ac1');
+        const data=await res.json();
+        const price=parseFloat(data?.pairs?.[0]?.priceUsd);
+        if(!isNaN(price)){
+          priceEl.textContent=formatUsd(price);
+          crystalPriceEl.textContent=formatUsd(price*9);
+          potentialEl.textContent=price>0?formatPotential(1/price):'(potential ???x from here)';
+          return;
+        }
+        throw new Error('Invalid price data');
+      }catch(err){
+        console.error('Price fetch failed',err);
+        priceEl.textContent='$0.002';
+        crystalPriceEl.textContent='$0.021';
+        potentialEl.textContent='(potential ???x from here)';
+      }
+    }
+    updatePrices();
+    setInterval(updatePrices,60000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
   </script>
 </body>
