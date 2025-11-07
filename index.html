@@ -35,7 +35,13 @@
     }
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
-    .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); display:inline-block; }
+    .price-value.flash { animation:priceFlash 0.85s ease-out; }
+    @keyframes priceFlash {
+      0% { color:#ffe078; text-shadow:0 0 16px rgba(255,215,120,0.9); }
+      70% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+      100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    }
     .footers { margin-top:2rem; display:flex; flex-direction:column; align-items:center; gap:.75rem; }
     .footer-address { color:rgba(0,255,255,0.75); display:inline-flex; align-items:center; font-size:.85rem; }
     #copyBtn { margin-left:.5rem; background:none; border:none; font-size:1.2rem; color:inherit; cursor:pointer; }
@@ -59,8 +65,8 @@
           <li>X-ray proof controlled supply of crystals with real-world value</li>
           <li>Use <strong>2 crystals</strong> in the new beacon recipe to claim <strong>64×64</strong> of land.</li>
           <li>Redeem crystals at any activated beacon (beam active) to cash out for crypto.</li>
-          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.021</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.002</span>)</li>
-          <li>pDAI is a speculative future stablecoin rumoured to peg to 1$ <span id="pdai-potential" style="display:block; margin-top:.35rem;">(potential ???x from here)</span></li>
+          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0210</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.0020</span>)</li>
+          <li>pDAI is a speculative future stablecoin rumoured to peg to 1$ <span id="pdai-potential" style="display:block; margin-top:.35rem;">(potential 500.00x from here)</span></li>
           <li>Free to play! Any crystals found will carry over to the official launch (map TBA).</li>
           <li>Please report any exploits/bugs found. ^-^/</li>
         </ul>
@@ -147,29 +153,42 @@
     const priceEl=document.getElementById('pdai-price');
     const crystalPriceEl=document.getElementById('crystal-price');
     const potentialEl=document.getElementById('pdai-potential');
-    const formatUsd=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:3,maximumFractionDigits:3})}`;
+    const formatUsd=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:4})}`;
     const formatPotential=val=>`(potential ${Number(val).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}x from here)`;
+    const FALLBACK_PDAI=0.0020;
+    const FALLBACK_CRYSTAL=0.0210;
+    const FALLBACK_POTENTIAL=formatPotential(1/FALLBACK_PDAI);
+    const applyFlash=el=>{ if(!el) return; el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); };
+    function renderPrices(pdaiPrice){
+      const validPrice=Number.isFinite(pdaiPrice)&&pdaiPrice>0?pdaiPrice:null;
+      if(validPrice!==null){
+        priceEl.textContent=formatUsd(validPrice);
+        crystalPriceEl.textContent=formatUsd(validPrice*9);
+        potentialEl.textContent=formatPotential(1/validPrice);
+      }else{
+        priceEl.textContent=formatUsd(FALLBACK_PDAI);
+        crystalPriceEl.textContent=formatUsd(FALLBACK_CRYSTAL);
+        potentialEl.textContent=FALLBACK_POTENTIAL;
+      }
+      applyFlash(priceEl);
+      applyFlash(crystalPriceEl);
+    }
+
     async function updatePrices(){
       try{
         const res=await fetch('https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xfc64556faa683e6087f425819c7ca3c558e13ac1');
         const data=await res.json();
         const price=parseFloat(data?.pairs?.[0]?.priceUsd);
-        if(!isNaN(price)){
-          priceEl.textContent=formatUsd(price);
-          crystalPriceEl.textContent=formatUsd(price*9);
-          potentialEl.textContent=price>0?formatPotential(1/price):'(potential ???x from here)';
-          return;
-        }
-        throw new Error('Invalid price data');
+        if(!Number.isFinite(price)||price<=0) throw new Error('Invalid price data');
+        renderPrices(price);
       }catch(err){
         console.error('Price fetch failed',err);
-        priceEl.textContent='$0.002';
-        crystalPriceEl.textContent='$0.021';
-        potentialEl.textContent='(potential ???x from here)';
+        renderPrices(null);
       }
     }
+    renderPrices(null);
     updatePrices();
-    setInterval(updatePrices,60000);
+    setInterval(updatePrices,3000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
   </script>
 </body>
