@@ -59,14 +59,9 @@
     .support-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:.85rem; width:100%; max-width:820px; }
     .card-lite { background:rgba(10,20,40,0.7); border:1px solid rgba(140,210,255,0.15); border-radius:.75rem; padding:.85rem 1rem; box-shadow:0 0 20px rgba(40,80,140,0.2); text-align:center; }
     .card-lite h3 { color:#89d9ff; font-size:.93rem; letter-spacing:.08em; margin-bottom:.45rem; text-transform:uppercase; }
-    .flowchart-trigger { cursor:pointer; color:#d7e8ff; text-decoration:underline dotted; }
-    .flowchart-preview { position:relative; display:flex; flex-direction:column; gap:.6rem; align-items:center; }
-    .flowchart-pop { position:absolute; top:110%; left:50%; transform:translateX(-50%); background:rgba(6,10,22,0.95); border:1px solid rgba(140,210,255,0.25); box-shadow:0 0 25px rgba(60,0,120,0.35); padding:.75rem; border-radius:.6rem; width:min(720px,85vw); opacity:0; pointer-events:none; transition:opacity 0.2s ease; z-index:3; }
-    .flowchart-pop img { width:100%; border-radius:.4rem; border:1px solid rgba(255,255,255,0.08); display:block; }
-    .flowchart-preview:hover .flowchart-pop, .flowchart-preview:focus-within .flowchart-pop, .flowchart-preview.active .flowchart-pop { opacity:1; pointer-events:auto; }
-    .flowchart-preview.missing .flowchart-pop { display:none; }
-    .flowchart-preview.missing .flowchart-trigger { cursor:not-allowed; opacity:0.6; }
-    .flowchart-note { font-size:.85rem; color:#8db7ff; line-height:1.5; }
+    .flowchart-inline { cursor:pointer; text-decoration:underline; text-underline-offset:4px; color:#cfe7ff; }
+    .flowchart-inline.disabled { cursor:not-allowed; opacity:0.6; }
+    .flowchart-status { display:block; margin-top:.35rem; color:#8db7ff; font-size:.9rem; }
     .video-shell { display:flex; flex-direction:column; gap:.5rem; align-items:center; }
     .video-shell video { width:100%; max-width:420px; border-radius:.5rem; border:1px solid rgba(140,210,255,0.25); background:#0a1224; box-shadow:0 0 18px rgba(40,80,140,0.25); }
     .video-note { font-size:.85rem; color:#8db7ff; line-height:1.5; }
@@ -88,24 +83,18 @@
           <li>Hardcore survival: you get a monthly free respawn window to re-enter the world.</li>
           <li>Crystals are x-ray proof and tracked as a controlled supply with real-world redemption value.</li>
           <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
-          <li>Only beacons with an active beam can redeem crystals back to crypto—keep the beam lit when you are ready to cash out.</li>
           <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0210</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.0020</span>)</li>
           <li>pDAI is a speculative future stablecoin rumoured to peg to 1$ <span id="pdai-potential" style="display:block; margin-top:.35rem;">(potential 500.00x from here)</span></li>
+          <li>
+            <button id="flowchart-trigger" class="flowchart-inline" type="button">Flowchart: how the realm works</button>
+            <span class="flowchart-status" id="flowchart-status">Hover or tap to preview the full gameplay loop.</span>
+          </li>
         </ul>
       </div>
       <div class="support-grid">
-        <div class="card-lite flowchart-preview" id="flowchart-card" tabindex="0" data-flowchart-src="canvas_minecraft-economy-flowchart-251030_0147.png">
-          <h3>Flowchart: how the realm works</h3>
-          <p class="flowchart-note" id="flowchart-note">Hover or tap to preview the full gameplay loop.</p>
-          <div class="flowchart-pop" aria-hidden="true">
-            <img src="canvas_minecraft-economy-flowchart-251030_0147.png" alt="Gameplay and economy flowchart">
-          </div>
-          <button class="flowchart-trigger" aria-label="Toggle flowchart preview">Show the flowchart</button>
-        </div>
         <div class="card-lite video-shell">
           <h3>Cash-out walkthrough</h3>
           <video id="info-video" controls preload="metadata" playsinline muted></video>
-          <p class="video-note">Short clip on how crystals move from mining to beacon redemption. Video auto-loads from <code>Amethyst_Cash_Out_Infomercial.mp4</code> when present; a lightweight preview plays otherwise.</p>
         </div>
       </div>
     </div>
@@ -126,7 +115,18 @@
         https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
       </a>
     </p>
-  </div>
+    </div>
+
+    <div id="flowchart-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
+      <button id="flowchart-close" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
+      <img id="flowchart-img" src="" alt="Gameplay and economy flowchart" style="max-width:92%; max-height:92%; border-radius:.65rem; box-shadow:0 0 35px rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.15); display:none;">
+      <div id="flowchart-missing" style="color:#cfe7ff; text-align:center; line-height:1.6; max-width:520px; display:none;">Flowchart image not found. Place <code>canvas_minecraft-economy-flowchart-251030_0147.png</code> next to <code>index.html</code> and click again to view it.</div>
+    </div>
+
+    <div id="image-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
+      <button id="close-modal" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
+      <img src="unit.jpg" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
+    </div>
 
     <div id="image-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
       <button id="close-modal" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
@@ -266,33 +266,59 @@
     closeModal.addEventListener('click',hideModal);
     modal.addEventListener('click',e=>{ if(e.target===modal) hideModal(); });
 
-    const flowchartCard=document.getElementById('flowchart-card');
-    const flowchartButton=flowchartCard?.querySelector('.flowchart-trigger');
-    const flowchartNote=document.getElementById('flowchart-note');
-    const flowchartImgPath=flowchartCard?.dataset?.flowchartSrc;
-    const markFlowchartMissing=()=>{
-      if(!flowchartCard) return;
-      flowchartCard.classList.add('missing');
-      if(flowchartNote){
-        flowchartNote.textContent='Flowchart preview unavailable. Drop the PNG next to index.html to enable the hover preview.';
+    const FLOWCHART_PATH='canvas_minecraft-economy-flowchart-251030_0147.png';
+    const flowchartTrigger=document.getElementById('flowchart-trigger');
+    const flowchartStatus=document.getElementById('flowchart-status');
+    const flowchartModal=document.getElementById('flowchart-modal');
+    const flowchartClose=document.getElementById('flowchart-close');
+    const flowchartImg=document.getElementById('flowchart-img');
+    const flowchartMissing=document.getElementById('flowchart-missing');
+    let flowchartAvailable=false;
+
+    const showFlowchartModal=(showMissing=false)=>{
+      flowchartModal.style.opacity='1';
+      flowchartModal.style.pointerEvents='auto';
+      if(showMissing){
+        flowchartMissing.style.display='block';
+        flowchartImg.style.display='none';
+      } else {
+        flowchartMissing.style.display='none';
+        flowchartImg.style.display='block';
       }
     };
-    flowchartButton?.addEventListener('click',()=>{
-      if(flowchartCard?.classList.contains('missing')) return;
-      flowchartCard.classList.toggle('active');
-    });
-    document.addEventListener('click',e=>{
-      if(flowchartCard && !flowchartCard.contains(e.target)){
-        flowchartCard.classList.remove('active');
+
+    const hideFlowchartModal=()=>{
+      flowchartModal.style.opacity='0';
+      flowchartModal.style.pointerEvents='none';
+    };
+
+    flowchartTrigger?.addEventListener('click',()=>{
+      if(flowchartAvailable){
+        showFlowchartModal(false);
+      } else {
+        flowchartStatus.textContent='Flowchart image not found. Place the PNG next to index.html to enable the preview.';
+        flowchartTrigger.classList.add('disabled');
+        showFlowchartModal(true);
       }
     });
-    if(flowchartImgPath){
-      fetch(flowchartImgPath,{method:'HEAD'}).then(res=>{
+    flowchartClose?.addEventListener('click',hideFlowchartModal);
+    flowchartModal?.addEventListener('click',e=>{ if(e.target===flowchartModal) hideFlowchartModal(); });
+
+    async function checkFlowchartAvailability(){
+      try{
+        const res=await fetch(FLOWCHART_PATH,{method:'HEAD'});
         if(!res.ok) throw new Error('missing');
-      }).catch(()=>markFlowchartMissing());
-      const flowImg=flowchartCard?.querySelector('img');
-      flowImg?.addEventListener('error',markFlowchartMissing,{once:true});
+        flowchartAvailable=true;
+        if(flowchartImg) flowchartImg.src=FLOWCHART_PATH;
+        if(flowchartStatus) flowchartStatus.textContent='Hover or tap to preview the full gameplay loop.';
+        flowchartTrigger?.classList.remove('disabled');
+      }catch(err){
+        flowchartAvailable=false;
+        flowchartTrigger?.classList.add('disabled');
+        if(flowchartStatus) flowchartStatus.textContent='Flowchart image not found. Place the PNG next to index.html to enable the preview.';
+      }
     }
+    checkFlowchartAvailability();
 
     async function loadWalkthroughVideo(){
       const videoEl=document.getElementById('info-video');
