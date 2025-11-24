@@ -38,12 +38,33 @@ const COLORS = [
 // 5) Create containers
 const lineGraphics = new PIXI.Graphics();
 lineGraphics.blendMode = PIXI.BLEND_MODES.ADD;
-// Apply Bloom filter for stunning glow
-lineGraphics.filters = [new PIXI.filters.BloomFilter({
-  threshold: 0.5,
-  intensity: 2.5,
-  blur: 8
-})];
+
+// Apply Bloom filter for stunning glow (with graceful fallback)
+const bloomFilter = (() => {
+  if (PIXI?.filters?.BloomFilter) {
+    return new PIXI.filters.BloomFilter({
+      threshold: 0.5,
+      intensity: 2.5,
+      blur: 8,
+    });
+  }
+
+  if (PIXI?.filters?.AdvancedBloomFilter) {
+    return new PIXI.filters.AdvancedBloomFilter({
+      threshold: 0.5,
+      bloomScale: 1.8,
+      brightness: 1.1,
+    });
+  }
+
+  console.warn('Bloom filter unavailable – continuing without glow effect');
+  return null;
+})();
+
+if (bloomFilter) {
+  lineGraphics.filters = [bloomFilter];
+}
+
 app.stage.addChild(lineGraphics);
 
 // 6) Node setup
