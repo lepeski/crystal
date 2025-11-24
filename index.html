@@ -6,11 +6,12 @@
   <title>Crystal Math</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:sans-serif; }
-    #canvas-container { position:absolute; top:0; left:0; width:100%; height:100%; }
-    .content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    html, body { width:100%; min-height:100%; overflow:auto; background:#000; font-family:sans-serif; }
+    #canvas-container { position:fixed; top:0; left:0; width:100%; height:100%; }
+    .content { position:relative; left:50%; transform:translateX(-50%);
       z-index:1; text-align:center; max-width:90%; background:rgba(0,0,0,0.4);
       padding:1.3rem 1.5rem; border-radius:.5rem; border:1px solid rgba(255,255,255,0.05);
+      margin:1.5rem auto 2rem;
     }
     .title { margin:1.5rem 0; font-size:2rem; letter-spacing:1.5rem;
       background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,50%),hsl(220,100%,45%));
@@ -59,7 +60,7 @@
     .support-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:.85rem; width:100%; max-width:820px; }
     .card-lite { background:rgba(10,20,40,0.7); border:1px solid rgba(140,210,255,0.15); border-radius:.75rem; padding:.85rem 1rem; box-shadow:0 0 20px rgba(40,80,140,0.2); text-align:center; }
     .card-lite h3 { color:#89d9ff; font-size:.93rem; letter-spacing:.08em; margin-bottom:.45rem; text-transform:uppercase; }
-    .flowchart-inline { cursor:pointer; text-decoration:underline; text-underline-offset:4px; color:#cfe7ff; }
+    .flowchart-inline { cursor:pointer; text-decoration:underline; text-underline-offset:4px; color:#cfe7ff; background:none; border:none; padding:0; font-size:.92rem; }
     .flowchart-inline.disabled { cursor:not-allowed; opacity:0.6; }
     .flowchart-status { display:block; margin-top:.35rem; color:#8db7ff; font-size:.9rem; }
     .video-shell { display:flex; flex-direction:column; gap:.5rem; align-items:center; }
@@ -85,16 +86,13 @@
           <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
           <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0210</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.0020</span>)</li>
           <li>pDAI is a speculative future stablecoin rumoured to peg to 1$ <span id="pdai-potential" style="display:block; margin-top:.35rem;">(potential 500.00x from here)</span></li>
-          <li>
-            <button id="flowchart-trigger" class="flowchart-inline" type="button">Flowchart: how the realm works</button>
-            <span class="flowchart-status" id="flowchart-status">Hover or tap to preview the full gameplay loop.</span>
-          </li>
         </ul>
       </div>
       <div class="support-grid">
         <div class="card-lite video-shell">
-          <h3>Cash-out walkthrough</h3>
           <video id="info-video" controls preload="metadata" playsinline muted></video>
+          <button id="flowchart-trigger" class="flowchart-inline" type="button">see more</button>
+          <span class="flowchart-status" id="flowchart-status">Click "see more" to open the gameplay flowchart.</span>
         </div>
       </div>
     </div>
@@ -110,11 +108,6 @@
         </div>
       </div>
     </div>
-    <p style="margin-bottom:1rem; font-size:.65rem;">
-      <a href="https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart" target="_blank" rel="noopener noreferrer">
-        https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
-      </a>
-    </p>
     </div>
 
     <div id="flowchart-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
@@ -126,11 +119,6 @@
     <div id="image-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
       <button id="close-modal" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
       <img src="unit.jpg" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
-    </div>
-
-    <div id="image-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
-      <button id="close-modal" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
-      <img src="MencjSr.png" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
     </div>
 
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
@@ -310,7 +298,7 @@
         if(!res.ok) throw new Error('missing');
         flowchartAvailable=true;
         if(flowchartImg) flowchartImg.src=FLOWCHART_PATH;
-        if(flowchartStatus) flowchartStatus.textContent='Hover or tap to preview the full gameplay loop.';
+        if(flowchartStatus) flowchartStatus.textContent='Click "see more" to open the gameplay flowchart.';
         flowchartTrigger?.classList.remove('disabled');
       }catch(err){
         flowchartAvailable=false;
