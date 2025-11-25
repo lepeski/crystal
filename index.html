@@ -17,7 +17,7 @@
       background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,50%),hsl(220,100%,45%));
       -webkit-background-clip:text; color:transparent;
     }
-    .intro, .intro2 { margin:0.15rem 0; white-space:pre-line; font-size:.72rem;
+    .intro, .intro2 { margin:0.12rem 0; white-space:pre-line; font-size:.6rem;
       letter-spacing:.05em; font-weight:300; line-height:1.55;
     }
     .intro { color:#ba5cbf; }
@@ -79,7 +79,7 @@
 ᴄʟᴇᴀʀɪɴɢ ᴛʜᴇ ᴡᴀʏ ғᴏʀ ᴛʜᴇ ʀɪsᴇ ᴏғ ᴛʜᴇ ᴅᴇᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ʀᴇᴀʟᴍ.</p>
     <div class="main-info">
       <div class="info-block">
-        <div class="info-title">Before you join the server</div>
+        <div class="info-title">Crystals are earned in-world and redeemed for crypto—never sold.</div>
         <ul class="info-list">
           <li>Hardcore survival: you get a monthly free respawn window to re-enter the world.</li>
           <li>Crystals are x-ray proof and tracked as a controlled supply with real-world redemption value.</li>
@@ -91,8 +91,6 @@
       <div class="support-grid">
         <div class="card-lite video-shell">
           <video id="info-video" controls preload="metadata" playsinline muted></video>
-          <button id="flowchart-trigger" class="flowchart-inline" type="button">see more</button>
-          <span class="flowchart-status" id="flowchart-status"></span>
         </div>
       </div>
     </div>
@@ -284,7 +282,7 @@
       if(flowchartAvailable){
         showFlowchartModal(false);
       } else {
-        flowchartStatus.textContent='Flowchart image not found. Place the PNG next to index.html to enable the preview.';
+        if(flowchartStatus) flowchartStatus.textContent='Flowchart image not found. Place the PNG next to index.html to enable the preview.';
         flowchartTrigger.classList.add('disabled');
         showFlowchartModal(true);
       }
