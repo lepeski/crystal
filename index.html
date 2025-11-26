@@ -85,7 +85,7 @@
           <li>Hardcore survival: you get a monthly free respawn window to re-enter the world.</li>
           <li>Crystals are x-ray proof and tracked as a controlled supply with real-world redemption value.</li>
           <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
-          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.0016</span>)</li>
+          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.001618</span>)</li>
         </ul>
       </div>
       <div class="support-grid">
@@ -183,6 +183,7 @@
     const crystalPriceEl=document.getElementById('crystal-price');
     const potentialEl=document.getElementById('pdai-potential');
     const formatUsd=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:4})}`;
+    const formatPdai=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:6,maximumFractionDigits:6})}`;
     const formatPotential=val=>`(potential ${Number(val).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}x from here)`;
     const FALLBACK_PDAI=0.0016183;
     const FALLBACK_CRYSTAL=0.0145647;
@@ -205,7 +206,7 @@
       const pdaiChange=lastPdaiPrice===null?'flat':pdaiValue>lastPdaiPrice?'up':pdaiValue<lastPdaiPrice?'down':'flat';
       const crystalChange=lastCrystalPrice===null?'flat':crystalValue>lastCrystalPrice?'up':crystalValue<lastCrystalPrice?'down':'flat';
 
-      priceEl.textContent=formatUsd(pdaiValue);
+      priceEl.textContent=formatPdai(pdaiValue);
       crystalPriceEl.textContent=formatUsd(crystalValue);
       potentialEl.textContent=formatPotential(potentialValue);
 
