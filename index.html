@@ -105,7 +105,7 @@
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
     </div>
     <div class="qr-block">
-      <img id="qr-image" src="flebebians_transparent.jpg" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code" loading="lazy">
+      <img id="qr-image" src="flebebians_transparent.jpg" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code for wallet" loading="lazy">
       <div class="qr-note">𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ</div>
     </div>
     </div>
@@ -254,6 +254,8 @@
 
     const handleInteraction=()=>{
       enableAudio();
+      try{ ytPlayer?.playVideo(); }catch(err){ console.warn('Play on interaction blocked',err); }
+      setTimeout(()=>keepPlaying(),120);
       interactionEvents.forEach(evt=>window.removeEventListener(evt,handleInteraction));
     };
 
