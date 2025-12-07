@@ -64,8 +64,8 @@
     .flowchart-inline.disabled { cursor:not-allowed; opacity:0.6; }
     .flowchart-status { display:block; margin-top:.35rem; color:#8db7ff; font-size:.9rem; }
     .video-shell { display:flex; flex-direction:column; gap:.35rem; align-items:center; }
-    .video-shell iframe { width:100%; max-width:520px; aspect-ratio:16/9; border:none; border-radius:.35rem; box-shadow:0 0 18px rgba(50,120,200,0.25);
-      background:rgba(10,20,40,0.45); }
+    .video-shell .video-frame { width:100%; max-width:520px; aspect-ratio:16/9; border:none; border-radius:.35rem; box-shadow:0 0 18px rgba(50,120,200,0.25);
+      background:rgba(10,20,40,0.45); overflow:hidden; }
     .qr-block { margin:1.8rem auto 0; display:flex; justify-content:center; }
     .qr-block img { width:220px; height:220px; object-fit:contain; filter:drop-shadow(0 0 20px rgba(120,200,255,0.28)); }
     .pdai-note { margin:1rem auto 0; max-width:780px; color:#a5c9ff; text-align:center; line-height:1.5; font-size:.95rem; }
@@ -92,8 +92,7 @@
       </div>
       <div class="support-grid">
         <div class="card-lite video-shell">
-          <iframe id="info-video" src="https://www.youtube.com/embed/cV4U7wtXDmU?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
-            title="Walkthrough" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+          <div id="info-video" class="video-frame"></div>
         </div>
       </div>
     </div>
@@ -111,7 +110,7 @@
       </div>
     </div>
     <div class="qr-block">
-      <img src="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code for wallet" loading="lazy">
+      <img id="qr-image" src="flebebians_transparent.png" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code" loading="lazy">
     </div>
     </div>
 
@@ -126,6 +125,7 @@
       <img src="unit.jpg" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
     </div>
 
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pixi-filters@4.2.0/dist/pixi-filters.js"></script>
   <script>
@@ -240,16 +240,42 @@
     setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
 
-    const videoFrame=document.getElementById('info-video');
-    const boostVideoAudio=()=>{
-      if(!videoFrame?.contentWindow) return;
-      const send=(func,args=[])=>videoFrame.contentWindow.postMessage(JSON.stringify({event:'command',func, args}), '*');
-      send('unMute');
-      send('setVolume',[100]);
-      send('playVideo');
-    };
-    videoFrame?.addEventListener('load',()=>setTimeout(boostVideoAudio,400));
-    setTimeout(boostVideoAudio,1200);
+    let ytPlayer=null;
+    const YT_VIDEO_ID='cV4U7wtXDmU';
+    function onYouTubeIframeAPIReady(){
+      ytPlayer=new YT.Player('info-video',{
+        videoId:YT_VIDEO_ID,
+        playerVars:{
+          autoplay:1,
+          controls:1,
+          rel:0,
+          modestbranding:1,
+          playsinline:1,
+          mute:0
+        },
+        events:{
+          onReady:(event)=>{
+            try{
+              event.target.unMute();
+              event.target.setVolume(100);
+              event.target.playVideo();
+            }catch(err){
+              console.warn('Autoplay may be blocked until interaction.',err);
+            }
+          }
+        }
+      });
+      setTimeout(()=>{
+        try{
+          ytPlayer?.unMute();
+          ytPlayer?.setVolume?.(100);
+          ytPlayer?.playVideo?.();
+        }catch(err){
+          console.warn('Follow-up autoplay attempt failed.',err);
+        }
+      },800);
+    }
+    window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
 
     const modal=document.getElementById('image-modal');
     const openModal=document.getElementById('deeper-link');
@@ -324,6 +350,19 @@
       }
     }
     checkFlowchartAvailability();
+
+    const qrImg=document.getElementById('qr-image');
+    const ensureQr=async ()=>{
+      if(!qrImg) return;
+      const fallback=qrImg.dataset.fallback;
+      try{
+        const res=await fetch(qrImg.src,{method:'HEAD'});
+        if(!res.ok) throw new Error('missing');
+      }catch(err){
+        if(fallback) qrImg.src=fallback;
+      }
+    };
+    ensureQr();
 
   </script>
 </body>
