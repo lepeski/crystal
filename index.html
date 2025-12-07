@@ -110,7 +110,7 @@
       </div>
     </div>
     <div class="qr-block">
-      <img id="qr-image" src="flebebians_transparent.png" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code" loading="lazy">
+      <img id="qr-image" src="wallet-qr.png" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code for wallet" loading="lazy">
     </div>
     </div>
 
@@ -242,6 +242,22 @@
 
     let ytPlayer=null;
     const YT_VIDEO_ID='cV4U7wtXDmU';
+    let playAttempts=0;
+    const MAX_ATTEMPTS=5;
+
+    const tryPlay=(unmuteAfter=false)=>{
+      if(!ytPlayer) return;
+      try{
+        ytPlayer.playVideo();
+        if(unmuteAfter){
+          ytPlayer.unMute();
+          ytPlayer.setVolume(100);
+        }
+      }catch(err){
+        console.warn('Playback attempt blocked',err);
+      }
+    };
+
     function onYouTubeIframeAPIReady(){
       ytPlayer=new YT.Player('info-video',{
         videoId:YT_VIDEO_ID,
@@ -251,29 +267,36 @@
           rel:0,
           modestbranding:1,
           playsinline:1,
-          mute:0
+          mute:1
         },
         events:{
-          onReady:(event)=>{
-            try{
-              event.target.unMute();
-              event.target.setVolume(100);
-              event.target.playVideo();
-            }catch(err){
-              console.warn('Autoplay may be blocked until interaction.',err);
+          onReady:()=>{
+            tryPlay(false);
+          },
+          onStateChange:(event)=>{
+            if(event.data===YT.PlayerState.PLAYING){
+              try{
+                ytPlayer.unMute();
+                ytPlayer.setVolume(100);
+              }catch(err){
+                console.warn('Unmute blocked',err);
+              }
+            } else if(event.data===YT.PlayerState.UNSTARTED && playAttempts<MAX_ATTEMPTS){
+              playAttempts++;
+              setTimeout(()=>tryPlay(false),200*playAttempts);
             }
           }
         }
       });
-      setTimeout(()=>{
-        try{
-          ytPlayer?.unMute();
-          ytPlayer?.setVolume?.(100);
-          ytPlayer?.playVideo?.();
-        }catch(err){
-          console.warn('Follow-up autoplay attempt failed.',err);
+
+      const retryInterval=setInterval(()=>{
+        if(playAttempts>=MAX_ATTEMPTS){
+          clearInterval(retryInterval);
+          return;
         }
-      },800);
+        playAttempts++;
+        tryPlay(true);
+      },700);
     }
     window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
 
