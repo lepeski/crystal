@@ -64,8 +64,8 @@
     .flowchart-inline.disabled { cursor:not-allowed; opacity:0.6; }
     .flowchart-status { display:block; margin-top:.35rem; color:#8db7ff; font-size:.9rem; }
     .video-shell { display:flex; flex-direction:column; gap:.35rem; align-items:center; }
-    .video-shell video { width:100%; max-width:420px; border-radius:.35rem; border:none; background:transparent; box-shadow:none; }
-    .video-note { font-size:.85rem; color:#8db7ff; line-height:1.5; }
+    .video-shell iframe { width:100%; max-width:520px; aspect-ratio:16/9; border:none; border-radius:.35rem; box-shadow:0 0 18px rgba(50,120,200,0.25);
+      background:rgba(10,20,40,0.45); }
     .pdai-note { margin:1rem auto 0; max-width:780px; color:#a5c9ff; text-align:center; line-height:1.5; font-size:.95rem; }
     @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
@@ -82,15 +82,16 @@
       <div class="info-block">
         <div class="info-title">crystals can be found and redeemed for crypto</div>
         <ul class="info-list">
-          <li>Hardcore survival with monthly free respawns to re-enter the world.</li>
-          <li>X-ray proof controlled supply of amethyst crystal with real-world redemption value.</li>
-          <li><strong>2 crystals</strong> can be used in a modified beacon recepie to secure a <strong>64×64</strong> claim for your build.</li>
-          <li class="price-line">Current crystal value: <span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.001618</span>)</li>
+          <li>Hardcore survival: you get a monthly free respawn window to re-enter the world.</li>
+          <li>Crystals are x-ray proof and tracked as a controlled supply with real-world redemption value.</li>
+          <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
+          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.001618</span>)</li>
         </ul>
       </div>
       <div class="support-grid">
         <div class="card-lite video-shell">
-          <video id="info-video" controls preload="metadata" playsinline muted></video>
+          <iframe id="info-video" src="https://www.youtube.com/embed/cV4U7wtXDmU?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1"
+            title="Walkthrough" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
     </div>
@@ -308,84 +309,6 @@
     }
     checkFlowchartAvailability();
 
-    async function loadWalkthroughVideo(){
-      const videoEl=document.getElementById('info-video');
-      if(!videoEl) return;
-      videoEl.addEventListener('error',()=>buildFallbackClip(videoEl),{once:true});
-      try{
-        const res=await fetch('Amethyst_Cash_Out_Infomercial.mp4',{method:'HEAD'});
-        if(res.ok){
-          videoEl.src='Amethyst_Cash_Out_Infomercial.mp4';
-          videoEl.load();
-          return;
-        }
-      }catch(err){
-        console.warn('Video fetch check failed; using preview clip',err);
-      }
-      buildFallbackClip(videoEl);
-    }
-
-    function buildFallbackClip(videoEl){
-      if(!('MediaRecorder' in window) || !HTMLCanvasElement.prototype.captureStream){
-        videoEl.poster='Preview unavailable in this browser. Drop Amethyst_Cash_Out_Infomercial.mp4 beside index.html to watch.';
-        return;
-      }
-      const canvas=document.createElement('canvas');
-      canvas.width=640; canvas.height=360;
-      const ctx=canvas.getContext('2d');
-      const stream=canvas.captureStream(30);
-      const chunks=[];
-      const recorder=new MediaRecorder(stream,{mimeType:'video/webm'});
-      recorder.ondataavailable=e=>{ if(e.data.size>0) chunks.push(e.data); };
-      recorder.onstop=()=>{
-        const blob=new Blob(chunks,{type:'video/webm'});
-        videoEl.src=URL.createObjectURL(blob);
-        videoEl.loop=true;
-        videoEl.muted=true;
-        videoEl.play().catch(()=>{});
-      };
-      const lines=[
-        'Cash-out walkthrough preview',
-        '1) Mine crystals > stay alive',
-        '2) Craft beacon with 2 crystals',
-        '3) Claim 64x64 and light the beam',
-        '4) Redeem crystals for crypto when beam is active'
-      ];
-      let start=null;
-      recorder.start();
-      function draw(ts){
-        if(!start) start=ts;
-        const t=(ts-start)/1000;
-        const grad=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
-        grad.addColorStop(0,'#0c152a');
-        grad.addColorStop(1,'#1c2f56');
-        ctx.fillStyle=grad;
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle='#7dd1ff';
-        ctx.font='22px sans-serif';
-        ctx.fillText('Crystal Math quick preview',30,60);
-        ctx.font='18px sans-serif';
-        lines.forEach((line,i)=>{
-          ctx.fillStyle=`hsla(${200+i*15},90%,75%,0.9)`;
-          ctx.fillText(line,30,110+i*40);
-        });
-        ctx.fillStyle='rgba(255,255,255,0.2)';
-        ctx.fillRect(30,280, canvas.width-60, 50);
-        ctx.fillStyle='#d7e8ff';
-        ctx.font='16px monospace';
-        const ticker=((t*2)%1).toFixed(2);
-        ctx.fillText(`Live preview loop ${ticker}s`,40,312);
-        if(t<4){
-          requestAnimationFrame(draw);
-        } else {
-          recorder.stop();
-          stream.getTracks().forEach(track=>track.stop());
-        }
-      }
-      requestAnimationFrame(draw);
-    }
-
-    loadWalkthroughVideo();
   </script>
 </body>
 </html>
