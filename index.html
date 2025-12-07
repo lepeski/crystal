@@ -66,8 +66,9 @@
     .video-shell { display:flex; flex-direction:column; gap:.35rem; align-items:center; }
     .video-shell .video-frame { width:100%; max-width:520px; aspect-ratio:16/9; border:none; border-radius:.35rem; box-shadow:0 0 18px rgba(50,120,200,0.25);
       background:rgba(10,20,40,0.45); overflow:hidden; }
-    .qr-block { margin:1.8rem auto 0; display:flex; justify-content:center; }
+    .qr-block { margin:0.6rem auto 0; display:flex; flex-direction:column; align-items:center; gap:.45rem; }
     .qr-block img { width:220px; height:220px; object-fit:contain; filter:drop-shadow(0 0 20px rgba(120,200,255,0.28)); }
+    .qr-note { color:#555555; font-size:.82rem; text-align:center; letter-spacing:.04em; }
     .pdai-note { margin:1rem auto 0; max-width:780px; color:#a5c9ff; text-align:center; line-height:1.5; font-size:.95rem; }
     @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
@@ -102,15 +103,10 @@
     </p>
     <div class="footers">
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
-      <div class="footer-note">
-        <div style="height:1rem;"></div>
-        <div style="color:#555555; font-size:.8rem; margin-top:0.5rem;">
-          𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ
-        </div>
-      </div>
     </div>
     <div class="qr-block">
-      <img id="qr-image" src="wallet-qr.png" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code for wallet" loading="lazy">
+      <img id="qr-image" src="flebebians_transparent.jpg" data-fallback="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code" loading="lazy">
+      <div class="qr-note">𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ</div>
     </div>
     </div>
 
@@ -242,19 +238,36 @@
 
     let ytPlayer=null;
     const YT_VIDEO_ID='cV4U7wtXDmU';
-    let playAttempts=0;
-    const MAX_ATTEMPTS=5;
+    const interactionEvents=['pointerdown','touchstart','wheel','keydown'];
+    let interactionBound=false;
 
-    const tryPlay=(unmuteAfter=false)=>{
+    const enableAudio=()=>{
       if(!ytPlayer) return;
       try{
+        ytPlayer.unMute();
+        ytPlayer.setVolume(100);
         ytPlayer.playVideo();
-        if(unmuteAfter){
-          ytPlayer.unMute();
-          ytPlayer.setVolume(100);
-        }
       }catch(err){
-        console.warn('Playback attempt blocked',err);
+        console.warn('Unmute blocked',err);
+      }
+    };
+
+    const handleInteraction=()=>{
+      enableAudio();
+      interactionEvents.forEach(evt=>window.removeEventListener(evt,handleInteraction));
+    };
+
+    const bindInteractionOnce=()=>{
+      if(interactionBound) return;
+      interactionBound=true;
+      interactionEvents.forEach(evt=>window.addEventListener(evt,handleInteraction,{passive:true}));
+    };
+
+    const keepPlaying=()=>{
+      if(!ytPlayer) return;
+      const state=ytPlayer.getPlayerState();
+      if(state!==YT.PlayerState.PLAYING && state!==YT.PlayerState.BUFFERING){
+        try{ ytPlayer.playVideo(); }catch(err){ console.warn('Autoplay retry blocked',err); }
       }
     };
 
@@ -271,32 +284,23 @@
         },
         events:{
           onReady:()=>{
-            tryPlay(false);
-          },
-          onStateChange:(event)=>{
-            if(event.data===YT.PlayerState.PLAYING){
-              try{
-                ytPlayer.unMute();
-                ytPlayer.setVolume(100);
-              }catch(err){
-                console.warn('Unmute blocked',err);
-              }
-            } else if(event.data===YT.PlayerState.UNSTARTED && playAttempts<MAX_ATTEMPTS){
-              playAttempts++;
-              setTimeout(()=>tryPlay(false),200*playAttempts);
+            const iframe=ytPlayer.getIframe?.();
+            if(iframe){
+              iframe.setAttribute('allow','autoplay; encrypted-media');
             }
+            ytPlayer.playVideo();
+            bindInteractionOnce();
+            let tries=0;
+            const retryInterval=setInterval(()=>{
+              keepPlaying();
+              tries++;
+              if(tries>=6){
+                clearInterval(retryInterval);
+              }
+            },1200);
           }
         }
       });
-
-      const retryInterval=setInterval(()=>{
-        if(playAttempts>=MAX_ATTEMPTS){
-          clearInterval(retryInterval);
-          return;
-        }
-        playAttempts++;
-        tryPlay(true);
-      },700);
     }
     window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
 
