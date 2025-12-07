@@ -6,51 +6,74 @@
   <title>Crystal Math</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:sans-serif; }
-    #canvas-container { position:absolute; top:0; left:0; width:100%; height:100%; }
-    .content { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      z-index:1; text-align:center; max-width:90%; background:rgba(0,0,0,0.4);
-      padding:1.5rem; border-radius:.5rem; border:1px solid rgba(255,255,255,0.05);
+    html, body { width:100%; min-height:100%; overflow:auto; background:#000; font-family:sans-serif; }
+    #canvas-container { position:fixed; top:0; left:0; width:100%; height:100%; }
+    .content { position:relative; z-index:1; text-align:center; max-width:960px; width:92%;
+      background:rgba(0,0,0,0.4);
+      padding:1.3rem 1.5rem; border-radius:.5rem; border:1px solid rgba(255,255,255,0.05);
+      margin:1.5rem auto 2rem;
     }
     .title { margin:1.5rem 0; font-size:2rem; letter-spacing:1.5rem;
       background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,50%),hsl(220,100%,45%));
       -webkit-background-clip:text; color:transparent;
     }
-    .intro, .intro2 { margin:0.1rem 0; white-space:pre-line; font-size:.9rem;
-      letter-spacing:.05em; font-weight:300;
+    .intro, .intro2 { margin:0.12rem 0; white-space:pre-line; font-size:.6rem;
+      letter-spacing:.05em; font-weight:300; line-height:1.55;
     }
     .intro { color:#ba5cbf; }
     .intro2 { color:#5a9ba4; }
-    .footers { margin-top:2rem; }
-    .footer-address { color:rgba(0,255,255,0.6); display:inline-flex; align-items:center; font-size:.8rem; }
+    .main-info { margin-top:1.2rem; text-align:center; color:#d7e8ff; font-size:.98rem; display:flex; flex-direction:column; gap:.9rem; align-items:center; }
+    .info-block { background:rgba(5,15,35,0.65); border:1px solid rgba(120,200,255,0.2);
+      border-radius:.9rem; padding:1.35rem 1.6rem; box-shadow:0 0 25px rgba(60,0,120,0.25);
+      max-width:820px; width:100%;
+    }
+    .info-title { color:#7dd1ff; font-size:1.02rem; letter-spacing:.1em; text-transform:uppercase;
+      margin-bottom:.8rem; text-align:center;
+    }
+    .info-list { list-style:none; display:grid; gap:.8rem; font-size:.98rem; justify-items:center; }
+    .info-list li { position:relative; padding-left:0; line-height:1.6; text-align:center; max-width:720px; }
+    .info-list li::before { content:"✦"; display:inline-block; margin-right:.55rem; color:#92e5ff;
+      text-shadow:0 0 8px rgba(90,190,255,0.9);
+    }
+    .price-line { color:#cfc7ff; font-size:1rem; }
+    .price-line strong { color:#88f5ff; }
+    .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); display:inline-block; }
+    .price-value.flash-up { animation:priceFlashUp 0.75s ease-out; }
+    .price-value.flash-down { animation:priceFlashDown 0.75s ease-out; }
+    .price-value.flash-flat { animation:priceFlashFlat 0.75s ease-out; }
+    @keyframes priceFlashUp {
+      0% { color:#1df59a; text-shadow:0 0 18px rgba(29,245,154,0.85); }
+      100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    }
+    @keyframes priceFlashDown {
+      0% { color:#ff5f6d; text-shadow:0 0 18px rgba(255,95,109,0.85); }
+      100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    }
+    @keyframes priceFlashFlat {
+      0% { color:#4fa3ff; text-shadow:0 0 18px rgba(79,163,255,0.85); }
+      100% { color:#fff; text-shadow:0 0 10px rgba(120,210,255,0.7); }
+    }
+    .footers { margin-top:2rem; display:flex; flex-direction:column; align-items:center; gap:.75rem; }
+    .footer-address { color:rgba(0,255,255,0.75); display:inline-flex; align-items:center; font-size:.85rem; }
     #copyBtn { margin-left:.5rem; background:none; border:none; font-size:1.2rem; color:inherit; cursor:pointer; }
-    .footer-note { color:grey; margin-top:.5rem; font-size:.7rem; }
-    @keyframes glow { 0%,100%{filter:drop-shadow(0 0 4px rgba(150,0,150,0.5));}50%{filter:drop-shadow(0 0 12px rgba(150,0,150,0.8));} }
-    #crystal-img img { display:inline-block; filter:drop-shadow(0 0 4px rgba(150,0,150,0.5)); animation:glow 4s ease-in-out infinite; }
+    .footer-note { color:grey; margin-top:.2rem; font-size:.72rem; text-align:center; line-height:1.5; }
+    .support-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:.85rem; width:100%; max-width:820px; }
+    .card-lite { background:transparent; border:none; border-radius:0; padding:0; box-shadow:none; text-align:center; }
+    .card-lite h3 { color:#89d9ff; font-size:.93rem; letter-spacing:.08em; margin-bottom:.45rem; text-transform:uppercase; }
+    .flowchart-inline { cursor:pointer; text-decoration:underline; text-underline-offset:4px; color:#cfe7ff; background:none; border:none; padding:0; font-size:.92rem; }
+    .flowchart-inline.disabled { cursor:not-allowed; opacity:0.6; }
+    .flowchart-status { display:block; margin-top:.35rem; color:#8db7ff; font-size:.9rem; }
+    .video-shell { display:flex; flex-direction:column; gap:.35rem; align-items:center; }
+    .video-shell .video-frame { width:100%; max-width:520px; aspect-ratio:16/9; border:none; border-radius:.35rem; box-shadow:0 0 18px rgba(50,120,200,0.25);
+      background:rgba(10,20,40,0.45); overflow:hidden; }
+    .qr-block { margin:0.6rem auto 0; display:flex; flex-direction:column; align-items:center; gap:.45rem; }
+    .qr-block img { width:220px; height:220px; object-fit:contain; filter:drop-shadow(0 0 20px rgba(120,200,255,0.28)); }
+    .qr-note { color:#555555; font-size:.82rem; text-align:center; letter-spacing:.04em; }
+    .pdai-note { margin:1rem auto 0; max-width:780px; color:#a5c9ff; text-align:center; line-height:1.5; font-size:.95rem; }
     @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
 </head>
 <body>
-  <!-- background music -->
-<audio id="bg-music" src="crystals.mp3" autoplay loop muted playsinline preload="auto"></audio>
-<script>
-const a = document.getElementById('bg-music');
-
-function tryPlay(tag){ a.play().then(()=>console.log('playing:',tag)).catch(e=>console.log('blocked:',tag,e)); }
-
-tryPlay('load');
-
-const unlock = () => { a.muted = false; tryPlay('unlock'); };
-['pointerdown','click','keydown','touchstart'].forEach(ev =>
-  window.addEventListener(ev, unlock, { once:true, passive:true })
-);
-
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) tryPlay('visible');
-});
-window.addEventListener('focus', () => tryPlay('focus'));
-</script>
-
   <div id="canvas-container"></div>
   <div class="content">
     <h1 class="title">CRYSTAL <span class="break">MATH</span></h1>
@@ -58,31 +81,47 @@ window.addEventListener('focus', () => tryPlay('focus'));
 ᴛɪᴍᴇ ᴀɴᴅ ᴀɢᴀɪɴ, ᴛʜᴇʏ’ᴠᴇ ᴇxᴘᴏsᴇᴅ ᴄʀᴀᴄᴋs ɪɴ ᴛʜᴇ ᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ғᴏʀᴛʀᴇss, ᴅɪsᴍᴀɴᴛʟɪɴɢ ɪᴛ ʙʀɪᴄᴋ ʙʏ ʙʀɪᴄᴋ.
 ᴛʜʀᴏᴜɢʜ ᴏ̨ᴜɪᴇᴛ sᴀʙᴏᴛᴀɢᴇ ᴀɴᴅ ᴄʀʏᴘᴛɪᴄ ɪɴɴᴏᴠᴀᴛɪᴏɴ ᴛʜᴇʏ ɴᴏᴡ ᴛʜʀᴇᴀᴛᴇɴ ᴛʜᴇ ᴠᴇʀʏ ғᴏᴜɴᴅᴀᴛɪᴏɴ ᴏғ ᴛʀᴀᴅ-ғɪ,
 ᴄʟᴇᴀʀɪɴɢ ᴛʜᴇ ᴡᴀʏ ғᴏʀ ᴛʜᴇ ʀɪsᴇ ᴏғ ᴛʜᴇ ᴅᴇᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ʀᴇᴀʟᴍ.</p>
-    <div id="crystal-img">
-      <a href="https://dexscreener.com/pulsechain/0x6b175474e89094c44da98b954eedeac495271d0f" target="_blank" rel="noopener noreferrer">
-        <img src="https://i.imgur.com/MencjSr.png" alt="Crystal Math Center Image" style="width:180px;height:auto;margin:1rem 0;" />
-      </a>
-    </div>
-   <p class="intro2" style="margin-bottom:1rem;">
-  ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ
-</p>
-<p style="margin-bottom:1rem; font-size:.8rem;">
-  <a href="https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart" target="_blank" rel="noopener noreferrer">
-    https://app.milanote.com/1U4b8B1lGSa43t/minecraft-economy-flowchart
-  </a>
-</p>
-    
-    <div class="footers">
-      <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
-      <div class="footer-note">
-        <div style="height:1rem;"></div>
-        <div style="color:#555555; font-size:.8rem; margin-top:0.5rem;">
-          𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ
+    <div class="main-info">
+      <div class="info-block">
+        <div class="info-title">crystals can be found and redeemed for crypto</div>
+        <ul class="info-list">
+          <li>Hardcore survival: you get a monthly free respawn window to re-enter the world.</li>
+          <li>Crystals are x-ray proof and tracked as a controlled supply with real-world redemption value.</li>
+          <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
+          <li class="price-line">Current crystal price: <span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×</strong> the live pDAI price: <span id="pdai-price" class="price-value">$0.001618</span>)</li>
+        </ul>
+      </div>
+      <div class="support-grid">
+        <div class="card-lite video-shell">
+          <div id="info-video" class="video-frame"></div>
         </div>
       </div>
     </div>
-  </div>
+    <div class="pdai-note">pDAI is a speculative future stablecoin rumoured to peg to 1$ <span id="pdai-potential" style="display:block; margin-top:.35rem;">(potential 617.67x from here)</span></div>
+    <p class="intro2" style="margin:1.2rem 0 .6rem; font-size:1rem;">
+      <a id="deeper-link" href="#" style="color:inherit; text-decoration:underline dotted;">ᴏɴʟʏ ᴏɴᴇ ᴡɪʟʟɪɴɢ ᴛᴏ ᴇᴍʙʀᴀᴄᴇ ᴜɴᴄᴇʀᴛᴀɪɴᴛʏ ᴍᴀʏ ᴜɴᴄᴏᴠᴇʀ ᴛʜᴇ ᴅᴇᴇᴘᴇʀ ʟᴀʏᴇʀs ᴏғ ᴛʜᴇ ᴡᴏʀᴋ</a>
+    </p>
+    <div class="footers">
+      <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
+    </div>
+    <div class="qr-block">
+      <img id="qr-image" src="flebebians_transparent.jpg" alt="QR code for wallet" loading="lazy">
+      <div class="qr-note">𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ</div>
+    </div>
+    </div>
 
+    <div id="flowchart-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.9); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
+      <button id="flowchart-close" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
+      <img id="flowchart-img" src="" alt="Gameplay and economy flowchart" style="max-width:92%; max-height:92%; border-radius:.65rem; box-shadow:0 0 35px rgba(0,0,0,0.7); border:1px solid rgba(255,255,255,0.15); display:none;">
+      <div id="flowchart-missing" style="color:#cfe7ff; text-align:center; line-height:1.6; max-width:520px; display:none;">Flowchart image not found. Place <code>canvas_minecraft-economy-flowchart-251030_0147.png</code> next to <code>index.html</code> and click again to view it.</div>
+    </div>
+
+    <div id="image-modal" style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); z-index:5; opacity:0; pointer-events:none; transition:opacity 0.25s ease;">
+      <button id="close-modal" style="position:absolute; top:2rem; right:2rem; background:none; border:none; color:#e6f7ff; font-size:2rem; cursor:pointer;">×</button>
+      <img src="unit.jpg" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
+    </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pixi-filters@4.2.0/dist/pixi-filters.js"></script>
   <script>
@@ -142,7 +181,211 @@ window.addEventListener('focus', () => tryPlay('focus'));
       app.renderer.render(app.stage);
     });
     window.addEventListener('resize',()=>{app.renderer.resize(window.innerWidth,window.innerHeight);init();}); init();
+    const priceEl=document.getElementById('pdai-price');
+    const crystalPriceEl=document.getElementById('crystal-price');
+    const potentialEl=document.getElementById('pdai-potential');
+    const formatUsd=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:4})}`;
+    const formatPdai=val=>`$${Number(val).toLocaleString(undefined,{minimumFractionDigits:6,maximumFractionDigits:6})}`;
+    const formatPotential=val=>`(potential ${Number(val).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}x from here)`;
+    const FALLBACK_PDAI=0.0016183;
+    const FALLBACK_CRYSTAL=0.0145647;
+    const FALLBACK_POTENTIAL_VALUE=617.67;
+    let lastPdaiPrice=null;
+    let lastCrystalPrice=null;
+    const applyFlash=(el,type)=>{
+      if(!el) return;
+      el.classList.remove('flash-up','flash-down','flash-flat');
+      void el.offsetWidth;
+      const cls=type==='up'?'flash-up':type==='down'?'flash-down':'flash-flat';
+      el.classList.add(cls);
+    };
+    function renderPrices(pdaiPrice){
+      const validPrice=Number.isFinite(pdaiPrice)&&pdaiPrice>0?pdaiPrice:null;
+      const pdaiValue=validPrice!==null?validPrice:FALLBACK_PDAI;
+      const crystalValue=validPrice!==null?validPrice*9:FALLBACK_CRYSTAL;
+      const potentialValue=validPrice!==null?(1/validPrice):FALLBACK_POTENTIAL_VALUE;
+
+      const pdaiChange=lastPdaiPrice===null?'flat':pdaiValue>lastPdaiPrice?'up':pdaiValue<lastPdaiPrice?'down':'flat';
+      const crystalChange=lastCrystalPrice===null?'flat':crystalValue>lastCrystalPrice?'up':crystalValue<lastCrystalPrice?'down':'flat';
+
+      priceEl.textContent=formatPdai(pdaiValue);
+      crystalPriceEl.textContent=formatUsd(crystalValue);
+      potentialEl.textContent=formatPotential(potentialValue);
+
+      applyFlash(priceEl,pdaiChange);
+      applyFlash(crystalPriceEl,crystalChange);
+
+      lastPdaiPrice=pdaiValue;
+      lastCrystalPrice=crystalValue;
+    }
+
+    async function updatePrices(){
+      try{
+        const res=await fetch('https://api.dexscreener.com/latest/dex/pairs/pulsechain/0xfc64556faa683e6087f425819c7ca3c558e13ac1');
+        const data=await res.json();
+        const price=parseFloat(data?.pairs?.[0]?.priceUsd);
+        if(!Number.isFinite(price)||price<=0) throw new Error('Invalid price data');
+        renderPrices(price);
+      }catch(err){
+        console.error('Price fetch failed',err);
+        renderPrices(null);
+      }
+    }
+    renderPrices(null);
+    updatePrices();
+    setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
+
+    let ytPlayer=null;
+    const YT_VIDEO_ID='cV4U7wtXDmU';
+    const interactionEvents=['pointerdown','touchstart','wheel','keydown'];
+    let interactionBound=false;
+
+    const enableAudio=()=>{
+      if(!ytPlayer) return;
+      try{
+        ytPlayer.unMute();
+        ytPlayer.setVolume(100);
+        ytPlayer.playVideo();
+        setTimeout(()=>{ try{ ytPlayer.playVideo(); }catch(err){ console.warn('Follow-up play blocked',err); } }, 50);
+      }catch(err){
+        console.warn('Unmute blocked',err);
+      }
+    };
+
+    const handleInteraction=()=>{
+      enableAudio();
+      try{ ytPlayer?.playVideo(); }catch(err){ console.warn('Play on interaction blocked',err); }
+      setTimeout(()=>keepPlaying(),120);
+      interactionEvents.forEach(evt=>window.removeEventListener(evt,handleInteraction));
+    };
+
+    const bindInteractionOnce=()=>{
+      if(interactionBound) return;
+      interactionBound=true;
+      interactionEvents.forEach(evt=>window.addEventListener(evt,handleInteraction,{passive:true}));
+    };
+
+    const keepPlaying=()=>{
+      if(!ytPlayer) return;
+      const state=ytPlayer.getPlayerState();
+      if(state!==YT.PlayerState.PLAYING && state!==YT.PlayerState.BUFFERING){
+        try{ ytPlayer.playVideo(); }catch(err){ console.warn('Autoplay retry blocked',err); }
+      }
+    };
+
+    function onYouTubeIframeAPIReady(){
+      ytPlayer=new YT.Player('info-video',{
+        videoId:YT_VIDEO_ID,
+        playerVars:{
+          autoplay:1,
+          controls:1,
+          rel:0,
+          modestbranding:1,
+          playsinline:1,
+          mute:1
+        },
+        events:{
+          onReady:()=>{
+            const iframe=ytPlayer.getIframe?.();
+            if(iframe){
+              iframe.setAttribute('allow','autoplay; encrypted-media');
+            }
+            ytPlayer.playVideo();
+            bindInteractionOnce();
+            let tries=0;
+            const retryInterval=setInterval(()=>{
+              keepPlaying();
+              tries++;
+              if(tries>=6){
+                clearInterval(retryInterval);
+              }
+            },1200);
+          },
+          onStateChange:(event)=>{
+            if(event.data===YT.PlayerState.PAUSED && !ytPlayer.isMuted()){
+              try{ ytPlayer.playVideo(); }catch(err){ console.warn('Resume after unmute blocked',err); }
+            }
+          }
+        }
+      });
+    }
+    window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
+
+    const modal=document.getElementById('image-modal');
+    const openModal=document.getElementById('deeper-link');
+    const closeModal=document.getElementById('close-modal');
+
+    const showModal=()=>{
+      modal.style.opacity='1';
+      modal.style.pointerEvents='auto';
+    };
+    const hideModal=()=>{
+      modal.style.opacity='0';
+      modal.style.pointerEvents='none';
+    };
+
+    openModal.addEventListener('click',e=>{
+      e.preventDefault();
+      showModal();
+    });
+    closeModal.addEventListener('click',hideModal);
+    modal.addEventListener('click',e=>{ if(e.target===modal) hideModal(); });
+
+    const FLOWCHART_PATH='canvas_minecraft-economy-flowchart-251030_0147.png';
+    const flowchartTrigger=document.getElementById('flowchart-trigger');
+    const flowchartStatus=document.getElementById('flowchart-status');
+    const flowchartModal=document.getElementById('flowchart-modal');
+    const flowchartClose=document.getElementById('flowchart-close');
+    const flowchartImg=document.getElementById('flowchart-img');
+    const flowchartMissing=document.getElementById('flowchart-missing');
+    let flowchartAvailable=false;
+
+    const showFlowchartModal=(showMissing=false)=>{
+      flowchartModal.style.opacity='1';
+      flowchartModal.style.pointerEvents='auto';
+      if(showMissing){
+        flowchartMissing.style.display='block';
+        flowchartImg.style.display='none';
+      } else {
+        flowchartMissing.style.display='none';
+        flowchartImg.style.display='block';
+      }
+    };
+
+    const hideFlowchartModal=()=>{
+      flowchartModal.style.opacity='0';
+      flowchartModal.style.pointerEvents='none';
+    };
+
+    flowchartTrigger?.addEventListener('click',()=>{
+      if(flowchartAvailable){
+        showFlowchartModal(false);
+      } else {
+        if(flowchartStatus) flowchartStatus.textContent='Flowchart image not found. Place the PNG next to index.html to enable the preview.';
+        flowchartTrigger.classList.add('disabled');
+        showFlowchartModal(true);
+      }
+    });
+    flowchartClose?.addEventListener('click',hideFlowchartModal);
+    flowchartModal?.addEventListener('click',e=>{ if(e.target===flowchartModal) hideFlowchartModal(); });
+
+    async function checkFlowchartAvailability(){
+      try{
+        const res=await fetch(FLOWCHART_PATH,{method:'HEAD'});
+        if(!res.ok) throw new Error('missing');
+        flowchartAvailable=true;
+        if(flowchartImg) flowchartImg.src=FLOWCHART_PATH;
+        if(flowchartStatus) flowchartStatus.textContent='';
+        flowchartTrigger?.classList.remove('disabled');
+      }catch(err){
+        flowchartAvailable=false;
+        flowchartTrigger?.classList.add('disabled');
+        if(flowchartStatus) flowchartStatus.textContent='Flowchart image not found. Place the PNG next to index.html to enable the preview.';
+      }
+    }
+    checkFlowchartAvailability();
+
   </script>
 </body>
 </html>
