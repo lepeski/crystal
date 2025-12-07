@@ -66,6 +66,8 @@
     .video-shell { display:flex; flex-direction:column; gap:.35rem; align-items:center; }
     .video-shell iframe { width:100%; max-width:520px; aspect-ratio:16/9; border:none; border-radius:.35rem; box-shadow:0 0 18px rgba(50,120,200,0.25);
       background:rgba(10,20,40,0.45); }
+    .qr-block { margin:1.8rem auto 0; display:flex; justify-content:center; }
+    .qr-block img { width:220px; height:220px; object-fit:contain; filter:drop-shadow(0 0 20px rgba(120,200,255,0.28)); }
     .pdai-note { margin:1rem auto 0; max-width:780px; color:#a5c9ff; text-align:center; line-height:1.5; font-size:.95rem; }
     @media(max-width:768px){.title{font-size:1.6rem;letter-spacing:1rem;}}@media(max-width:480px){.title{font-size:1.4rem;letter-spacing:.5rem;}}
   </style>
@@ -90,8 +92,8 @@
       </div>
       <div class="support-grid">
         <div class="card-lite video-shell">
-          <iframe id="info-video" src="https://www.youtube.com/embed/cV4U7wtXDmU?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&playsinline=1"
-            title="Walkthrough" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="info-video" src="https://www.youtube.com/embed/cV4U7wtXDmU?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1"
+            title="Walkthrough" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
         </div>
       </div>
     </div>
@@ -107,6 +109,9 @@
           𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ
         </div>
       </div>
+    </div>
+    <div class="qr-block">
+      <img src="https://chart.googleapis.com/chart?chs=360x360&cht=qr&chl=0xA41B5174C803B2F779f4C83d482478b94A240fE6" alt="QR code for wallet" loading="lazy">
     </div>
     </div>
 
@@ -234,6 +239,17 @@
     updatePrices();
     setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
+
+    const videoFrame=document.getElementById('info-video');
+    const boostVideoAudio=()=>{
+      if(!videoFrame?.contentWindow) return;
+      const send=(func,args=[])=>videoFrame.contentWindow.postMessage(JSON.stringify({event:'command',func, args}), '*');
+      send('unMute');
+      send('setVolume',[100]);
+      send('playVideo');
+    };
+    videoFrame?.addEventListener('load',()=>setTimeout(boostVideoAudio,400));
+    setTimeout(boostVideoAudio,1200);
 
     const modal=document.getElementById('image-modal');
     const openModal=document.getElementById('deeper-link');
