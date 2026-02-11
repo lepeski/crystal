@@ -102,7 +102,10 @@
   </div>
   <div class="support-grid">
     <div class="card-lite video-shell">
-      <div id="info-video" class="video-frame"></div>
+      <video id="info-video" class="video-frame" controls autoplay muted loop playsinline preload="metadata">
+        <source src="crystalmath.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 </div>
@@ -130,7 +133,6 @@
       <img src="unit.jpg" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
     </div>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pixi-filters@4.2.0/dist/pixi-filters.js"></script>
   <script>
@@ -245,81 +247,24 @@
     setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
 
-    let ytPlayer=null;
-    const YT_VIDEO_ID='cV4U7wtXDmU';
-    const interactionEvents=['pointerdown','touchstart','wheel','keydown'];
-    let interactionBound=false;
+    const infoVideo=document.getElementById('info-video');
+    const videoInteractionEvents=['pointerdown','touchstart','wheel','keydown'];
 
-    const enableAudio=()=>{
-      if(!ytPlayer) return;
-      try{
-        ytPlayer.unMute();
-        ytPlayer.setVolume(100);
-        ytPlayer.playVideo();
-        setTimeout(()=>{ try{ ytPlayer.playVideo(); }catch(err){ console.warn('Follow-up play blocked',err); } }, 50);
-      }catch(err){
-        console.warn('Unmute blocked',err);
+    const ensureVideoPlayback=()=>{
+      if(!infoVideo) return;
+      infoVideo.muted=false;
+      const playAttempt=infoVideo.play();
+      if(playAttempt?.catch){
+        playAttempt.catch(err=>console.warn('Video playback blocked',err));
       }
     };
 
-    const handleInteraction=()=>{
-      enableAudio();
-      try{ ytPlayer?.playVideo(); }catch(err){ console.warn('Play on interaction blocked',err); }
-      setTimeout(()=>keepPlaying(),120);
-      interactionEvents.forEach(evt=>window.removeEventListener(evt,handleInteraction));
+    const handleVideoInteraction=()=>{
+      ensureVideoPlayback();
+      videoInteractionEvents.forEach(evt=>window.removeEventListener(evt,handleVideoInteraction));
     };
 
-    const bindInteractionOnce=()=>{
-      if(interactionBound) return;
-      interactionBound=true;
-      interactionEvents.forEach(evt=>window.addEventListener(evt,handleInteraction,{passive:true}));
-    };
-
-    const keepPlaying=()=>{
-      if(!ytPlayer) return;
-      const state=ytPlayer.getPlayerState();
-      if(state!==YT.PlayerState.PLAYING && state!==YT.PlayerState.BUFFERING){
-        try{ ytPlayer.playVideo(); }catch(err){ console.warn('Autoplay retry blocked',err); }
-      }
-    };
-
-    function onYouTubeIframeAPIReady(){
-      ytPlayer=new YT.Player('info-video',{
-        videoId:YT_VIDEO_ID,
-        playerVars:{
-          autoplay:1,
-          controls:1,
-          rel:0,
-          modestbranding:1,
-          playsinline:1,
-          mute:1
-        },
-        events:{
-          onReady:()=>{
-            const iframe=ytPlayer.getIframe?.();
-            if(iframe){
-              iframe.setAttribute('allow','autoplay; encrypted-media');
-            }
-            ytPlayer.playVideo();
-            bindInteractionOnce();
-            let tries=0;
-            const retryInterval=setInterval(()=>{
-              keepPlaying();
-              tries++;
-              if(tries>=6){
-                clearInterval(retryInterval);
-              }
-            },1200);
-          },
-          onStateChange:(event)=>{
-            if(event.data===YT.PlayerState.PAUSED && !ytPlayer.isMuted()){
-              try{ ytPlayer.playVideo(); }catch(err){ console.warn('Resume after unmute blocked',err); }
-            }
-          }
-        }
-      });
-    }
-    window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
+    videoInteractionEvents.forEach(evt=>window.addEventListener(evt,handleVideoInteraction,{passive:true}));
 
     const modal=document.getElementById('image-modal');
     const openModal=document.getElementById('deeper-link');
