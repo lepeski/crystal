@@ -114,7 +114,7 @@
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
     </div>
     <div class="qr-block">
-      <img id="qr-image" src="flebebians_transparent.png" alt="QR code for wallet" loading="lazy">
+      <img id="qr-image" alt="QR code for wallet" loading="lazy">
       <div class="qr-note">𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ</div>
     </div>
     </div>
@@ -245,35 +245,68 @@
     setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
 
+    const qrImage=document.getElementById('qr-image');
+    const QR_IMG_SRC = [
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAADcCAYAAAAbWs+BAAAPI0lEQVR42u2dgY4rqQ5E8/8/3StdrVarO+mmqlxkOskZ6enN'
+      ,'3iEYjDEGzMnj8Xgcyv/UH+qjPuq7rM+r0BHsNtDpiNthRzHugDgD5w6wYwiuwTiG5RqgY1euQTt25U4Qx67cCfdvWa/hjkG5'
+      ,'SnYM2jUIR6GuQ3CMxJ2QrvE6DsEx6NTRKePmTjLH+SUOQB031yE8XeFWAlMP8KxR7mAkHjnpx0rWpB+uQTj9WBngpB9Tx3DV'
+      ,'D6Vs2o+V45j0Y+U4liucUpkyIIoHUL3EauAn7Zv2IXEKjfY50UXqia8meNq+MztotO/MDhrtU2zQaJ8++9XBdRuZyH2m6Jbc'
+      ,'1d8mclVjTuQ6q4ArVymbyp2OibrFaMtVQ++nK5wbeinlrj6jDvLVvzshl1NOaX9aboeeV3qa6HkVbk707E7ypNwOPZ/JEfWc'
+      ,'eRLVCysDp8b1agjphgTKhFMn0WoCJ7LP5Owat6u6p+N2FZZOx03tazJuyu9iX7zKdpS7+sy03Fm7GuVWf5uUW7VhUu7ZZ1rl'
+      ,'VKeSlFOdYVLuatJMy/31mcfSsBXjVzrrLsuu11mVUZyCU6a1SineWNF1OnaqDTir7XRVSduojF3LTt1tyZ/fVe+erjpXSlAM'
+      ,'I12h0v64A+hMzqZsx7jUVVyRvcMOpm1zQu6mHTgTTZ5wDW+SriqtkLBl7C29NNo31X+6yu/SS2vcJv+WyLXtqm2oyWRJ5O6Y'
+      ,'wI63T+XucmyTkNox+B16+SqHTwjz4SGMsbLusoPVOE5X1l12MF1c5BWudWiSHom3NtXpgYhqMFs21YNDk9RrOxNmx6FJ82Dn'
+      ,'9od7HPdz3M9x//y4X74W4AL1PS9Q3Syc6bgpeYbpuCl6TPs6SRpIEiCWeiTliJQjp9wOPTshaVpuh56dkPrHCrcjeVnpCEnT'
+      ,'JE07k6kp9zeSph9KRWoZZcIpxrLKJHFDi8nzkvbzHCeUU9rnhF2t5y+N9iXGPLXTRvumT7Aed3+wp3qxVbsm/VgN0KQfq59J'
+      ,'P1ayJv1IERdOuLqjH9MX7MrWadEPEAYgDD4KYTDSYcPuF3UDwQGC04cruQbu2JVjf65dpRGcYStgz6iP+l5YH5i8iScnQiBC'
+      ,'AJPHHpM95n33mGDywOSByXvVqTuYPDB5YPLA5JHxQcYHmDwweWDyqnp2J/lH5Kwqxkw2+euyyVUn4xqXu1LsGjd1dWlhEFvj'
+      ,'pvwujZtb2Y5ybV7Hq1B/6nObpNyqDZNySliVllOdSlJOdYZJOWWLkJZbQoRa2DglJHDDgStFrspMOSe8cOeF+/SFO5g8MHmS'
+      ,'rmHMgMmrtA9MHpg8MHlg8uKQfpdewOSBySOEKYayYPLA5HGIACbPamNqp2DywOSBySuVu3Ic03KJLYDJA5NHYsMrMXlq2swk'
+      ,'pWcH9myVod1I6WmkRCVfnjgdjx16dnVDKuBxnkupKqWZFKp0JpV7VfdU7iq8mchVDSCR664UjlwH8OPKTV8CKHKnY6K+nzuF'
+      ,'CPGchuc0ih182XOaNloRTN6qHyuFgskDkwcmT1hVFIcBwuCwjApMHpg8IDimQ3Am3PQHTB7YM+qjvp31gcmbeHIiBCIEMHns'
+      ,'Mdlj3nePCSYPTB6YvFeduj8a9xvKrT5ff7XnnpCvv7q2g/Y9oROtPP0cGR9kfHxpxkfVFmS5ikC1Yaq3+aivkDXLkbOqh6uf'
+      ,'mLMKJu8Ak6dMYDB5YPKkcmDywOQp5cDkHXteDjfLtFYpxRsruuaFO5i8y0EHkwcmD0wemLxI4dNJ2tILmDwweVs6vGMCg8kD'
+      ,'kwcmjxBmFsKAybsXJq+18U431emhiTpwuzbV6aFJevWQtrF1aOLuXx0n0DzYufvh3oPjfo77Oe4vHPfr5bhAfcsLVDMLZzpu'
+      ,'K8OajJvDmmwkQLTGzQn7n65wpByByQOTByaPpGmSprfInY4JmLxB+1YTbtK+YFDA5IHJA5O3ox+rHzB5YPJAGAh9SVdSEAaZ'
+      ,'/sDkAcEBk7fJrhz7A5NHfdT3zfXhifJVK1nh0pCrjRlM95I7VjjX8HdFWJO9vWwrvxXLTvdwrkE4CnUdgmMkjT2w68Qae7jG'
+      ,'Hlg5UGrv4Rp74PQE+2ndnO5xuvcmp3vVsWv0wz1Q+rHCgckDk+dcVoPJC1bmaeYFGR9kfIDJM+QqAtWGqd4GTB45q2DywORd'
+      ,'Tjh1EoHJO2w7aI0bmDyxHO/meDfnOFUwecfvv6RVyoDJA5MHJu8Akwcm79hmB44jTP4/sIN8RUsU36Q/7aJ2pZOvHYJDM/tI'
+      ,'mhn8xWT1hb/Y08s3OfzHVNGTCTfxqFNF78KyOdyRdkg5XVnZWrxkawEmL9lUp4cm6dVD2kYweWDyOO7nuP/zjvvB5IHJA5MH'
+      ,'Jo+Uo5umHMmpSWDy4rQ9MHkkTZM0vUnuxeIDJk+ZcJP2BYMCJg9MHpi8Hf1Y/fCQ9sMe0iqefRUiuYasyjzryMSLgTCQPfFb'
+      ,'IgzUcWtg/FSHIU04IDi6AbmGlhhkqtc6BGcDZnASKbXtKl3xZBuYeHfwaNRHfeYq6la4y5ODySNC+IoIoRFrg8ljj8keE0we'
+      ,'p3ufdLoHJg9MXuIUwOSByRtlXpDxQcYHmDxDriJQbZjqbcDkkbMKJg9M3uWEUycRmLzDtoPWuL3JKw/tHY/S0LTc1Wem5c7a'
+      ,'1SinDkRSTiWUJeWUsCotpzqLpJw6WZJyyhYhLffXZ7KXw2f/tpoU6sDuejnMC/dj2Q91fJ0Q3B3ftI1v8MJdW6GczqirkKKo'
+      ,'dPVM++MarOOMmrJhzLwnYwZMXknhYPLA5IHJA5NX08suxwYmjxAGTF7ZDlbjCCaPQwQOEcDkVez06SnlriN1MHlg8pw7VDB5'
+      ,'XKDe+QK12pckAQJMHpg8Uo7A5MmOt2X3dmpXNTnTfNaxQ677nilNrG7LdYzdleuuFI7cZ3W35LorsyN3OiaKg5EmnBI+KCGL'
+      ,'mv7Ccxqe09z1OY1qB3L7Vkr79Qd7hefv036sFDrpx5Qi5bSt2Q9nLNx+XO0Dp/1QQ8ekH1JZZZY6XkLpgCrzTIFuCAfC4IhW'
+      ,'bzB5YPLsQVAVl/6AyQOTByaP+qjvpvWByQOTR4QAJg9MHntMMHlg8gr9AJMHJq96H8G9Hvd63Ostvq6KjA8yPr4t46MhN3F+'
+      ,'D3LjzmU2cxDdwUvK7dDzKlya6Nmd5Em5HXp2njE9KUc2uTLhXphNLvVFlZ2M21Xd03FTtglNDGJr3JKHpyd1g8lLy63+BiYP'
+      ,'TN6Tz4DJ44U7L9zB5IHJk8NRdzLDmAGTF8kFkwcmz5lcYPIGcsHkgcl7R4cPJg9MnrR6TVfWXXbg7I8nDgRMHocIYPLeEZPH'
+      ,'cT/H/Rz3z4/75WsBLlDf8wLVzcLh+//64+aE/f/9jZQjUo6ccjv07ITgb/+NuY5SVO+pKJykaZKmweSdVKSWUSacYiyrzbUb'
+      ,'WvCchuc0YPLA5C37ACav3w81BAaTZ3p2EAaZ/lb9AZOnb3XA5AHBAZMHJo/6qO976gOTByaPCOG1EcIvxbLDPVwD4zeVmezh'
+      ,'GntgdxI29nCNPbByoNTewzX2wOkJtjThON3jdO+Op3tpP5rYR/VKYlH3Y9s9XBu75/BTJvdc7XtCx2tP7rna94Sri+DWPVz7'
+      ,'njABEyd2GraPjA8yPsDkTccETJ4YOlzJBJO3DjcnenYnOZg8MHlg8g5eeTjjBiaPd3PVcrybA5O37A8v3HnhDiYPTJ4cjrqT'
+      ,'GcYMmLxILpg8MHnO5LoFJg/DwrC2GJYht+koU8xiIjdq31TRu7Bsq1BiquhJ2yYh5XRVnUy4RtjG1mJmB4/WxjvdVKeHJuqg'
+      ,'7NpUp4cm6dVDCxuXHkikQCPFUJsHO7c/3OO4n+N+jvvnx/3ytQAXqGDywOSBySPl6PUpR1XdJOV26PlqAoPJI2l6m1w3EnDk'
+      ,'PqubpGkweZftA5MHJg9Mntg2MHk8pFX7oYbAYPJMzw4mL9Pfqj9g8vStziliwVFUqlDVeNNVrAkRcgfIHchdEKHJyq3aQPvn'
+      ,'C+FU4Myoj/peWB/AzoknJ0IgQjBtAEzeZC/g7uEae2AwebrzA5PH6R6ne8HpXtoPMHmlezgweV5SAJg8MHlkfJDx8WsZHw25'
+      ,'YPKOTo4fmDxyVsHkHfMscTB5vPIAk7fwTtNyZ+1qlFv9jXdzvJv78RnHkN0X0EpI4IYDqlFPXwXzwp0X7sn4LuWr3n0HW2QK'
+      ,'mJmsfi1SV5stosp2JhOMmRsxZpqrwFtQk4qIvFTuDhyhq/90Zdyll9a4Tf4tkWvbVdtQk8kCJg9MHpg8QhgweWDy6nYAJo9D'
+      ,'BDB5YPI47ue4H0weF6hg8raMm6JHMHmkHIHJA5MHJm/lFUmaJmn6VzF5PKc5pMkxaV/iPHhOc5vnNG204r0f7KlebNWuST9W'
+      ,'Cp30Y/Uz6cdK1qQfE1xismq0+tHEPqrbG4naBcIAhIHS1xsiDKooxMTuF3UDwQGCAyYPTB71UR+YPDB5aVkiBCIEMHnsMdlj'
+      ,'gskDkwcmr9cPMHnc63Gv9933emR8kPEBJm86JtYXMiqKTsqpik7KuSHDttw4s9wOPTvPe9JyO/SslpmMxw49n8mR+qMOHNnk'
+      ,'2iSaZpMrunNktzCIrXFTV5cWBrE1bsrv0ri5le0o1+Z1vAr1pz63Scqt2jApp4RVaTnVqSTlVGeYlFO2CGm5JUQITB4v3Hnh'
+      ,'DiYPTB6MmSiK2mUHjmO5XOHSVQBMHpg8MHlg8qLwcZdewOSBySOEAZMHJm8Y3ciTlUMEDhHA5IHJ234VsTqK3lUOTN6XY/K4'
+      ,'QH3TC1QzC2c6bqtVfTJuX/b9f6QckXJkpCbxjbnRFuJ//91NzlQHRulMKveq7qncVXgzkasaQCLXjQQcuQ7gx5WbvgRQ5E7H'
+      ,'RH0/dwoR4jkNz2kUOwCTByZv2a5JP1YKBZMHJg9MnrCqKA4DhMFhGRWYPDB5QHBMh+BMuOkPmDywZ9RHfTvrA5M38eRECEQI'
+      ,'YPLYY7LHvOsek9M9Tvfe5HSvOnaNfriT/ceEa9/DNe43lJWifQ/Xvid0vOLknqt9T+ik003uudr3hEnEldhpFDmQ8UHGx5dm'
+      ,'fFRtQZarCFQbpnobMHnkrILJA5N3OeHUSQQm77DtoDVuYPLEcmDywOQ5ThVM3tF9OQwmjxfuYPLA5EUhnruaqrKTKGCiaxgz'
+      ,'YPIq7QOTByYPTB6YvDik36UXMHkdh/8PkGVEmHO0fmgAAAAASUVORK5CYII='
+    ].join('');
+    qrImage.src=QR_IMG_SRC;
+
     let ytPlayer=null;
     const YT_VIDEO_ID='cV4U7wtXDmU';
-    const interactionEvents=['pointerdown','touchstart','wheel','keydown'];
-    let interactionBound=false;
-
-    const enableAudio=()=>{
-      if(!ytPlayer) return;
-      try{
-        ytPlayer.unMute();
-        ytPlayer.setVolume(100);
-        ytPlayer.playVideo();
-        setTimeout(()=>{ try{ ytPlayer.playVideo(); }catch(err){ console.warn('Follow-up play blocked',err); } }, 50);
-      }catch(err){
-        console.warn('Unmute blocked',err);
-      }
-    };
-
-    const handleInteraction=()=>{
-      enableAudio();
-      try{ ytPlayer?.playVideo(); }catch(err){ console.warn('Play on interaction blocked',err); }
-      setTimeout(()=>keepPlaying(),120);
-      interactionEvents.forEach(evt=>window.removeEventListener(evt,handleInteraction));
-    };
-
-    const bindInteractionOnce=()=>{
-      if(interactionBound) return;
-      interactionBound=true;
-      interactionEvents.forEach(evt=>window.addEventListener(evt,handleInteraction,{passive:true}));
-    };
 
     const keepPlaying=()=>{
       if(!ytPlayer) return;
@@ -301,7 +334,6 @@
               iframe.setAttribute('allow','autoplay; encrypted-media');
             }
             ytPlayer.playVideo();
-            bindInteractionOnce();
             let tries=0;
             const retryInterval=setInterval(()=>{
               keepPlaying();
@@ -312,8 +344,8 @@
             },1200);
           },
           onStateChange:(event)=>{
-            if(event.data===YT.PlayerState.PAUSED && !ytPlayer.isMuted()){
-              try{ ytPlayer.playVideo(); }catch(err){ console.warn('Resume after unmute blocked',err); }
+            if(event.data===YT.PlayerState.ENDED){
+              try{ ytPlayer.seekTo(0); ytPlayer.playVideo(); }catch(err){ console.warn('Loop restart blocked',err); }
             }
           }
         }
