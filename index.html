@@ -35,6 +35,8 @@
     .info-list li::before { content:"✦"; display:inline-block; margin-right:.55rem; color:#92e5ff;
       text-shadow:0 0 8px rgba(90,190,255,0.9);
     }
+    .info-list li.no-bullet::before { content:none; margin-right:0; }
+    .info-list li.tight-stack { margin-top:-0.45rem; }
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
     .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); display:inline-block; }
@@ -84,20 +86,23 @@
     <div class="main-info">
   <div class="info-block">
     <div class="info-title">crystals can be found and redeemed for crypto</div>
-    <div class="modrinth-links-container" style="font-size:0.7rem; text-align:center; margin-bottom:0.5rem; display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem;">
-  <a href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/1.1.1/fabric-installer-1.1.1.exe" target="_blank" style="color:#88f5ff; text-decoration:underline;">Fabric Installer</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/1bZhdhsH/versions/v5irHzkg/plasmovoice-fabric-1.21.6-2.1.8.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">PlasmoVoice</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/DyTvM1dv/versions/XEH1qWNo/AmbientEnvironment-fabric-1.21.8-25.0.0.1.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Ambient Environment</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/OsZiaDHq/versions/mj0ahfMl/CreativeCore_FABRIC_v2.14.7_mc1.21.8.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Creative Core</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/uCdwusMi/versions/PWWYVdOA/DistantHorizons-2.4.5-b-1.21.8-fabric-neoforge.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Distant Horizons</a>
-</div>
     <ul class="info-list">
       <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
       <li class="price-line">Testnet live until feb15 @ 74.208.174.190 ⛏️💎<span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×pDAI</strong>:<span id="pdai-price" class="price-value">$0.001618</span>)</li>
+      <li class="no-bullet" style="font-size:0.68rem; color:#9fb8d8; opacity:0.9; margin-top:0.35rem;">all crystal math is server side and doesn't require any mods; links below are optional addons</li>
+      <li class="no-bullet tight-stack">
+        <div class="modrinth-links-container" style="font-size:0.7rem; text-align:center; margin-top:0; display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem;">
+          <a href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/1.1.1/fabric-installer-1.1.1.exe" target="_blank" style="color:#88f5ff; text-decoration:underline;">Fabric Installer</a>
+          <span>|</span>
+          <a href="https://cdn.modrinth.com/data/1bZhdhsH/versions/v5irHzkg/plasmovoice-fabric-1.21.6-2.1.8.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">PlasmoVoice</a>
+          <span>|</span>
+          <a href="https://cdn.modrinth.com/data/DyTvM1dv/versions/XEH1qWNo/AmbientEnvironment-fabric-1.21.8-25.0.0.1.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Ambient Environment</a>
+          <span>|</span>
+          <a href="https://cdn.modrinth.com/data/OsZiaDHq/versions/mj0ahfMl/CreativeCore_FABRIC_v2.14.7_mc1.21.8.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Creative Core</a>
+          <span>|</span>
+          <a href="https://cdn.modrinth.com/data/uCdwusMi/versions/PWWYVdOA/DistantHorizons-2.4.5-b-1.21.8-fabric-neoforge.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Distant Horizons</a>
+        </div>
+      </li>
     </ul>
   </div>
   <div class="support-grid">
