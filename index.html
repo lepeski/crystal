@@ -21,6 +21,8 @@
       letter-spacing:.05em; font-weight:300; line-height:1.55;
     }
     .intro { color:#ba5cbf; }
+    .intro a { color:inherit; text-decoration:none; }
+    .intro a:hover { text-decoration:underline; }
     .intro2 { color:#5a9ba4; }
     .main-info { margin-top:1.2rem; text-align:center; color:#d7e8ff; font-size:.98rem; display:flex; flex-direction:column; gap:.9rem; align-items:center; }
     .info-block { background:rgba(5,15,35,0.65); border:1px solid rgba(120,200,255,0.2);
@@ -35,6 +37,8 @@
     .info-list li::before { content:"✦"; display:inline-block; margin-right:.55rem; color:#92e5ff;
       text-shadow:0 0 8px rgba(90,190,255,0.9);
     }
+    .info-list li.no-bullet::before { content:none; margin-right:0; }
+    .info-list li.tight-stack { margin-top:-0.45rem; }
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
     .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); display:inline-block; }
@@ -77,32 +81,35 @@
   <div id="canvas-container"></div>
   <div class="content">
     <h1 class="title">CRYSTAL <span class="break">MATH</span></h1>
-    <p class="intro">ᴡʜɪᴛᴇ ʜᴀᴛ ʜᴀᴄᴋᴇʀs ʜᴀᴠᴇ ʟᴏɴɢ ᴄᴏ-ᴏᴘᴛᴇᴅ ᴛʜᴇ ᴄᴏᴅᴇs ᴏғ ᴘᴏᴡᴇʀ.
-ᴛɪᴍᴇ ᴀɴᴅ ᴀɢᴀɪɴ, ᴛʜᴇʏ’ᴠᴇ ᴇxᴘᴏsᴇᴅ ᴄʀᴀᴄᴋs ɪɴ ᴛʜᴇ ᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ғᴏʀᴛʀᴇss, ᴅɪsᴍᴀɴᴛʟɪɴɢ ɪᴛ ʙʀɪᴄᴋ ʙʏ ʙʀɪᴄᴋ.
-ᴛʜʀᴏᴜɢʜ ᴏ̨ᴜɪᴇᴛ sᴀʙᴏᴛᴀɢᴇ ᴀɴᴅ ᴄʀʏᴘᴛɪᴄ ɪɴɴᴏᴠᴀᴛɪᴏɴ ᴛʜᴇʏ ɴᴏᴡ ᴛʜʀᴇᴀᴛᴇɴ ᴛʜᴇ ᴠᴇʀʏ ғᴏᴜɴᴅᴀᴛɪᴏɴ ᴏғ ᴛʀᴀᴅ-ғɪ,
-ᴄʟᴇᴀʀɪɴɢ ᴛʜᴇ ᴡᴀʏ ғᴏʀ ᴛʜᴇ ʀɪsᴇ ᴏғ ᴛʜᴇ ᴅᴇᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ʀᴇᴀʟᴍ.</p>
+    <p class="intro">ᴡʜɪᴛᴇ ʜᴀᴛ ʜᴀᴄᴋᴇʀs ʜᴀᴠᴇ ʟᴏɴɢ ᴄᴏ-ᴏᴘᴛᴇᴅ ᴛʜᴇ <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener noreferrer">ᴄᴏᴅᴇs ᴏғ ᴘᴏᴡᴇʀ.</a>
+ᴛɪᴍᴇ ᴀɴᴅ ᴀɢᴀɪɴ, ᴛʜᴇʏ’ᴠᴇ <a href="https://etherscan.io/address/0x1dba1131000664b884a1ba238464159892252d3a" target="_blank" rel="noopener noreferrer">ᴇxᴘᴏsᴇᴅ ᴄʀᴀᴄᴋs ɪɴ ᴛʜᴇ ᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ғᴏʀᴛʀᴇss</a>, ᴅɪsᴍᴀɴᴛʟɪɴɢ ɪᴛ ʙʀɪᴄᴋ ʙʏ ʙʀɪᴄᴋ.
+ᴛʜʀᴏᴜɢʜ <a href="https://blockchair.com/bitcoin/address/1FeexV6bAHb8ybZjqQMjJrcCrHGW9sb6uF" target="_blank" rel="noopener noreferrer">ᴏ̨ᴜɪᴇᴛ sᴀʙᴏᴛᴀɢᴇ</a> ᴀɴᴅ <a href="https://etherscan.io/address/0x6b175474e89094c44da98b954eedeac495271d0f" target="_blank" rel="noopener noreferrer">ᴄʀʏᴘᴛɪᴄ ɪɴɴᴏᴠᴀᴛɪᴏɴ</a> ᴛʜᴇʏ ɴᴏᴡ <a href="https://x.com/delete_shitcoin/status/1585918718088970241" target="_blank" rel="noopener noreferrer">ᴛʜʀᴇᴀᴛᴇɴ ᴛʜᴇ ғᴏᴜɴᴅᴀᴛɪᴏɴ</a> <a href="https://wtfhappenedin1971.com/" target="_blank" rel="noopener noreferrer">ᴏғ ᴛʀᴀᴅ-ғɪ</a>,
+ᴄʟᴇᴀʀɪɴɢ ᴛʜᴇ ᴡᴀʏ ғᴏʀ ᴛʜᴇ <a href="https://scan.pulsechain.com" target="_blank" rel="noopener noreferrer">ʀɪsᴇ ᴏғ ᴛʜᴇ ᴅᴇᴄᴇɴᴛʀᴀʟɪᴢᴇᴅ ʀᴇᴀʟᴍ</a>.</p>
     <div class="main-info">
   <div class="info-block">
     <div class="info-title">crystals can be found and redeemed for crypto</div>
-    <div class="modrinth-links-container" style="font-size:0.7rem; text-align:center; margin-bottom:0.5rem; display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem;">
-  <a href="https://maven.fabricmc.net/net/fabricmc/fabric-installer/1.1.1/fabric-installer-1.1.1.exe" target="_blank" style="color:#88f5ff; text-decoration:underline;">Fabric Installer</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/1bZhdhsH/versions/v5irHzkg/plasmovoice-fabric-1.21.6-2.1.8.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">PlasmoVoice</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/DyTvM1dv/versions/XEH1qWNo/AmbientEnvironment-fabric-1.21.8-25.0.0.1.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Ambient Environment</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/OsZiaDHq/versions/mj0ahfMl/CreativeCore_FABRIC_v2.14.7_mc1.21.8.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Creative Core</a>
-  <span>|</span>
-  <a href="https://cdn.modrinth.com/data/uCdwusMi/versions/PWWYVdOA/DistantHorizons-2.4.5-b-1.21.8-fabric-neoforge.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Distant Horizons</a>
-</div>
     <ul class="info-list">
       <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
-      <li class="price-line">Testnet live until feb15 @ 74.208.174.190 ⛏️💎<span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×pDAI</strong>:<span id="pdai-price" class="price-value">$0.001618</span>)</li>
+      <li class="price-line">Testnet live until April 9th @ 151.247.22.69 ⛏️💎<span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×pDAI</strong>:<span id="pdai-price" class="price-value">$0.001618</span>)</li>
+      <li class="price-line">Pokemon above level 9 are likely to attack you on sight, you will not respawn</li>
+      <li class="no-bullet tight-stack">
+        <div class="modrinth-links-container" style="font-size:0.7rem; text-align:center; margin-top:0; display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem;">
+          <a href="https://drive.google.com/file/d/1XeaARGWkftEHf22V7_K7M8a2bADWgbZ1/view?usp=sharing" target="_blank" style="color:#88f5ff; text-decoration:underline;">Mods</a>
+          <span>|</span>
+          <a href="https://drive.google.com/file/d/1ze1mY6cofGapo_IHr8L4YOh7dUXZI5U1/view?usp=sharing" target="_blank" style="color:#88f5ff; text-decoration:underline;">Preloaded View Distance</a>
+          <span>|</span>
+          <a href="https://cdn.modrinth.com/data/lLqFfGNs/versions/rz2vlXVm/photon_v1.2a.zip" target="_blank" style="color:#88f5ff; text-decoration:underline;">Shaderpack</a>
+        </div>
+      </li>
+      <li class="no-bullet" style="font-size:0.68rem; color:#9fb8d8; opacity:0.9; margin-top:0.2rem;">the preloaded view distance seems to only work with the provided shader pack</li>
     </ul>
   </div>
   <div class="support-grid">
     <div class="card-lite video-shell">
-      <div id="info-video" class="video-frame"></div>
+      <video id="info-video" class="video-frame" controls autoplay muted loop playsinline preload="metadata">
+        <source src="crystalmath.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
     </div>
   </div>
 </div>
@@ -130,7 +137,6 @@
       <img src="unit.jpg" alt="PulseChain crew" style="max-width:90%; max-height:90%; border-radius:.75rem; box-shadow:0 0 35px rgba(0,0,0,0.65); border:1px solid rgba(255,255,255,0.12);">
     </div>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://pixijs.download/v6.5.8/pixi.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pixi-filters@4.2.0/dist/pixi-filters.js"></script>
   <script>
@@ -245,81 +251,24 @@
     setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
 
-    let ytPlayer=null;
-    const YT_VIDEO_ID='cV4U7wtXDmU';
-    const interactionEvents=['pointerdown','touchstart','wheel','keydown'];
-    let interactionBound=false;
+    const infoVideo=document.getElementById('info-video');
+    const videoInteractionEvents=['pointerdown','touchstart','wheel','keydown'];
 
-    const enableAudio=()=>{
-      if(!ytPlayer) return;
-      try{
-        ytPlayer.unMute();
-        ytPlayer.setVolume(100);
-        ytPlayer.playVideo();
-        setTimeout(()=>{ try{ ytPlayer.playVideo(); }catch(err){ console.warn('Follow-up play blocked',err); } }, 50);
-      }catch(err){
-        console.warn('Unmute blocked',err);
+    const ensureVideoPlayback=()=>{
+      if(!infoVideo) return;
+      infoVideo.muted=false;
+      const playAttempt=infoVideo.play();
+      if(playAttempt?.catch){
+        playAttempt.catch(err=>console.warn('Video playback blocked',err));
       }
     };
 
-    const handleInteraction=()=>{
-      enableAudio();
-      try{ ytPlayer?.playVideo(); }catch(err){ console.warn('Play on interaction blocked',err); }
-      setTimeout(()=>keepPlaying(),120);
-      interactionEvents.forEach(evt=>window.removeEventListener(evt,handleInteraction));
+    const handleVideoInteraction=()=>{
+      ensureVideoPlayback();
+      videoInteractionEvents.forEach(evt=>window.removeEventListener(evt,handleVideoInteraction));
     };
 
-    const bindInteractionOnce=()=>{
-      if(interactionBound) return;
-      interactionBound=true;
-      interactionEvents.forEach(evt=>window.addEventListener(evt,handleInteraction,{passive:true}));
-    };
-
-    const keepPlaying=()=>{
-      if(!ytPlayer) return;
-      const state=ytPlayer.getPlayerState();
-      if(state!==YT.PlayerState.PLAYING && state!==YT.PlayerState.BUFFERING){
-        try{ ytPlayer.playVideo(); }catch(err){ console.warn('Autoplay retry blocked',err); }
-      }
-    };
-
-    function onYouTubeIframeAPIReady(){
-      ytPlayer=new YT.Player('info-video',{
-        videoId:YT_VIDEO_ID,
-        playerVars:{
-          autoplay:1,
-          controls:1,
-          rel:0,
-          modestbranding:1,
-          playsinline:1,
-          mute:1
-        },
-        events:{
-          onReady:()=>{
-            const iframe=ytPlayer.getIframe?.();
-            if(iframe){
-              iframe.setAttribute('allow','autoplay; encrypted-media');
-            }
-            ytPlayer.playVideo();
-            bindInteractionOnce();
-            let tries=0;
-            const retryInterval=setInterval(()=>{
-              keepPlaying();
-              tries++;
-              if(tries>=6){
-                clearInterval(retryInterval);
-              }
-            },1200);
-          },
-          onStateChange:(event)=>{
-            if(event.data===YT.PlayerState.PAUSED && !ytPlayer.isMuted()){
-              try{ ytPlayer.playVideo(); }catch(err){ console.warn('Resume after unmute blocked',err); }
-            }
-          }
-        }
-      });
-    }
-    window.onYouTubeIframeAPIReady=onYouTubeIframeAPIReady;
+    videoInteractionEvents.forEach(evt=>window.addEventListener(evt,handleVideoInteraction,{passive:true}));
 
     const modal=document.getElementById('image-modal');
     const openModal=document.getElementById('deeper-link');
