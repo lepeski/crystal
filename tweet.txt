@@ -1,0 +1,9 @@
+Web design competition. http://ProveX.com (site's not up yet.) $15,000, winner chosen in 24 hours. By entering and winning, you assign all rights to the anonymous donor who's choosing the winner and paying.
+
+No external dependencies. The site must load perfectly offline and not auto update. Logo text is Avenir Next Bold (not demibold).
+
+Even if it's not used, it's fun to see all the engagement.
+
+Content quite similar to what you see in this post: https://x.com/RichardHeartWin/status/1986902194072002786
+
+Not in the competition but free free to comment: What cool stuff would you like to see on a website that's really easy to do? What's the coolest web design you've seen recently?
