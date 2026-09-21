@@ -90,10 +90,10 @@
     <div class="info-title">crystals can be found and redeemed for crypto</div>
     <ul class="info-list">
       <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
-      <li class="price-line">Testnet @ 185.141.216.149 ⛏️💎<span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×pDAI</strong>:<span id="pdai-price" class="price-value">$0.001618</span>)</li>
+      <li class="price-line">Live on PulseChain @ 185.141.216.149 ⛏️💎<span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×pDAI</strong>:<span id="pdai-price" class="price-value">$0.001618</span>)</li>
       <li class="no-bullet tight-stack">
         <div style="font-size:0.72rem; text-align:center; line-height:1.7;">
-          <strong style="color:#cfc7ff;">OPTIONAL</strong> modpack for shaders + proximity voice chat:
+          <strong style="color:#cfc7ff;">OPTIONAL</strong> modpack for shaders, proximity voice chat + Distant Horizons (huge view distance):
           <a href="CrystalMath-26.1.2.mrpack" download style="color:#88f5ff; text-decoration:underline;"><b>download</b></a>
           <span style="color:#8aa3c7;">(open in <a href="https://modrinth.com/app" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Modrinth App</a> / <a href="https://prismlauncher.org/" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Prism</a>)</span><br>
           <span style="color:#8aa3c7; font-size:0.62rem;">or manually on <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Fabric</a>:
@@ -101,7 +101,8 @@
             <a href="https://cdn.modrinth.com/data/1bZhdhsH/versions/AWrwR3ci/plasmovoice-fabric-26.1-2.1.17.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Voice Chat</a> ·
             <a href="https://cdn.modrinth.com/data/AANobbMI/versions/tZQ3jqnf/sodium-fabric-0.9.2%2Bmc26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Sodium</a> ·
             <a href="https://cdn.modrinth.com/data/YL57xq9U/versions/sZbVsl2Q/iris-fabric-1.11.4%2Bmc26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Iris</a> ·
-            <a href="https://cdn.modrinth.com/data/lLqFfGNs/versions/gUv7fBPN/photon_v1.3b.zip" target="_blank" style="color:#88f5ff; text-decoration:underline;">Photon shader</a>
+            <a href="https://cdn.modrinth.com/data/lLqFfGNs/versions/gUv7fBPN/photon_v1.3b.zip" target="_blank" style="color:#88f5ff; text-decoration:underline;">Photon shader</a> ·
+            <a href="https://cdn.modrinth.com/data/uCdwusMi/versions/8lNwBMTz/DistantHorizons-3.3.2-26.1.2-fabric-neoforge.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Distant Horizons</a>
             · vanilla 26.1.2 works too</span>
         </div>
       </li>
@@ -124,7 +125,7 @@
       <div class="footer-address">0x6b175474e89094c44da98b954eedeac495271d0f<button id="copyBtn">⎘</button></div>
     </div>
     <div class="qr-block">
-      <img id="qr-image" src="flebebians_transparent.png" alt="QR code for wallet" loading="lazy">
+      <img id="qr-image" src="flebebians_transparent.png" alt="QR code: CrystalMath Discord invite" loading="lazy">
       <div class="qr-note">𝑵 Ø Ⲧ Ӈ ᓿ ₦ ₲&nbsp;&nbsp;¡﹩ $ Δ ₡ ® Σ Đ</div>
     </div>
     </div>
@@ -252,7 +253,7 @@
     renderPrices(null);
     updatePrices();
     setInterval(updatePrices,1000);
-    document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText('0xA41B5174C803B2F779f4C83d482478b94A240fE6'));
+    document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText(document.querySelector('.footer-address').firstChild.textContent.trim()));
 
     const infoVideo=document.getElementById('info-video');
     const videoInteractionEvents=['pointerdown','touchstart','wheel','keydown'];
