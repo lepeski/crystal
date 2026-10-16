@@ -1,0 +1,8 @@
+name = "geckolib-fabric-26.1.2-5.5.2.jar"
+filename = "geckolib-fabric-26.1.2-5.5.2.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/8BmcQJ2H/versions/XZTmZlwb/geckolib-fabric-26.1.2-5.5.2.jar"
+hash-format = "sha1"
+hash = "f2ece9fcb2089c238f64c52e989790fe4e067512"

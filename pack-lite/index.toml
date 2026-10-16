@@ -1,0 +1,194 @@
+hash-format = "sha256"
+
+[[files]]
+file = "config/crystalmath-pack.json"
+hash = "663704c0f7a544133f5297ad0d397d1efd42e30d8559aab2d102b79919c2fb12"
+
+[[files]]
+file = "config/modpack_defaults/config/crash_assistant/config.toml"
+hash = "246a48029d30594831e3485f5a23b19df626c9f8f97c3d707a10f85c5a78cbc7"
+
+[[files]]
+file = "config/modpack_defaults/config/dynamic_fps.json"
+hash = "fca3b803240f9a7057fd8f46f1884e70e81a56c363b1bb787cf12d140c3fed90"
+
+[[files]]
+file = "config/modpack_defaults/config/ferritecore.mixin.properties"
+hash = "3817e94107bb1c7358beebb80b1810e822de38be430f855cf14828c38018e8e2"
+
+[[files]]
+file = "config/modpack_defaults/config/hempmod-client.json"
+hash = "384e3d87d02c9d816c72f5a8002aab47bf7d8f7d51897fd4aad79742a3f26496"
+
+[[files]]
+file = "config/modpack_defaults/config/modernfix-mixins.properties"
+hash = "315f6bbb6ae9caa6f4e8e14de2099596a855779840bef0ea17595217e0bd317b"
+
+[[files]]
+file = "config/modpack_defaults/config/modmenu.json"
+hash = "ee8d1a6f11ea009f37abba6325d97766910e1786b0de848aa307771d8a87ed72"
+
+[[files]]
+file = "config/modpack_defaults/config/vmp.properties"
+hash = "244a5a217b4604782a66736cae23717c7871acd0e2bbd51dc2b28e4b642885f2"
+
+[[files]]
+file = "config/modpack_defaults/options.txt"
+hash = "cb2a18679d4d0dbb2264a39003406f506f41c8ee6b9293d5eeeb4fc65a350233"
+
+[[files]]
+file = "mods/ConfigManager-fabric-26.1_26.2-1.1.3.jar.pw.toml"
+hash = "df8ec367e4c0b8e8395c23838312bb91db30fe39af48e3807bdd08e822ffbd17"
+metafile = true
+
+[[files]]
+file = "mods/CrashAssistant-fabric-26.1-1.11.12.jar.pw.toml"
+hash = "1ea732588042da52b6bc72bdf9645adfb67fbe40d7ee0029c73e9a1ebb8cb337"
+metafile = true
+
+[[files]]
+file = "mods/ImmediatelyFast-Fabric-1.15.3+26.1.jar.pw.toml"
+hash = "78561a13acce2267841199da980b6e2a592b3733383419ea418c41af56fe2265"
+metafile = true
+
+[[files]]
+file = "mods/Ixeris-4.6.8+26.1.2-fabric.jar.pw.toml"
+hash = "32bcd24a4417b1bcd67bb16edde291a70e32e94adf2441f2b174ab480f96972b"
+metafile = true
+
+[[files]]
+file = "mods/ResourcefulConfig-4.0.1.jar.pw.toml"
+hash = "b2d4540aef6f1a1c9df38fa77ebf72911001356d450b1f6fb15acb4f4a14cbb0"
+metafile = true
+
+[[files]]
+file = "mods/ScalableLux-fabric-0.3.0-alpha.0.2-all.jar.pw.toml"
+hash = "8532164ae6a555388b58ef9e1df9a1c1a01a782bd0a6f964eb584aec98fdee04"
+metafile = true
+
+[[files]]
+file = "mods/asynclogger-2.2.2+26.1.2-fabric.jar.pw.toml"
+hash = "1081e37cc7d03fb40f6b2c5fa1c884a7aa68e1b05ab71d0d5cc072f80297ec58"
+metafile = true
+
+[[files]]
+file = "mods/bbe-fabric-1.3.7-beta.1+mc26.1.2.jar.pw.toml"
+hash = "a3df4e5cbcb27324e61a8236f311d51f3d78b4d9c3f15f707426e13cb7fef7aa"
+metafile = true
+
+[[files]]
+file = "mods/c2me-fabric-mc26.1.2-0.4.0-alpha.0.62.jar.pw.toml"
+hash = "509f7794a16e53a50c2a6518c8196479cece373dd7e6b8a5d35beb0f201daeff"
+metafile = true
+
+[[files]]
+file = "mods/cloth-config-26.1.154.jar.pw.toml"
+hash = "2a5ad6f75e3a1566f1988bd3343a660fa8f7a24701cb964143a4993dd9268dab"
+metafile = true
+
+[[files]]
+file = "mods/cull-fewer-leaves-1.1.2+26.1-fabric.jar.pw.toml"
+hash = "15755c21135ae22443d0fa5c972ab6f99d6d62e2943f45573fe42bac7b7e1aa1"
+metafile = true
+
+[[files]]
+file = "mods/dynamic-fps-3.11.7+minecraft-26.1.0-fabric.jar.pw.toml"
+hash = "9f6fd0ac37cc212a4052fae1667377a2a881c6ea34c5711c476b9087f45fbbc4"
+metafile = true
+
+[[files]]
+file = "mods/entityculling-fabric-1.11.2-mc26.1.jar.pw.toml"
+hash = "03e414b960b504be7ac99ed9adf677be4ccc81a7d2ad6ded7c356cbe5af98307"
+metafile = true
+
+[[files]]
+file = "mods/fabric-api-0.155.3+26.1.2.jar.pw.toml"
+hash = "ae9a1ddd792880d04e780e82ef670f4b97c36e690ecda7810b9cd51239c64e85"
+metafile = true
+
+[[files]]
+file = "mods/fabric-language-kotlin-1.14.1+kotlin.2.4.20.jar.pw.toml"
+hash = "e5526e7dccf9e0150682c23d70fe774c9c640db3a082607a531dbe0d13da7fe3"
+metafile = true
+
+[[files]]
+file = "mods/ferritecore-9.0.0-fabric.jar.pw.toml"
+hash = "1a00291f0ab06247abecbb989227ba50bef25c8dd334a1b9ddde9b63e1deab42"
+metafile = true
+
+[[files]]
+file = "mods/fmradio-1.0.0-cm1.jar"
+hash = "1fcb82a29d1317f9aaf7485e21120956adc54b9cf668c0d3ac4ad40099073d2e"
+
+[[files]]
+file = "mods/fzzy_config-0.7.6+26.1.jar.pw.toml"
+hash = "602d93193362460943bfdd866a69e841b6e303a4064c43a6aa586fed9163b22c"
+metafile = true
+
+[[files]]
+file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
+hash = "37c0eead4b97afb4be62ccd59a758638f0e4d7370648f3a559a99b64f98be021"
+metafile = true
+
+[[files]]
+file = "mods/haggismod-1.0.0.jar"
+hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
+
+[[files]]
+file = "mods/hempmod-4.2.0.jar"
+hash = "f8d47712b539bffb388f0566fd6df69dba94ddeede67e7a7380b3e279efe79cf"
+
+[[files]]
+file = "mods/lithium-fabric-0.24.7+mc26.1.2.jar.pw.toml"
+hash = "7e0d6c8f18bda3b64064a2476f366397cd3aa154e7418a9b7ea50ba60df9fc37"
+metafile = true
+
+[[files]]
+file = "mods/modernfix-5.27.19-build.1.jar.pw.toml"
+hash = "7ec24a11991526f6144a541717c5ab7ae8f30ed8a773464afd609772fe060c9c"
+metafile = true
+
+[[files]]
+file = "mods/modmenu-18.0.2.jar.pw.toml"
+hash = "f75fbe19aa3c4031b20ab6e073bf1a171d33f016060fed24abe4feb5b010ff03"
+metafile = true
+
+[[files]]
+file = "mods/particle_core-0.3.2+26.1.jar.pw.toml"
+hash = "f1e214ca122906816eb09f5d9fdf33b2f543350edcc75021d99d7669543efaf6"
+metafile = true
+
+[[files]]
+file = "mods/placeholder-api-3.0.0+26.1.jar.pw.toml"
+hash = "990b19cf93f2da6c1124a5405d42267e6749e6ed0e1587df97c023c2fbfb5b62"
+metafile = true
+
+[[files]]
+file = "mods/plasmovoice-fabric-26.1-2.1.17.jar.pw.toml"
+hash = "693dc55ac331afc19e74c8ac5a3f8fc8dfe5adab41dbedd20cc08f7b4b127ffb"
+metafile = true
+
+[[files]]
+file = "mods/servercore-fabric-1.5.19+26.1.2.jar.pw.toml"
+hash = "dd866e3c8a93074fefd5206856ea1ea06878bf163085e8b38aa15bd435dc862a"
+metafile = true
+
+[[files]]
+file = "mods/sodium-fabric-0.9.2+mc26.1.2.jar.pw.toml"
+hash = "2ef7e6a36ec97b33014d8bff575d9f81e9a2cb2fd608cddf5fba2618633e7ed6"
+metafile = true
+
+[[files]]
+file = "mods/structure_layout_optimizer-1.1.4+26.1-fabric.jar.pw.toml"
+hash = "b091f2c85e5150930a70e8c358dcfb919118e88b43e05c432284438382c5d042"
+metafile = true
+
+[[files]]
+file = "mods/zconfig-1.0.0+26.x.jar.pw.toml"
+hash = "c398786f1d5c5380adafb01363c7ee95f7684cfedd8e68b66b89ef7963877476"
+metafile = true
+
+[[files]]
+file = "mods/zfastnoise-1.1.0-beta.6+26.1.jar.pw.toml"
+hash = "2a4618e0f926642353f66c77480e01c2b74798bfaa9441a3c3e49e9af25af8bd"
+metafile = true

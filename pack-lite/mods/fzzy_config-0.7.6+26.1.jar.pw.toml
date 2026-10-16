@@ -1,0 +1,8 @@
+name = "fzzy_config-0.7.6+26.1.jar"
+filename = "fzzy_config-0.7.6+26.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/hYykXjDp/versions/EzFtPUO0/fzzy_config-0.7.6%2B26.1.jar"
+hash-format = "sha1"
+hash = "dabdfb956438fc9526ec0794fcf4ff0261a75870"

@@ -1,0 +1,3 @@
+pack/** -text
+pack-lite/** -text
+pack-version.json -text

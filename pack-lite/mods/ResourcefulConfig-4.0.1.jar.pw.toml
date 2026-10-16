@@ -1,0 +1,8 @@
+name = "ResourcefulConfig-4.0.1.jar"
+filename = "ResourcefulConfig-4.0.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/M1953qlQ/versions/GMW14IUd/ResourcefulConfig-4.0.1.jar"
+hash-format = "sha1"
+hash = "96c6afabeec4f7c0468bb17b3c29fb1bb6aa0125"

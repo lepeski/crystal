@@ -1,0 +1,6 @@
+{
+  "highVisuals": true,
+  "tripVisuals": true,
+  "depthDistortion": false,
+  "tripWarpStrength": 0.8
+}

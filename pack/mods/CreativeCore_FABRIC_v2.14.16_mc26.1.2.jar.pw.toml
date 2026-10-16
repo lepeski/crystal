@@ -1,0 +1,8 @@
+name = "CreativeCore_FABRIC_v2.14.16_mc26.1.2.jar"
+filename = "CreativeCore_FABRIC_v2.14.16_mc26.1.2.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/OsZiaDHq/versions/atlpYjof/CreativeCore_FABRIC_v2.14.16_mc26.1.2.jar"
+hash-format = "sha1"
+hash = "6857841185600b9e224e6b6351622ae322cd929f"

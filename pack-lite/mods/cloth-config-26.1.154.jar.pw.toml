@@ -1,0 +1,8 @@
+name = "cloth-config-26.1.154.jar"
+filename = "cloth-config-26.1.154.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/9s6osm5g/versions/GFM8zh9J/cloth-config-26.1.154.jar"
+hash-format = "sha1"
+hash = "832f9047bc4af13587709c74f7c37e1c8579d1eb"

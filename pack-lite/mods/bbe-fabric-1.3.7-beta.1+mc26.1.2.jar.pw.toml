@@ -1,0 +1,8 @@
+name = "bbe-fabric-1.3.7-beta.1+mc26.1.2.jar"
+filename = "bbe-fabric-1.3.7-beta.1+mc26.1.2.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/ONZm0H7Y/versions/Kd9uKKlh/bbe-fabric-1.3.7-beta.1%2Bmc26.1.2.jar"
+hash-format = "sha1"
+hash = "07a2a46126c32a8d9f04dc34a166e6cb23edd807"

@@ -1,0 +1,89 @@
+hash-format = "sha256"
+
+[[files]]
+file = "config/crystalmath-pack.json"
+hash = "49645428ab2ca86c7fb2792ce08cad41852d98f31a525031e06044cf9d7d09f2"
+
+[[files]]
+file = "config/sound_physics_remastered/occlusion.properties"
+hash = "cf332b751380a307821dfa3d01e6291cb84e6b32444bdb250f8c08a543268c1e"
+
+[[files]]
+file = "config/sound_physics_remastered/soundphysics.properties"
+hash = "3883f261a9208328bb956457d98333bf432c15e6c0bffac46bbb55560299ce05"
+
+[[files]]
+file = "mods/AmbientSounds_FABRIC_v6.3.6_mc26.1.2.jar.pw.toml"
+hash = "4bb9f68a955f3d67241f90ba89230d3aad54217ad00f24cd85af6b1bc2fd3f07"
+metafile = true
+
+[[files]]
+file = "mods/CreativeCore_FABRIC_v2.14.16_mc26.1.2.jar.pw.toml"
+hash = "2e86640f848c66e44cfc2e1270d72f90cefce3366169f569bc93f4978a3589f4"
+metafile = true
+
+[[files]]
+file = "mods/DistantHorizons-3.3.2-26.1.2-fabric-neoforge.jar.pw.toml"
+hash = "fa7901a73560b5b5b0d0ea45dd00ea240b12b143839287902ff0db60e2000a62"
+metafile = true
+
+[[files]]
+file = "mods/fabric-api-0.155.3+26.1.2.jar.pw.toml"
+hash = "ae9a1ddd792880d04e780e82ef670f4b97c36e690ecda7810b9cd51239c64e85"
+metafile = true
+
+[[files]]
+file = "mods/fmradio-1.0.0-cm1.jar"
+hash = "1fcb82a29d1317f9aaf7485e21120956adc54b9cf668c0d3ac4ad40099073d2e"
+
+[[files]]
+file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
+hash = "37c0eead4b97afb4be62ccd59a758638f0e4d7370648f3a559a99b64f98be021"
+metafile = true
+
+[[files]]
+file = "mods/haggismod-1.0.0.jar"
+hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
+
+[[files]]
+file = "mods/hempmod-4.2.0.jar"
+hash = "f8d47712b539bffb388f0566fd6df69dba94ddeede67e7a7380b3e279efe79cf"
+
+[[files]]
+file = "mods/iris-fabric-1.11.4+mc26.1.2.jar.pw.toml"
+hash = "d030e246dee657e7abe10d71a0bdb8257d82ceeabbd0dd88b00442dcbbe2259e"
+metafile = true
+
+[[files]]
+file = "mods/lambdynamiclights-4.11.2+26.1.2.jar.pw.toml"
+hash = "47f0c96b98522b0ff3193df4f3363c3ffde8db917e88106c53eadec3e890828b"
+metafile = true
+
+[[files]]
+file = "mods/plasmovoice-fabric-26.1-2.1.17.jar.pw.toml"
+hash = "693dc55ac331afc19e74c8ac5a3f8fc8dfe5adab41dbedd20cc08f7b4b127ffb"
+metafile = true
+
+[[files]]
+file = "mods/pv-addon-soundphysics-1.1.2.jar.pw.toml"
+hash = "ef31789fdf09cd779dbccffef86aea379783446f52ddeddfa3a3af346b8ef935"
+metafile = true
+
+[[files]]
+file = "mods/sodium-fabric-0.9.2+mc26.1.2.jar.pw.toml"
+hash = "2ef7e6a36ec97b33014d8bff575d9f81e9a2cb2fd608cddf5fba2618633e7ed6"
+metafile = true
+
+[[files]]
+file = "mods/sound-physics-remastered-fabric-1.5.1+26.1.2.jar.pw.toml"
+hash = "fe84e0bd379ef7a0ee075dc05b3bdfa0df290014eaf533bdf29f366031ce8718"
+metafile = true
+
+[[files]]
+file = "shaderpacks/ComplementaryReimagined_r5.9.3.zip.pw.toml"
+hash = "2d9f8a641fce46469911a984e142b1c240c86550234127c2a8b7dbef218474bb"
+metafile = true
+
+[[files]]
+file = "shaderpacks/ComplementaryReimagined_r5.9.3.zip.txt"
+hash = "6d703cc040d97ade83ad178d69c4df81a1d72a31fdd11e54124707c1948dc405"

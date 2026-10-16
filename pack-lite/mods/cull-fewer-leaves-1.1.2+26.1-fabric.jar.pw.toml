@@ -1,0 +1,8 @@
+name = "cull-fewer-leaves-1.1.2+26.1-fabric.jar"
+filename = "cull-fewer-leaves-1.1.2+26.1-fabric.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/alhWWxax/versions/jIEsEM7M/cull-fewer-leaves-1.1.2%2B26.1-fabric.jar"
+hash-format = "sha1"
+hash = "0b603a240e2b1f424ef37562ebbe830b07008b30"

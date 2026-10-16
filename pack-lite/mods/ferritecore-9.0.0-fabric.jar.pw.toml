@@ -1,0 +1,8 @@
+name = "ferritecore-9.0.0-fabric.jar"
+filename = "ferritecore-9.0.0-fabric.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar"
+hash-format = "sha1"
+hash = "eac76ff0f3753422c61b2c44487d0d195d88d4bc"

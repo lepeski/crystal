@@ -1,0 +1,8 @@
+name = "plasmovoice-fabric-26.1-2.1.17.jar"
+filename = "plasmovoice-fabric-26.1-2.1.17.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/1bZhdhsH/versions/AWrwR3ci/plasmovoice-fabric-26.1-2.1.17.jar"
+hash-format = "sha1"
+hash = "e1a18d23b634980270c6082ea80b3673d7d3871e"

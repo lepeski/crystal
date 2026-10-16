@@ -1,0 +1,8 @@
+name = "placeholder-api-3.0.0+26.1.jar"
+filename = "placeholder-api-3.0.0+26.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/eXts2L7r/versions/b3IPAHgB/placeholder-api-3.0.0%2B26.1.jar"
+hash-format = "sha1"
+hash = "c1ce548549ec4517b9393985cefc65389e6f36d8"

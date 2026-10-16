@@ -1,0 +1,8 @@
+name = "AmbientSounds_FABRIC_v6.3.6_mc26.1.2.jar"
+filename = "AmbientSounds_FABRIC_v6.3.6_mc26.1.2.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/fM515JnW/versions/DKPRMIAu/AmbientSounds_FABRIC_v6.3.6_mc26.1.2.jar"
+hash-format = "sha1"
+hash = "1d7fa7520c758bfa19145db4e6f264a946d1aaf2"

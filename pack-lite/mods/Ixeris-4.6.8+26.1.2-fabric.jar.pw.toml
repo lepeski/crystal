@@ -1,0 +1,8 @@
+name = "Ixeris-4.6.8+26.1.2-fabric.jar"
+filename = "Ixeris-4.6.8+26.1.2-fabric.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/p8RJPJIC/versions/5pD9HVIL/Ixeris-4.6.8%2B26.1.2-fabric.jar"
+hash-format = "sha1"
+hash = "3b02ce13c07843c2616ebd2ad20b8df4619ed418"

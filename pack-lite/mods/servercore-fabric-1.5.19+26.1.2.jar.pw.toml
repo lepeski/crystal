@@ -1,0 +1,8 @@
+name = "servercore-fabric-1.5.19+26.1.2.jar"
+filename = "servercore-fabric-1.5.19+26.1.2.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/4WWQxlQP/versions/H6TboTA2/servercore-fabric-1.5.19%2B26.1.2.jar"
+hash-format = "sha1"
+hash = "f69e39b6a750eb14f2cd6c07dfab64fd3d71192f"
