@@ -2,6 +2,9 @@
 
 usage: python tools/release.py <dir with the current packs> <out dir> <main version> <lite version>
                                [--swap overrides/mods/x.jar=path/to/new.jar ...]
+                               [--add overrides/mods/new.jar=path/to/new.jar ...]
+
+--swap replaces a file the packs already have (and fails if one doesn't); --add puts in a new one.
 
 Every pack gets servers.dat with the server in it (on auto-updates only when the player has none yet).
 
@@ -25,11 +28,17 @@ BOOTSTRAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'packwiz-in
 
 src, out, main_version, lite_version = sys.argv[1:5]
 swaps = {}
+adds = {}
+target = swaps
 for arg in sys.argv[5:]:
-    if arg.startswith('--swap'):
+    if arg == '--swap':
+        target = swaps
+        continue
+    if arg == '--add':
+        target = adds
         continue
     entry, path = arg.split('=', 1)
-    swaps[entry] = open(path, 'rb').read()
+    target[entry] = open(path, 'rb').read()
 
 PACKS = {
     'CrystalMath-26.1.2.mrpack': ('main', 'modrinth.index.json', 'versionId', main_version),
@@ -75,6 +84,9 @@ for name, (pack, meta, key, version) in PACKS.items():
     zin = zipfile.ZipFile(os.path.join(src, name))
     with zipfile.ZipFile(os.path.join(out, name), 'w', zipfile.ZIP_DEFLATED) as zout:
         swapped = 0
+        missing = set(swaps) - set(zin.namelist())
+        if missing:
+            raise SystemExit(name + ' has no ' + ', '.join(sorted(missing)) + ' to swap (use --add for new files)')
         for info in zin.infolist():
             data = zin.read(info.filename)
             if info.filename in ('overrides/config/crystalmath-pack.json', 'overrides/servers.dat'):
@@ -87,6 +99,10 @@ for name, (pack, meta, key, version) in PACKS.items():
                 d[key] = version
                 data = json.dumps(d, indent=2).encode()
             zout.writestr(info, data)
+        for entry, data in adds.items():
+            if entry in zin.namelist():
+                raise SystemExit(name + ' already has ' + entry + ' (use --swap to replace it)')
+            zout.writestr(entry, data)
         zout.writestr('overrides/config/crystalmath-pack.json', version_file(pack, version))
         # A fresh install opens with the server already in the multiplayer list.
         zout.writestr('overrides/servers.dat', servers_dat())

@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "da9307a4ec53b8fd56dd35ccf10dfa0e77ee628fdf04bfce0d9998662d7df49f"
+hash = "df8cf7f26930fed29523f09d99b9851332ad1fe8c0c205ef2d20b76af614f79a"
 
 [[files]]
 file = "config/sound_physics_remastered/occlusion.properties"
@@ -28,13 +28,17 @@ hash = "fa7901a73560b5b5b0d0ea45dd00ea240b12b143839287902ff0db60e2000a62"
 metafile = true
 
 [[files]]
+file = "mods/enderdj-1.0.0.jar"
+hash = "b7f15db07d0dfeac0120d952de60c72cb82854c0e1b900e829eb18fd47cb4e26"
+
+[[files]]
 file = "mods/fabric-api-0.155.3+26.1.2.jar.pw.toml"
 hash = "ae9a1ddd792880d04e780e82ef670f4b97c36e690ecda7810b9cd51239c64e85"
 metafile = true
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "f6d5f8efd590837bb6ab1ac234fe968bb23cc87770fbd1fa125b518918cdbff6"
+hash = "045cd113d672f5109e49e799b1c20263884581f3abca272ecdec17a54032f690"
 
 [[files]]
 file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
@@ -47,7 +51,7 @@ hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
 
 [[files]]
 file = "mods/hempmod-4.2.0.jar"
-hash = "9bce5fd7fb3af2d74b3785bcbb2cbb6a6aecbc0217a57969ad31004475a0a717"
+hash = "05bfcb115d0729abad4159400bee88c4c159a611113ef6038acc8ff83044e91f"
 
 [[files]]
 file = "mods/iris-fabric-1.11.4+mc26.1.2.jar.pw.toml"

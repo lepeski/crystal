@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "9c00400b4e3b7640a7560d8b31d52c68ceffb7ff43679cbf3c830cc05c7cbbba"
+hash = "2a6801d1bb4ee2c81cca952c3ec71c783951eadcfeea45a99f00b018e57e8361"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -97,6 +97,10 @@ hash = "9f6fd0ac37cc212a4052fae1667377a2a881c6ea34c5711c476b9087f45fbbc4"
 metafile = true
 
 [[files]]
+file = "mods/enderdj-1.0.0.jar"
+hash = "b7f15db07d0dfeac0120d952de60c72cb82854c0e1b900e829eb18fd47cb4e26"
+
+[[files]]
 file = "mods/entityculling-fabric-1.11.2-mc26.1.jar.pw.toml"
 hash = "03e414b960b504be7ac99ed9adf677be4ccc81a7d2ad6ded7c356cbe5af98307"
 metafile = true
@@ -118,7 +122,7 @@ metafile = true
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "f6d5f8efd590837bb6ab1ac234fe968bb23cc87770fbd1fa125b518918cdbff6"
+hash = "045cd113d672f5109e49e799b1c20263884581f3abca272ecdec17a54032f690"
 
 [[files]]
 file = "mods/fzzy_config-0.7.6+26.1.jar.pw.toml"
@@ -136,7 +140,7 @@ hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
 
 [[files]]
 file = "mods/hempmod-4.2.0.jar"
-hash = "9bce5fd7fb3af2d74b3785bcbb2cbb6a6aecbc0217a57969ad31004475a0a717"
+hash = "05bfcb115d0729abad4159400bee88c4c159a611113ef6038acc8ff83044e91f"
 
 [[files]]
 file = "mods/lithium-fabric-0.24.7+mc26.1.2.jar.pw.toml"
