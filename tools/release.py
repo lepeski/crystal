@@ -3,6 +3,8 @@
 usage: python tools/release.py <dir with the current packs> <out dir> <main version> <lite version>
                                [--swap overrides/mods/x.jar=path/to/new.jar ...]
 
+Every pack gets servers.dat with the server in it (on auto-updates only when the player has none yet).
+
 Writes into <out dir>:
   CrystalMath-26.1.2.mrpack, -lite.mrpack, -curseforge.zip   the packs, bumped, with jars swapped and
                                                              overrides/config/crystalmath-pack.json added
@@ -42,6 +44,28 @@ def version_file(pack, version):
     return json.dumps({'pack': pack, 'version': version}, indent=2).encode()
 
 
+SERVER_NAME = 'CrystalMath'
+SERVER_ADDRESS = '185.141.216.149'
+
+
+def servers_dat():
+    """The multiplayer list with our server already in it (uncompressed NBT, as Minecraft writes servers.dat).
+    acceptTextures = 1 is the list's "Server Resource Packs: Enabled", so joining doesn't stop to ask."""
+    import struct
+
+    def name(tag, n):
+        b = n.encode()
+        return bytes([tag]) + struct.pack('>H', len(b)) + b
+
+    def string(n, v):
+        b = v.encode()
+        return name(8, n) + struct.pack('>H', len(b)) + b
+
+    server = string('ip', SERVER_ADDRESS) + string('name', SERVER_NAME) + name(1, 'acceptTextures') + b'\x01' \
+        + name(1, 'hidden') + b'\x00' + b'\x00'
+    return name(10, '') + name(9, 'servers') + bytes([10]) + struct.pack('>i', 1) + server + b'\x00'
+
+
 def toml_str(s):
     return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
 
@@ -53,7 +77,7 @@ for name, (pack, meta, key, version) in PACKS.items():
         swapped = 0
         for info in zin.infolist():
             data = zin.read(info.filename)
-            if info.filename == 'overrides/config/crystalmath-pack.json':
+            if info.filename in ('overrides/config/crystalmath-pack.json', 'overrides/servers.dat'):
                 continue
             if info.filename in swaps:
                 data = swaps[info.filename]
@@ -64,6 +88,8 @@ for name, (pack, meta, key, version) in PACKS.items():
                 data = json.dumps(d, indent=2).encode()
             zout.writestr(info, data)
         zout.writestr('overrides/config/crystalmath-pack.json', version_file(pack, version))
+        # A fresh install opens with the server already in the multiplayer list.
+        zout.writestr('overrides/servers.dat', servers_dat())
     z = zipfile.ZipFile(os.path.join(out, name))
     print(name, version, 'swapped', swapped, 'files', len(z.namelist()), '(was', len(zin.namelist()), ') size',
           os.path.getsize(os.path.join(out, name)))
@@ -106,6 +132,9 @@ def packwiz(mrpack, folder, pack, version, title):
         lines += ['[[files]]', 'file = ' + toml_str(rel), 'hash = ' + toml_str(digest)]
         if metafile:
             lines.append('metafile = true')
+        if rel == 'servers.dat':
+            # Put there once; never overwrite a list the player has added their own servers to.
+            lines.append('preserve = true')
         lines.append('')
     index_data = '\n'.join(lines).encode()
     open(os.path.join(root, 'index.toml'), 'wb').write(index_data)
