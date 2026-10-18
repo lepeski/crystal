@@ -42,14 +42,10 @@
     .dl { font-size:.8rem; line-height:1.6; display:flex; flex-direction:column; align-items:center; gap:.35rem; }
     .dl a { color:#88f5ff; text-decoration:underline; }
     .dl-head strong { color:#cfc7ff; letter-spacing:.08em; }
-    .dl-sub, .dl-how, .dl-alt, .dl-note, .dl-lite div { color:#8aa3c7; }
+    .dl-sub, .dl-how, .dl-note { color:#8aa3c7; }
     .dl-sub { font-size:.72rem; }
-    .dl .dl-btn { display:inline-block; margin:.35rem 0 .1rem; padding:.6rem 1.3rem; border-radius:10px; font-weight:700; font-size:.95rem;
-      color:#06121c; background:linear-gradient(135deg,#9dffb0,#88f5ff); text-decoration:none; box-shadow:0 0 18px rgba(136,245,255,.35); }
-    .dl .dl-btn:hover { filter:brightness(1.1); }
+    .dl-row { color:#8aa3c7; }
     .dl-how { font-size:.72rem; }
-    .dl-lite summary { cursor:pointer; color:#cfc7ff; }
-    .dl-lite div { margin-top:.25rem; font-size:.72rem; }
     .dl-note { font-size:.68rem; }
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
@@ -107,18 +103,16 @@
         <div class="dl">
           <div class="dl-head"><strong>OPTIONAL MODPACK</strong></div>
           <div class="dl-sub">shaders · voice chat · huge view distance · real radio stations · the wild haggis · hemp visuals · game consoles</div>
-          <a class="dl-btn" href="CrystalMath-Prism.zip" download>&#9733; Download &mdash; auto-updates</a>
-          <div class="dl-how">Install <a href="https://prismlauncher.org/" target="_blank" rel="noopener noreferrer">Prism Launcher</a>, then Add Instance &rarr; Import &rarr; this file. It updates itself every launch.</div>
-          <div class="dl-alt">Other ways:
-            <a href="CrystalMath-26.1.2.mrpack" download>Modrinth (.mrpack)</a> ·
+          <div class="dl-row">Download:
+            <a href="CrystalMath-Prism.zip" download>Prism (auto-updates)</a> ·
+            <a href="CrystalMath-26.1.2.mrpack" download>Modrinth</a> ·
             <a href="CrystalMath-26.1.2-curseforge.zip" download>CurseForge</a>
           </div>
-          <details class="dl-lite">
-            <summary>Low-end PC? Get Lite</summary>
-            <div>No shaders or Distant Horizons, tuned for weak PCs, everything else kept.<br>
-              <a href="CrystalMath-Lite-Prism.zip" download>Lite, auto-updating (Prism)</a> ·
-              <a href="CrystalMath-26.1.2-lite.mrpack" download>Lite .mrpack</a></div>
-          </details>
+          <div class="dl-row">Low-end PC? Lite:
+            <a href="CrystalMath-Lite-Prism.zip" download>Prism (auto-updates)</a> ·
+            <a href="CrystalMath-26.1.2-lite.mrpack" download>Modrinth</a>
+          </div>
+          <div class="dl-how">For auto-updates, install <a href="https://prismlauncher.org/" target="_blank" rel="noopener noreferrer">Prism Launcher</a>, then Add Instance &rarr; Import &rarr; the Prism file.</div>
           <div class="dl-note">In game, <b>/modpack</b> tells you if you're behind.</div>
         </div>
       </li>
