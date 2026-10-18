@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "c3236a310f643da642331c589c0475dd650cbee8376ff9452b7c8191238332ab"
+hash = "82feb04f6d63fa331115764e56ecc974d9b23d6759c1071d9708cf24b17dcc15"
 
 [[files]]
 file = "config/sound_physics_remastered/occlusion.properties"
@@ -38,7 +38,7 @@ metafile = true
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "7d09d2fb2f796e8994085268c1966c268e52ac7149902cde2016cd8d345de0d7"
+hash = "080f51172b033709402505277b72891f087fc327a8abfa420f34fdb38cafd312"
 
 [[files]]
 file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
@@ -95,4 +95,4 @@ metafile = true
 
 [[files]]
 file = "shaderpacks/ComplementaryReimagined_r5.9.3.zip.txt"
-hash = "6d703cc040d97ade83ad178d69c4df81a1d72a31fdd11e54124707c1948dc405"
+hash = "27ab1db6688e95d59011b19a9dd6564833888bfbf6de69998f0cafb37689faa9"
