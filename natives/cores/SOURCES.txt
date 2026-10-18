@@ -1,0 +1,7 @@
+Emulator cores for the CrystalMath game console (libretro builds, copied unchanged from
+https://buildbot.libretro.com/nightly/<platform>/latest/ on 2026-10-18; the mod checks each zip's SHA-256).
+
+snes9x_libretro            Snes9x - non-commercial licence; source: https://github.com/libretro/snes9x
+mupen64plus_next_libretro  Mupen64Plus-Next - GPLv2; source: https://github.com/libretro/mupen64plus-libretro-nx
+
+These go on the site at natives/cores/<platform>/ (windows-x86_64, linux-x86_64, macosx-arm64, macosx-x86_64).
