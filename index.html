@@ -39,6 +39,18 @@
     }
     .info-list li.no-bullet::before { content:none; margin-right:0; }
     .info-list li.tight-stack { margin-top:-0.45rem; }
+    .dl { font-size:.8rem; line-height:1.6; display:flex; flex-direction:column; align-items:center; gap:.35rem; }
+    .dl a { color:#88f5ff; text-decoration:underline; }
+    .dl-head strong { color:#cfc7ff; letter-spacing:.08em; }
+    .dl-sub, .dl-how, .dl-alt, .dl-note, .dl-lite div { color:#8aa3c7; }
+    .dl-sub { font-size:.72rem; }
+    .dl .dl-btn { display:inline-block; margin:.35rem 0 .1rem; padding:.6rem 1.3rem; border-radius:10px; font-weight:700; font-size:.95rem;
+      color:#06121c; background:linear-gradient(135deg,#9dffb0,#88f5ff); text-decoration:none; box-shadow:0 0 18px rgba(136,245,255,.35); }
+    .dl .dl-btn:hover { filter:brightness(1.1); }
+    .dl-how { font-size:.72rem; }
+    .dl-lite summary { cursor:pointer; color:#cfc7ff; }
+    .dl-lite div { margin-top:.25rem; font-size:.72rem; }
+    .dl-note { font-size:.68rem; }
     .price-line { color:#cfc7ff; font-size:1rem; }
     .price-line strong { color:#88f5ff; }
     .price-value { color:#fff; font-weight:600; text-shadow:0 0 10px rgba(120,210,255,0.7); display:inline-block; }
@@ -92,41 +104,30 @@
       <li>Use <strong>2 crystals</strong> to craft the beacon recipe and secure a <strong>64×64</strong> claim for your build.</li>
       <li class="price-line">Testnet live @ 185.141.216.149 ⛏️💎<span id="crystal-price" class="price-value">$0.0146</span> (<strong>9×pDAI</strong>:<span id="pdai-price" class="price-value">$0.001618</span>)</li>
       <li class="no-bullet tight-stack">
-        <div style="font-size:0.72rem; text-align:center; line-height:1.7;">
-          <strong style="color:#cfc7ff;">OPTIONAL</strong> modpack: shaders, proximity voice chat, Distant Horizons (huge view distance), radios you can tune to real stations, ambient world sound, the wild haggis, and the full hemp/mushroom visuals:
-          <a href="CrystalMath-26.1.2.mrpack" download style="color:#88f5ff; text-decoration:underline;"><b>download</b></a>
-          <span style="color:#8aa3c7;">or the <a href="CrystalMath-26.1.2-curseforge.zip" download style="color:#88f5ff; text-decoration:underline;"><b>CurseForge version</b></a> (import it in the CurseForge app)</span>
-          <span style="color:#8aa3c7;">(open in <a href="https://modrinth.com/app" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Modrinth App</a> / <a href="https://prismlauncher.org/" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Prism</a>)</span><br>
-          <strong style="color:#9dffb0;">AUTO-UPDATING</strong> (never download an update again): install <a href="https://prismlauncher.org/" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Prism Launcher</a>, then Add Instance &rarr; Import &rarr;
-          <a href="CrystalMath-Prism.zip" download style="color:#88f5ff; text-decoration:underline;"><b>CrystalMath-Prism.zip</b></a>
-          <span style="color:#8aa3c7;">(or <a href="CrystalMath-Lite-Prism.zip" download style="color:#88f5ff; text-decoration:underline;">the Lite one</a>) - it updates itself every time you launch it. In game, <b>/modpack</b> tells you if you're behind.</span><br>
-          <strong style="color:#cfc7ff;">LOW-END PC?</strong> <a href="CrystalMath-26.1.2-lite.mrpack" download style="color:#88f5ff; text-decoration:underline;"><b>CrystalMath Lite</b></a>
-          <span style="color:#8aa3c7;">- the <a href="https://modrinth.com/modpack/adrenaline" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Adrenaline</a> performance pack plus voice chat, radios, the haggis and hemp visuals, set up for weak PCs (no shaders or Distant Horizons). In Prism: Add Instance &rarr; Import &rarr; pick the file.</span><br>
-          <span style="color:#8aa3c7; font-size:0.62rem;">or manually on <a href="https://fabricmc.net/use/installer/" target="_blank" rel="noopener noreferrer" style="color:#88f5ff; text-decoration:underline;">Fabric</a>:
-            <a href="https://cdn.modrinth.com/data/P7dR8mSH/versions/3dM0X6ou/fabric-api-0.155.3%2B26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Fabric API</a> ·
-            <a href="https://cdn.modrinth.com/data/1bZhdhsH/versions/AWrwR3ci/plasmovoice-fabric-26.1-2.1.17.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Voice Chat</a> ·
-            <a href="https://cdn.modrinth.com/data/K1y8brkJ/versions/kmyhU2jp/pv-addon-soundphysics-1.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Voice reverb</a><span style="color:#6b7f9e;"> (Voice Chat + Sound reverb addon)</span> ·
-            <a href="https://cdn.modrinth.com/data/AANobbMI/versions/tZQ3jqnf/sodium-fabric-0.9.2%2Bmc26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Sodium</a> ·
-            <a href="https://cdn.modrinth.com/data/YL57xq9U/versions/sZbVsl2Q/iris-fabric-1.11.4%2Bmc26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Iris</a> ·
-            <a href="https://cdn.modrinth.com/data/HVnmMxH1/versions/Bqen1mJX/ComplementaryReimagined_r5.9.3.zip" target="_blank" style="color:#88f5ff; text-decoration:underline;">Complementary shader</a> ·
-            <a href="https://cdn.modrinth.com/data/uCdwusMi/versions/8lNwBMTz/DistantHorizons-3.3.2-26.1.2-fabric-neoforge.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Distant Horizons</a> ·
-            <a href="https://cdn.modrinth.com/data/yBW8D80W/versions/USlEyPPR/lambdynamiclights-4.11.2%2B26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Torch lighting</a> ·
-            <a href="https://cdn.modrinth.com/data/qyVF9oeo/versions/y3vsp51g/sound-physics-remastered-fabric-1.5.1%2B26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Sound reverb</a> ·
-            <a href="https://cdn.modrinth.com/data/fM515JnW/versions/DKPRMIAu/AmbientSounds_FABRIC_v6.3.6_mc26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">Ambient sounds</a> ·
-            <a href="https://cdn.modrinth.com/data/OsZiaDHq/versions/atlpYjof/CreativeCore_FABRIC_v2.14.16_mc26.1.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">CreativeCore</a><span style="color:#6b7f9e;"> (Ambient sounds needs this)</span> ·
-            <a href="haggismod-1.0.0.jar" download style="color:#88f5ff; text-decoration:underline;">Haggis Mod</a> ·
-            <a href="https://cdn.modrinth.com/data/8BmcQJ2H/versions/XZTmZlwb/geckolib-fabric-26.1.2-5.5.2.jar" target="_blank" style="color:#88f5ff; text-decoration:underline;">GeckoLib</a><span style="color:#6b7f9e;"> (Haggis Mod needs this)</span> ·
-            <a href="hempmod-4.2.0.jar" download style="color:#88f5ff; text-decoration:underline;">Hemp Mod 4.7.2</a> ·
-            <a href="fmradio-1.0.0-cm1.jar" download style="color:#88f5ff; text-decoration:underline;">FM Radio</a>
-            · vanilla 26.1.2 works too</span>
+        <div class="dl">
+          <div class="dl-head"><strong>OPTIONAL MODPACK</strong></div>
+          <div class="dl-sub">shaders · voice chat · huge view distance · real radio stations · the wild haggis · hemp visuals · game consoles</div>
+          <a class="dl-btn" href="CrystalMath-Prism.zip" download>&#9733; Download &mdash; auto-updates</a>
+          <div class="dl-how">Install <a href="https://prismlauncher.org/" target="_blank" rel="noopener noreferrer">Prism Launcher</a>, then Add Instance &rarr; Import &rarr; this file. It updates itself every launch.</div>
+          <div class="dl-alt">Other ways:
+            <a href="CrystalMath-26.1.2.mrpack" download>Modrinth (.mrpack)</a> ·
+            <a href="CrystalMath-26.1.2-curseforge.zip" download>CurseForge</a>
+          </div>
+          <details class="dl-lite">
+            <summary>Low-end PC? Get Lite</summary>
+            <div>No shaders or Distant Horizons, tuned for weak PCs, everything else kept.<br>
+              <a href="CrystalMath-Lite-Prism.zip" download>Lite, auto-updating (Prism)</a> ·
+              <a href="CrystalMath-26.1.2-lite.mrpack" download>Lite .mrpack</a></div>
+          </details>
+          <div class="dl-note">In game, <b>/modpack</b> tells you if you're behind.</div>
         </div>
       </li>
     </ul>
   </div>
   <div class="support-grid">
     <div class="card-lite video-shell">
-      <video id="info-video" class="video-frame" controls autoplay muted loop playsinline preload="metadata">
-        <source src="crystalmath.mp4?v=2" type="video/mp4">
+      <video id="info-video" class="video-frame" controls loop playsinline preload="metadata">
+        <source src="crystalmath.mp4?v=2#t=1" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
@@ -269,25 +270,6 @@
     updatePrices();
     setInterval(updatePrices,1000);
     document.getElementById('copyBtn').addEventListener('click',()=>navigator.clipboard.writeText(document.querySelector('.footer-address').firstChild.textContent.trim()));
-
-    const infoVideo=document.getElementById('info-video');
-    const videoInteractionEvents=['pointerdown','touchstart','wheel','keydown'];
-
-    const ensureVideoPlayback=()=>{
-      if(!infoVideo) return;
-      infoVideo.muted=false;
-      const playAttempt=infoVideo.play();
-      if(playAttempt?.catch){
-        playAttempt.catch(err=>console.warn('Video playback blocked',err));
-      }
-    };
-
-    const handleVideoInteraction=()=>{
-      ensureVideoPlayback();
-      videoInteractionEvents.forEach(evt=>window.removeEventListener(evt,handleVideoInteraction));
-    };
-
-    videoInteractionEvents.forEach(evt=>window.addEventListener(evt,handleVideoInteraction,{passive:true}));
 
     const modal=document.getElementById('image-modal');
     const openModal=document.getElementById('deeper-link');
