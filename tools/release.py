@@ -4,9 +4,11 @@ usage: python tools/release.py <dir with the current packs> <out dir> <main vers
                                [--swap overrides/mods/x.jar=path/to/new.jar ...]
                                [--add overrides/mods/new.jar=path/to/new.jar ...]
                                [--swap-where-present overrides/config/x.properties=path/to/x.properties ...]
+                               [--add-main overrides/x/big.jar=path/to/big.jar ...]
 
 --swap replaces a file the packs already have (and fails if one doesn't); --add puts in a new one;
 --swap-where-present replaces it only in the packs that have it (a config for a mod the lite pack leaves out).
+--add-main puts a new file in the main packs only (Modrinth + CurseForge), not the lite one.
 
 Every pack gets servers.dat with the server in it (on auto-updates only when the player has none yet).
 
@@ -32,6 +34,7 @@ src, out, main_version, lite_version = sys.argv[1:5]
 swaps = {}
 adds = {}
 optional_swaps = {}
+main_adds = {}
 target = swaps
 for arg in sys.argv[5:]:
     if arg == '--swap':
@@ -42,6 +45,9 @@ for arg in sys.argv[5:]:
         continue
     if arg == '--add':
         target = adds
+        continue
+    if arg == '--add-main':
+        target = main_adds
         continue
     entry, path = arg.split('=', 1)
     target[entry] = open(path, 'rb').read()
@@ -108,7 +114,10 @@ for name, (pack, meta, key, version) in PACKS.items():
                 d[key] = version
                 data = json.dumps(d, indent=2).encode()
             zout.writestr(info, data)
-        for entry, data in adds.items():
+        extra = dict(adds)
+        if pack != 'lite':
+            extra.update(main_adds)
+        for entry, data in extra.items():
             if entry in zin.namelist():
                 raise SystemExit(name + ' already has ' + entry + ' (use --swap to replace it)')
             zout.writestr(entry, data)
