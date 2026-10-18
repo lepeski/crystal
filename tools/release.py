@@ -3,8 +3,10 @@
 usage: python tools/release.py <dir with the current packs> <out dir> <main version> <lite version>
                                [--swap overrides/mods/x.jar=path/to/new.jar ...]
                                [--add overrides/mods/new.jar=path/to/new.jar ...]
+                               [--swap-where-present overrides/config/x.properties=path/to/x.properties ...]
 
---swap replaces a file the packs already have (and fails if one doesn't); --add puts in a new one.
+--swap replaces a file the packs already have (and fails if one doesn't); --add puts in a new one;
+--swap-where-present replaces it only in the packs that have it (a config for a mod the lite pack leaves out).
 
 Every pack gets servers.dat with the server in it (on auto-updates only when the player has none yet).
 
@@ -29,10 +31,14 @@ BOOTSTRAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'packwiz-in
 src, out, main_version, lite_version = sys.argv[1:5]
 swaps = {}
 adds = {}
+optional_swaps = {}
 target = swaps
 for arg in sys.argv[5:]:
     if arg == '--swap':
         target = swaps
+        continue
+    if arg == '--swap-where-present':
+        target = optional_swaps
         continue
     if arg == '--add':
         target = adds
@@ -93,6 +99,9 @@ for name, (pack, meta, key, version) in PACKS.items():
                 continue
             if info.filename in swaps:
                 data = swaps[info.filename]
+                swapped += 1
+            elif info.filename in optional_swaps:
+                data = optional_swaps[info.filename]
                 swapped += 1
             elif info.filename == meta:
                 d = json.loads(data)

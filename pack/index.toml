@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "fe58fe10ccf3cdbd5128447b4c19a9d6add7ea413e64b95dc1f4da5714329f39"
+hash = "c3236a310f643da642331c589c0475dd650cbee8376ff9452b7c8191238332ab"
 
 [[files]]
 file = "config/sound_physics_remastered/occlusion.properties"
@@ -10,7 +10,7 @@ hash = "cf332b751380a307821dfa3d01e6291cb84e6b32444bdb250f8c08a543268c1e"
 
 [[files]]
 file = "config/sound_physics_remastered/soundphysics.properties"
-hash = "3883f261a9208328bb956457d98333bf432c15e6c0bffac46bbb55560299ce05"
+hash = "5400713f329351d08267619ac4b8cb15ace2c5c98b6a0cfe3e0fce8a608739e2"
 
 [[files]]
 file = "mods/AmbientSounds_FABRIC_v6.3.6_mc26.1.2.jar.pw.toml"
@@ -38,7 +38,7 @@ metafile = true
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "0df1f54fcb7d1d1ce338acd0651c2dda6da1aa06dbcd5513ee3d11740def7d6e"
+hash = "7d09d2fb2f796e8994085268c1966c268e52ac7149902cde2016cd8d345de0d7"
 
 [[files]]
 file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
