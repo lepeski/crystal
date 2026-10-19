@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "43577375d0cc98580b94c0cd90eafc94b7a64805ec60cb5e027d409dd5800558"
+hash = "f649de49422e1dfb0c7cf1c9a1603ae6b66f4c50497d896080c9213ae58cabf6"
 
 [[files]]
 file = "config/sound_physics_remastered/occlusion.properties"
@@ -46,7 +46,7 @@ hash = "6f4d4cab1af9502aa105c42e90ba078c041d6a789b4b8db89015d6678c79aa5e"
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "4ff099339f10ec56e351e42f0f51e9ad7bfca3f214f2c29028b2b4c9e341e87a"
+hash = "7871ca6bf248c4909e7e6d5f14bb66c353729e98a6f86ee47079d7a6fac6b091"
 
 [[files]]
 file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
