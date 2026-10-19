@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "1033a09f9d7ce4dc4e0872d80a174fee06636b2fd27544f68c76dea5a62b6b81"
+hash = "7db7f3b388afce08b5ad90492366a6a53afbcf00464abd019954a2fed880c7f4"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -122,7 +122,7 @@ metafile = true
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "1c1f6e51cd35ecb9cadbfe9325e60268c3c424af9567e836fd6db893c00856d2"
+hash = "3474b7ec4ee05193f85e3ef7c045b6795eed4af3344852291f69c7721ef7944b"
 
 [[files]]
 file = "mods/fzzy_config-0.7.6+26.1.jar.pw.toml"
