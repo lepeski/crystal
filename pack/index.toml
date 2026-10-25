@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "f1ff496e2421d90d9dbeba35329d55c1279d4b1d0858f7ad54b0ef9a47358394"
+hash = "150275f26bbfa54c68dc20532ac3333c75814fe6e769aa71cb0a6b80e9a09afe"
 
 [[files]]
 file = "config/sound_physics_remastered/occlusion.properties"
@@ -59,7 +59,7 @@ hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
 
 [[files]]
 file = "mods/hempmod-4.2.0.jar"
-hash = "b203dd9592d8d12972482f51aec17e08d96975f8350fdbfacaccb9969b43bc3d"
+hash = "5ffbeba6c3fe697c42466291769f4811afba275bb7651f7a6bdb40742e264a81"
 
 [[files]]
 file = "mods/iris-fabric-1.11.4+mc26.1.2.jar.pw.toml"
