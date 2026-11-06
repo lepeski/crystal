@@ -13,7 +13,7 @@ usage: python tools/release.py <dir with the current packs> <out dir> <main vers
 Every pack gets servers.dat with the server in it (on auto-updates only when the player has none yet).
 
 Writes into <out dir>:
-  CrystalMath-26.1.2.mrpack, -lite.mrpack, -curseforge.zip   the packs, bumped, with jars swapped and
+  CrystalMath-26.1.2.mrpack, -lite.mrpack, -curseforge.zip, -lite-curseforge.zip   the packs, bumped, with jars swapped and
                                                              overrides/config/crystalmath-pack.json added
   pack/ and pack-lite/                                       the same packs as packwiz trees, for auto-updates
   pack-version.json                                          the latest versions (the server's update notice reads it)
@@ -56,6 +56,8 @@ PACKS = {
     'CrystalMath-26.1.2.mrpack': ('main', 'modrinth.index.json', 'versionId', main_version),
     'CrystalMath-26.1.2-lite.mrpack': ('lite', 'modrinth.index.json', 'versionId', lite_version),
     'CrystalMath-26.1.2-curseforge.zip': ('curseforge', 'manifest.json', 'version', main_version),
+    # The lite pack for the CurseForge app (it can't import .mrpack): every jar inside, as the main CurseForge zip.
+    'CrystalMath-26.1.2-lite-curseforge.zip': ('lite', 'manifest.json', 'version', lite_version),
 }
 
 os.makedirs(out)
