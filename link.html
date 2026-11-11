@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link Wallet · Crystal Math</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#000; color:#d7e8ff; font-family:sans-serif; min-height:100vh; padding:16px; }
+    .card { max-width:620px; margin:2rem auto; background:rgba(5,15,35,0.85); border:1px solid rgba(120,200,255,0.2);
+      border-radius:.9rem; padding:1.4rem 1.5rem; box-shadow:0 0 25px rgba(60,0,120,0.35); }
+    h1 { font-size:1.3rem; letter-spacing:.3rem; text-align:center; margin-bottom:1rem;
+      background:linear-gradient(90deg,hsl(200,100%,50%),hsl(280,100%,60%),hsl(220,100%,55%));
+      -webkit-background-clip:text; background-clip:text; color:transparent; }
+    p { line-height:1.55; margin:.6rem 0; font-size:.95rem; }
+    .muted { color:#8aa4c4; font-size:.85rem; }
+    .row { display:flex; gap:.5rem; flex-wrap:wrap; margin:.8rem 0; }
+    button { background:#2a1650; color:#e9dcff; border:1px solid #7a4fd1; border-radius:.5rem; padding:.65rem 1rem;
+      font-size:.95rem; cursor:pointer; }
+    button:hover { background:#3a2070; }
+    button:disabled { opacity:.5; cursor:default; }
+    pre, .box { background:#050a14; border:1px solid rgba(120,200,255,0.18); border-radius:.5rem; padding:.7rem .8rem;
+      font-family:ui-monospace,Consolas,monospace; font-size:.8rem; white-space:pre-wrap; word-break:break-all; color:#bfe3ff; }
+    .ok { color:#7ee2a8; } .bad { color:#ff8a8a; }
+    .hidden { display:none; }
+    code { font-family:ui-monospace,Consolas,monospace; color:#ffd27a; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>LINK WALLET</h1>
+    <div id="bad" class="hidden">
+      <p class="bad">This page needs the link from the game. Type <code>/linkwallet &lt;your address&gt;</code> in Minecraft and click the link it gives you.</p>
+    </div>
+    <div id="main" class="hidden">
+      <p>Prove this wallet is yours by signing a short message. Signing is <b>free</b>: it is not a transaction, sends nothing and costs no gas.</p>
+      <p class="muted">Wallet: <span id="addr"></span></p>
+      <div class="row"><button id="sign">Connect &amp; sign</button></div>
+      <p id="status" class="muted"></p>
+      <div id="done" class="hidden">
+        <p class="ok">Signed. Copy this and paste it into Minecraft chat:</p>
+        <pre id="cmd"></pre>
+        <div class="row"><button id="copy">Copy command</button></div>
+      </div>
+      <details style="margin-top:1rem">
+        <summary class="muted" style="cursor:pointer">No browser wallet? Sign it another way</summary>
+        <p class="muted">Use your wallet's "Sign message" feature with exactly this text (all lines), then type
+          <code>/linkwallet confirm &lt;signature&gt;</code> in game:</p>
+        <pre id="msg"></pre>
+      </details>
+    </div>
+  </div>
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const addr = (q.get('a') || '').toLowerCase(), code = q.get('c') || '', player = q.get('p') || '';
+  const valid = /^0x[0-9a-f]{40}$/.test(addr) && /^[0-9a-f]{8}$/.test(code) && /^[0-9a-f-]{36}$/i.test(player);
+  if (!valid) { document.getElementById('bad').classList.remove('hidden'); return; }
+  document.getElementById('main').classList.remove('hidden');
+  // must match the backend's challengeMessage() exactly
+  const message = 'Link this wallet to CrystalMath\nPlayer: ' + player + '\nWallet: ' + addr + '\nCode: ' + code;
+  document.getElementById('addr').textContent = addr;
+  document.getElementById('msg').textContent = message;
+  const status = document.getElementById('status');
+  const hex = s => '0x' + Array.from(new TextEncoder().encode(s), b => b.toString(16).padStart(2, '0')).join('');
+
+  document.getElementById('sign').onclick = async () => {
+    if (!window.ethereum) { status.textContent = 'No browser wallet found (MetaMask, Rabby, ...). Use "Sign it another way" below.'; return; }
+    try {
+      status.textContent = 'Check your wallet...';
+      const accounts = (await window.ethereum.request({ method: 'eth_requestAccounts' })).map(a => a.toLowerCase());
+      if (!accounts.includes(addr)) {
+        status.innerHTML = '<span class="bad">Your wallet is on a different account. Switch it to ' + addr + ' and try again.</span>';
+        return;
+      }
+      const sig = await window.ethereum.request({ method: 'personal_sign', params: [hex(message), addr] });
+      document.getElementById('cmd').textContent = '/linkwallet confirm ' + sig;
+      document.getElementById('done').classList.remove('hidden');
+      status.textContent = '';
+    } catch (e) {
+      status.innerHTML = '<span class="bad">' + (e && e.message ? e.message : 'Signing was cancelled.') + '</span>';
+    }
+  };
+  document.getElementById('copy').onclick = async () => {
+    try { await navigator.clipboard.writeText(document.getElementById('cmd').textContent); document.getElementById('copy').textContent = 'Copied'; }
+    catch (e) { status.textContent = 'Copy failed - select the text and copy it.'; }
+  };
+})();
+</script>
+</body>
+</html>
