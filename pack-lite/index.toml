@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "efc918137c25bd584422ab64c707e3f3cdb3f031b0d71a93ad7b84f24e9ed239"
+hash = "b42f7695e0b01fcb1524c6ce3f912341596957302abd3ac352681d70db964a87"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -144,7 +144,7 @@ hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
 
 [[files]]
 file = "mods/hempmod-4.2.0.jar"
-hash = "ef828b9c1348178f79ef37042a697e73a93f02433b3a5fd9d1cd04d2f272a365"
+hash = "6b8768ddf0f9af3131c52f0f31494d3d5244bad4dd3f8e122b97a893e50caedb"
 
 [[files]]
 file = "mods/lithium-fabric-0.24.7+mc26.1.2.jar.pw.toml"
