@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "cdf3f6ab7b9791fb087d1549b7ca4260910f77a1c19ae94c75e1cf7937b9f339"
+hash = "b4abf671477b8db7fb7eab4408cb8a0926bbe0ac16593f928f8360588e6bad0e"
 
 [[files]]
 file = "config/sound_physics_remastered/occlusion.properties"
@@ -36,6 +36,10 @@ hash = "fa7901a73560b5b5b0d0ea45dd00ea240b12b143839287902ff0db60e2000a62"
 metafile = true
 
 [[files]]
+file = "mods/ImmediatelyFast-Fabric-1.15.3+26.1.jar"
+hash = "5329c19ea79fbeacce6c355eeb884dcdb1c5baed632c2f8e9e92d6a4ae233cba"
+
+[[files]]
 file = "mods/enderdj-1.0.0.jar"
 hash = "d4f8f671c0dc69d9bef991c805f050e8c68507c717bf6ca50ebc22850d594deb"
 
@@ -45,12 +49,16 @@ hash = "ae9a1ddd792880d04e780e82ef670f4b97c36e690ecda7810b9cd51239c64e85"
 metafile = true
 
 [[files]]
+file = "mods/ferritecore-9.0.0-fabric.jar"
+hash = "213966c72ed967acc7392beb28a866fba301ff56b9976c2e7801c2db7de6bf22"
+
+[[files]]
 file = "mods/firmament-client-1.0.0.jar"
 hash = "6f4d4cab1af9502aa105c42e90ba078c041d6a789b4b8db89015d6678c79aa5e"
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "cfc07e74df7381a40da61669018292fce8505ba52d184de7ef542bba66624882"
+hash = "55e55fda79ef9e96b22a9f8378fad56c9dff7d81ac09e5232d0439898b6e2e78"
 
 [[files]]
 file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
@@ -74,6 +82,10 @@ metafile = true
 file = "mods/lambdynamiclights-4.11.2+26.1.2.jar.pw.toml"
 hash = "47f0c96b98522b0ff3193df4f3363c3ffde8db917e88106c53eadec3e890828b"
 metafile = true
+
+[[files]]
+file = "mods/modernfix-5.27.19-build.1.jar"
+hash = "b9095a5e216eb9fbd52b00b8e0ff0dc5ee43d23241b0f349925a0e12b4ec601b"
 
 [[files]]
 file = "mods/plasmovoice-fabric-26.1-2.1.17.jar.pw.toml"
