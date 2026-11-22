@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "17e8f3d9fe20b1161b43a61c59dfedabd59ad4ca2c7f7f6e2f4d4c8138cbb232"
+hash = "3e1cd26696203a0f976069efd636569151dc74874ce44b0e5f05c6093eda87c6"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -98,7 +98,7 @@ metafile = true
 
 [[files]]
 file = "mods/enderdj-1.0.0.jar"
-hash = "d4f8f671c0dc69d9bef991c805f050e8c68507c717bf6ca50ebc22850d594deb"
+hash = "0f1d5334c057cb05f0432585a8afd2548d00da84d397dcfb20df7fc3b6fcb075"
 
 [[files]]
 file = "mods/entityculling-fabric-1.11.2-mc26.1.jar.pw.toml"
@@ -144,7 +144,7 @@ hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
 
 [[files]]
 file = "mods/hempmod-4.2.0.jar"
-hash = "fa016ae6167286721c3deb4db3000cd4ede75170f0422d778707d7336f912719"
+hash = "90feca6d841bba156e8e67c96be16c4e21aa8c884da445dacf56aaedf500000d"
 
 [[files]]
 file = "mods/lithium-fabric-0.24.7+mc26.1.2.jar.pw.toml"
