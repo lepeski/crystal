@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "3e1cd26696203a0f976069efd636569151dc74874ce44b0e5f05c6093eda87c6"
+hash = "ceedba9e5f440417d3fa9a0ade2ba189beffc8fc63bf2a7bd16f66aaaad91fc9"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -98,7 +98,7 @@ metafile = true
 
 [[files]]
 file = "mods/enderdj-1.0.0.jar"
-hash = "0f1d5334c057cb05f0432585a8afd2548d00da84d397dcfb20df7fc3b6fcb075"
+hash = "69b6b78adae31adcaffca8565d2fea796e5c1886248fb7c448a36348ba5cd782"
 
 [[files]]
 file = "mods/entityculling-fabric-1.11.2-mc26.1.jar.pw.toml"
