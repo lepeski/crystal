@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "9220bcc51999af322b6d8e50c8162652e627b1f8d847208ffaf24fe4934d8723"
+hash = "bdd5a64ed402faa149ce6a024871ae333cc62b15a201b3fd8d49f282c8a8b347"
 
 [[files]]
 file = "config/fmradio/shader-originals/ComplementaryReimagined_r5.9.3.zip.pw.toml"
@@ -63,7 +63,7 @@ hash = "6f4d4cab1af9502aa105c42e90ba078c041d6a789b4b8db89015d6678c79aa5e"
 
 [[files]]
 file = "mods/fmradio-1.0.0-cm1.jar"
-hash = "aa76b63081cd91355e2c2bdb44272503a86dec284d1b90df14bee8fc2924b372"
+hash = "e3e89c6977bd7655c1c62ff4bc7535db7c7726bf824b168977252271c6cc75e9"
 
 [[files]]
 file = "mods/geckolib-fabric-26.1.2-5.5.2.jar.pw.toml"
