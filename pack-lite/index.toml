@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "83c83848254de0bbffedad0b4ae4fa0003f916d511f3e1a8a236002cc20518be"
+hash = "72abd1d9c9924d83551667aa9b9dab9346e374854523ad63c8b758e47df2d53f"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -88,7 +88,7 @@ metafile = true
 
 [[files]]
 file = "mods/critters-0.1.0.jar"
-hash = "4e1111a5c684fa22d16ccff01fc894af3de822e0b2c623928b6032369811bc74"
+hash = "07753b05b6f06838126df9c010ece2c303bfe9a46c2ab54209269592e56b4892"
 
 [[files]]
 file = "mods/cull-fewer-leaves-1.1.2+26.1-fabric.jar.pw.toml"
