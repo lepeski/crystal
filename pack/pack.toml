@@ -1,12 +1,12 @@
 name = "CrystalMath"
 author = "CrystalMath"
-version = "2.9.141"
+version = "2.9.142"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "29737201f0e3c63ac6403d67fc8284e247f34c1f711ccb0540e2356c74d7aed0"
+hash = "9bcdc419e8bdf083e08771219fcb718aafd02a209fc9e6f6454b5bf692f074da"
 
 [versions]
 minecraft = "26.1.2"
