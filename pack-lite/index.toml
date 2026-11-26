@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "1505433e209baed9f18f9d55366380cec976e7e0135eb1ffbd3abf1afe2821e4"
+hash = "4ead5c44a06b3bd29966fe20c39b162b6b23d7fd3ba01d0d03adb8361783db2a"
 
 [[files]]
 file = "config/modpack_defaults/config/crash_assistant/config.toml"
@@ -88,7 +88,7 @@ metafile = true
 
 [[files]]
 file = "mods/critters-0.1.0.jar"
-hash = "e69d7efad85250f9957bcff013bba6db0a6dc83446c805e89a0b778c89c0bdda"
+hash = "7ca42d93f1e4d2dd0d1552987ee2b5f2aa3cd22123e1a22ffae4ba35dc0d39df"
 
 [[files]]
 file = "mods/cull-fewer-leaves-1.1.2+26.1-fabric.jar.pw.toml"
@@ -148,7 +148,7 @@ hash = "da87dc9090a1c22a08d9189257b2493d9284893f2cf3538056f4c5bc147522bc"
 
 [[files]]
 file = "mods/hempmod-4.2.0.jar"
-hash = "6741fe539585ddefbcdeaa67a6645313b174abfe0a5ecb06d36c81f15a3e2c19"
+hash = "bb1f6ecd8b9add8902061133a857e88c600751494c88cba0156418b684d4df9d"
 
 [[files]]
 file = "mods/lithium-fabric-0.24.7+mc26.1.2.jar.pw.toml"
