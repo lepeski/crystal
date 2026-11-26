@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "config/crystalmath-pack.json"
-hash = "53ed3abcbdfa9b1aca9d9d010e6a4415d77e959ee16419e0c00c064cf7bf2f43"
+hash = "1d6248a5cb48d6537014a94d3d82d0e82667ef33cda1cf5246f44d5a6c39c10a"
 
 [[files]]
 file = "config/fmradio/shader-originals/ComplementaryReimagined_r5.9.3.zip.pw.toml"
@@ -46,7 +46,7 @@ hash = "5329c19ea79fbeacce6c355eeb884dcdb1c5baed632c2f8e9e92d6a4ae233cba"
 
 [[files]]
 file = "mods/critters-0.1.0.jar"
-hash = "dfda03ca019e7eda105063ffb245f531a0c282c759e271d6536df9e8ddee6405"
+hash = "d1673b2ca45258429982cc56ea282ba60ff3021b001b8cf741bbaacae880bcfc"
 
 [[files]]
 file = "mods/enderdj-1.0.0.jar"
