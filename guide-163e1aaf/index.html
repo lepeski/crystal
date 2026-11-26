@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Critters Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* A naturalist's field guide: a short "how it works" panel, then one entry per species. Data: guide.json, written by the
+   Critters plugin from what the server runs and copied here on each release. */
+:root {
+  --bg: #f3f6f4; --surface: #ffffff; --fg: #1b2624; --muted: #5d6c69; --line: #d9e2de; --accent: #0c7a68; --accent-soft: #dcefe9;
+  --r-common: #5f7d72; --r-uncommon: #2f6db3; --r-rare: #7b4cc0; --r-ultra: #b86a12; --r-legend: #c0392b;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root {
+  --bg: #101716; --surface: #172120; --fg: #e3ece9; --muted: #96a8a3; --line: #2a3836; --accent: #4cc9b0; --accent-soft: #1d3632;
+  --r-common: #8fb3a6; --r-uncommon: #6ea8ec; --r-rare: #b48cf0; --r-ultra: #f0a34a; --r-legend: #f07b6c; color-scheme: dark } }
+* { box-sizing: border-box }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px) }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+[hidden] { display: none !important }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 28px }
+h1, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15 }
+h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 750; letter-spacing: -0.01em }
+header p { margin: 8px 0 0; color: var(--muted); max-width: 70ch }
+.stamp { font: 500 12px var(--mono); color: var(--muted); margin-top: 6px }
+.howto { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px }
+.howto section { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0 }
+.howto h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px }
+.howto p, .howto li { margin: 0; color: var(--muted); font-size: 14px }
+.howto ul { margin: 0; padding-left: 18px; display: grid; gap: 3px }
+.howto b { color: var(--fg); font-weight: 600 }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-bottom: 1px solid var(--line) }
+.bar input[type=search], .bar select { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; min-width: 0 }
+.bar input[type=search] { flex: 1 1 220px }
+.bar label { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted); cursor: pointer; white-space: nowrap }
+.bar input:focus-visible, .bar select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px }
+.count { margin-left: auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums }
+.head, .row { display: grid; grid-template-columns: 190px minmax(0, 2.2fr) minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px }
+.head { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 0 16px }
+.list { display: grid; gap: 8px }
+.row { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; align-items: start }
+.row > div { min-width: 0 }
+.dex { font: 500 12px var(--mono); color: var(--muted); font-variant-numeric: tabular-nums }
+.name { font: 600 19px/1.2 var(--display); margin: 2px 0 6px }
+.types { display: flex; flex-wrap: wrap; gap: 4px }
+.type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; padding: 1px 7px; border-radius: 999px; color: #fff; font-weight: 600 }
+.flags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px }
+.flag { font-size: 12px; padding: 1px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500 }
+.flag.legend { background: transparent; border: 1px solid var(--r-legend); color: var(--r-legend) }
+.spawns { display: grid; gap: 7px }
+.spawn { display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 8px; font-size: 14px }
+.rar { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-left: 3px solid; padding-left: 6px; line-height: 1.6; align-self: start }
+.rar.common { color: var(--r-common) } .rar.uncommon { color: var(--r-uncommon) } .rar.rare { color: var(--r-rare) }
+.rar.ultra-rare { color: var(--r-ultra) } .rar.legendary { color: var(--r-legend) }
+.meta { color: var(--muted); font-size: 13px }
+.more { background: none; border: 0; padding: 0; color: var(--accent); font: inherit; font-size: 13px; cursor: pointer; text-align: left }
+.more:focus-visible { outline: 2px solid var(--accent) }
+.food { display: grid; gap: 6px; font-size: 14px }
+.chance { font: 500 12px var(--mono); color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums }
+.small { font-size: 13px; color: var(--muted) }
+.evo { font-size: 14px; display: grid; gap: 4px }
+.evo b { font-weight: 600 }
+.empty { padding: 40px 16px; text-align: center; color: var(--muted) }
+@media (max-width: 860px) {
+  .head { display: none }
+  .row { grid-template-columns: minmax(0, 1fr); gap: 12px }
+  .row > div[data-label]::before { content: attr(data-label); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px }
+}
+@media (prefers-reduced-motion: no-preference) { .row { transition: border-color .15s } .row:hover { border-color: var(--accent) } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Critters Field Guide</h1>
+    <p>Where every critter lives on CrystalMath, what it eats, what it becomes and whether you can ride it. Read from the server's own spawn rules, so it's always current. Models, animations and spawn data come from Cobblemon.</p>
+    <div class="stamp" id="stamp"></div>
+  </header>
+
+  <div class="howto">
+    <section>
+      <h3>Finding them</h3>
+      <ul>
+        <li>Wild critters are <b>rare</b>: roughly one find every 10–20 minutes of moving about, and they stay where they spawned.</li>
+        <li>Rarity is the weight once a spot fits: <span id="weights">common, uncommon, rare, ultra rare</span>.</li>
+        <li>No spawns near world spawn, inside claims or in torch-lit places. "Underground" means caves only; otherwise surface and caves both work.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Taming and catching</h3>
+      <ul>
+        <li>Feed a wild one its food. Each feed has the listed chance to win it over; evolved forms are harder.</li>
+        <li>Once it trusts you, <b>your ball always catches it</b>. An untamed one fights back.</li>
+        <li>Poké Ball: 3 red dye / iron, stone button, iron / 3 white dye.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Shinies</h3>
+      <p><b id="shiny">1 in 1024</b> wild critters is shiny, in its own colours (a shiny Charmander has a blue flame). You won't see a sparkle in the wild; it sparkles when it comes out of your ball. Its ball says "★ Shiny".</p>
+    </section>
+    <section>
+      <h3>Legendaries</h3>
+      <ul>
+        <li>Only one of each about at a time, and very rare: about a day of searching in the right place.</li>
+        <li>The birds also <b>fly across the sky</b> now and then and land on the highest peak ahead. Follow them.</li>
+        <li>Tame with golden apples (slim odds) or enchanted golden apples (good odds).</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Evolution stones and healing</h3>
+      <ul>
+        <li>Stones: 4 copper ingots around a core. <b>Fire</b> fire charge · <b>Water</b> prismarine crystals · <b>Thunder</b> lightning rod · <b>Moon</b> phantom membrane · <b>Leaf</b> moss block.</li>
+        <li>Healing machine: glass / iron, glistering melon, iron / iron, redstone block, iron. Needs an FM Radio computer beside it.</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Riding</h3>
+      <p>Right-click your own big critter with an empty hand. Fliers take off with a double-tap of jump from Lv. 36. Water mounts surf; land mounts paddle (slowly) in deep water. Sneak to get off.</p>
+    </section>
+  </div>
+
+  <div class="bar" role="search">
+    <input id="q" type="search" placeholder="Search a critter, biome or food (e.g. jungle, apple, cave)" aria-label="Search">
+    <select id="rar" aria-label="Rarity">
+      <option value="">Any rarity</option>
+      <option value="common">Common somewhere</option>
+      <option value="uncommon">Uncommon at best</option>
+      <option value="rare">Rare at best</option>
+      <option value="ultra-rare">Ultra rare at best</option>
+      <option value="legendary">Legendary</option>
+    </select>
+    <select id="type" aria-label="Type"><option value="">Any type</option></select>
+    <label><input id="ride" type="checkbox"> Rideable</label>
+    <label><input id="water" type="checkbox"> Found in water</label>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="head" aria-hidden="true"><span>Critter</span><span>Where to find it</span><span>Taming food (chance per feed)</span><span>Evolution and riding</span></div>
+  <div class="list" id="list"><div class="empty">Loading the field guide…</div></div>
+</div>
+
+<script>
+const TYPE = { normal:'#8a8a6a', fire:'#d8622a', water:'#3f7fd6', grass:'#4f9a3a', electric:'#b89400', ice:'#3fa3a8', fighting:'#b03a2e',
+  poison:'#8a3f9a', ground:'#a07a2e', flying:'#6a76b8', psychic:'#d64f7a', bug:'#6f8a1f', rock:'#8a7422', ghost:'#5f4f8f',
+  dragon:'#5a3fd0', dark:'#4f4036', steel:'#6f7a89', fairy:'#b75f90' };
+const ORDER = { common: 1, uncommon: 2, rare: 3, 'ultra-rare': 4, legendary: 5 };
+const LABEL = { common: 'Common', uncommon: 'Uncommon', rare: 'Rare', 'ultra-rare': 'Ultra rare', legendary: 'Legendary' };
+const TAGS = { 'is_overworld': 'anywhere', 'is_forest': 'forests', 'is_jungle': 'jungles', 'is_ocean': 'oceans', 'is_deep_ocean': 'deep oceans',
+  'is_river': 'rivers', 'is_beach': 'beaches', 'is_mountain': 'mountains', 'is_hill': 'hills', 'is_taiga': 'taigas', 'is_badlands': 'badlands',
+  'is_savanna': 'savannas', 'is_nether': 'the Nether', 'is_end': 'the End' };
+const WATER = /underwater|on the water|sea floor/;
+let DATA = [];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const words = s => s.replace(/_/g, ' ');
+function biome(b) {
+  const id = b.replace('#', '').split(':').pop();
+  return TAGS[id] || words(id.replace(/^(is_|has_)/, ''));
+}
+function item(i) {
+  if (i.startsWith('chef:')) return words(i.slice(5)) + ' (Chef mod)';
+  const t = words(i);
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+function conditions(s) {
+  const c = [];
+  const pos = { submerged: 'underwater', surface: 'on the water', seafloor: 'on the sea floor' }[s.position];
+  if (pos) c.push(pos);
+  if (s.time) c.push((s.time === 'day' || s.time === 'night' ? 'by ' : 'at ') + s.time);
+  if (s.raining === true) c.push('in rain');
+  if (s.raining === false) c.push('in dry weather');
+  if (s.minY != null) c.push('above y ' + s.minY);
+  if (s.maxY != null) c.push('below y ' + s.maxY);
+  if (s.dark) c.push('in the dark');
+  if (s.near) c.push('near ' + [...new Set(s.near.map(biome))].join(', '));
+  return c;
+}
+// Cobblemon lists many places twice (open sky and caves): one line each, with "underground" only when it's caves alone
+function places(spawns) {
+  const out = new Map();
+  for (const s of spawns) {
+    const b = [...new Set(s.biomes.map(biome))].sort();
+    const c = conditions(s);
+    const key = [s.bucket, b.join('|'), c.join('|'), s.with.join('|')].join('#');
+    let m = out.get(key);
+    if (!m) { m = { bucket: s.bucket, biomes: b, cond: c, with: s.with, levels: s.levels.slice(), caves: false, open: false }; out.set(key, m); }
+    m.levels = [Math.min(m.levels[0], s.levels[0]), Math.max(m.levels[1], s.levels[1])];
+    if (s.sky === false) m.caves = true; else m.open = true;
+  }
+  return [...out.values()].map(m => { if (m.caves && !m.open) m.cond.unshift('underground'); return m; })
+    .sort((a, b) => (ORDER[a.bucket] || 9) - (ORDER[b.bucket] || 9));
+}
+function evolveHow(e) {
+  if (e.variant === 'level_up') return e.level ? 'Lv. ' + e.level : 'level up';
+  if (e.variant === 'trade') return 'when traded';
+  if (e.variant === 'item_interact' && e.item) return item(e.item.split(':').pop());
+  return words(e.variant);
+}
+function rideText(r) {
+  const m = ['walks'];
+  if (r.fly) m.push(r.hoverOnly ? 'hovers' : 'flies (Lv. 36+)');
+  if (r.swim > 0) m.push('surfs');
+  return m.join(', ');
+}
+function biomeList(list) {
+  if (list.length <= 5) return esc(list.join(', '));
+  return esc(list.slice(0, 4).join(', ')) + ` <span class="meta" title="${esc(list.join(', '))}">+${list.length - 4} more</span>`;
+}
+function spawnLine(s) {
+  const bits = [];
+  if (s.cond.length) bits.push(s.cond.join(', '));
+  bits.push(`Lv. ${s.levels[0]}–${s.levels[1]}`);
+  if (s.with.length) bits.push('in groups with ' + s.with.join(', '));
+  return `<div class="spawn"><span class="rar ${s.bucket}">${LABEL[s.bucket] || esc(s.bucket)}</span>
+    <div><div>${biomeList(s.biomes)}</div><div class="meta">${esc(bits.join(' · '))}</div></div></div>`;
+}
+function row(r) {
+  const types = r.types.map(t => `<span class="type" style="background:${TYPE[t] || '#777'}">${esc(t)}</span>`).join('');
+  const shown = r.places.slice(0, 3).map(spawnLine).join('');
+  const rest = r.places.slice(3);
+  const label = rest.length ? `+ ${rest.length} more place${rest.length > 1 ? 's' : ''}` : '';
+  const more = rest.length ? `<div class="spawns" hidden>${rest.map(spawnLine).join('')}</div><button class="more" type="button" data-label="${label}">${label}</button>` : '';
+  const food = r.food.map(f => `<div>${esc(f.items.map(item).join(', '))} <span class="chance">${Math.round(f.chance * 100)}%</span></div>`).join('');
+  const foodNote = r.foodLine ? `<div class="small">Same food as ${esc(r.foodLine)} (its line)</div>` : '';
+  const evo = [];
+  if (r.from) evo.push(`<div class="small">Evolves from ${esc(r.from)}</div>`);
+  r.evolves.forEach(e => evo.push(`<div>→ <b>${esc(e.to)}</b> <span class="small">${esc(evolveHow(e))}</span></div>`));
+  if (!r.from && !r.evolves.length) evo.push('<div class="small">Doesn\'t evolve</div>');
+  if (r.ride) evo.push(`<div class="flags"><span class="flag">Rideable: ${esc(rideText(r.ride))}</span></div>`);
+  return `<article class="row">
+    <div><div class="dex">#${String(r.dex).padStart(3, '0')}</div><div class="name">${esc(r.name)}</div><div class="types">${types}</div>${r.legendary ? '<div class="flags"><span class="flag legend">Legendary</span></div>' : ''}</div>
+    <div data-label="Where to find it"><div class="spawns">${shown || '<div class="small">Not found in the wild</div>'}</div>${more}</div>
+    <div data-label="Taming food (chance per feed)"><div class="food">${food || '<div class="small">No food yet</div>'}${foodNote}</div></div>
+    <div data-label="Evolution and riding"><div class="evo">${evo.join('')}</div></div>
+  </article>`;
+}
+function best(r) { return r.places.reduce((m, s) => Math.min(m, ORDER[s.bucket] || 9), 9); }
+function render() {
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const rar = document.getElementById('rar').value, type = document.getElementById('type').value;
+  const ride = document.getElementById('ride').checked, water = document.getElementById('water').checked;
+  const out = DATA.filter(r => {
+    if (q && !q.split(/\s+/).every(w => r._text.includes(w))) return false;
+    if (type && !r.types.includes(type)) return false;
+    if (ride && !r.ride) return false;
+    if (water && !r.places.some(s => s.cond.some(c => WATER.test(c)))) return false;
+    if (rar && best(r) !== ORDER[rar]) return false;
+    return true;
+  });
+  document.getElementById('count').textContent = `${out.length} of ${DATA.length}`;
+  document.getElementById('list').innerHTML = out.length ? out.map(row).join('') : '<div class="empty">No critter matches. Try fewer words or clear a filter.</div>';
+}
+document.getElementById('list').addEventListener('click', e => {
+  const b = e.target.closest('.more');
+  if (!b) return;
+  const hidden = b.previousElementSibling;
+  hidden.hidden = !hidden.hidden;
+  b.textContent = hidden.hidden ? b.dataset.label : '− fewer places';
+});
+['q', 'rar', 'type', 'ride', 'water'].forEach(id => document.getElementById(id).addEventListener('input', render));
+fetch('guide.json', { cache: 'no-cache' }).then(r => r.json()).then(g => {
+  DATA = g.species.map(r => {
+    r.places = places(r.spawns);
+    r._text = [r.name, r.types.join(' '), r.ride ? rideText(r.ride) + ' rideable' : '', r.legendary ? 'legendary' : '', r.from || '',
+      ...r.places.flatMap(s => [...s.biomes, ...s.cond, ...s.with, s.bucket]), ...r.food.flatMap(f => f.items.map(item)),
+      ...r.evolves.flatMap(e => [e.to, evolveHow(e)])].join(' ').toLowerCase();
+    return r;
+  });
+  const w = g.buckets;
+  document.getElementById('weights').innerHTML = `<b>common</b> ${w.common}, <b>uncommon</b> ${w.uncommon}, <b>rare</b> ${w.rare}, <b>ultra rare</b> ${w['ultra-rare']}`;
+  document.getElementById('shiny').textContent = '1 in ' + g.shinyOdds;
+  document.getElementById('stamp').textContent = 'Server data from ' + new Date(g.generated).toLocaleString();
+  const types = [...new Set(DATA.flatMap(r => r.types))].sort();
+  document.getElementById('type').insertAdjacentHTML('beforeend', types.map(t => `<option value="${t}">${t[0].toUpperCase() + t.slice(1)}</option>`).join(''));
+  render();
+}).catch(() => { document.getElementById('list').innerHTML = '<div class="empty">The species list didn\'t load. Reload the page to try again.</div>'; });
+</script>
+</body>
+</html>
